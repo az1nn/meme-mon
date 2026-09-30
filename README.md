@@ -1,6 +1,6 @@
 # meme-mon
 
-Open-source, community-driven meme TCG built with Godot and Three.js.
+Open-source, community-driven meme TCG built with Godot.
 
 ## Product thesis
 
@@ -29,14 +29,21 @@ Mememom is not a clone of Pokémon. It is an original digital card game where me
 
 ## Architecture direction
 
-- **Godot 4.x**: duel client, game feel, bot/playtest harness.
-- **Three.js + React**: Forge, 3D card preview, collection/binder.
-- **Shared schemas/API**: cards, decks, rules versions, match events.
-- **Rules boundary**: clients submit intents; the engine validates and emits deterministic events.
+- **Godot 4.x is the single client/rendering runtime**.
+- Godot owns duel, Forge, card previews, collection/binder and visual effects.
+- Browser delivery, if required, uses Godot Web export.
+- **Three.js is not part of the active V1 architecture.**
+- Backend/services remain free to use an appropriate independent stack.
+- Rules boundary: clients submit intents; domain logic validates and emits deterministic events.
+
+## Spec Kit authority
+
+- `.specify/memory/constitution.md`
+- `docs/decisions/ADR-0001-godot-only-runtime.md`
 
 ## Current workstream
 
-MM-01 — Product Foundation.
+MM-01 is complete. Next: MM-02 — Alpha Duel Rules.
 
 See:
 - `docs/specs/MM-01-product-foundation.md`

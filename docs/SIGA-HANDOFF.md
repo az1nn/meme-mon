@@ -35,7 +35,7 @@ BLOCKERS:
 
 INVARIANTS:
 - Mememom remains an original meme TCG, not a Pokémon clone.
-- Godot owns the duel client; Three.js + React own Forge/collection presentation until a later spec changes that boundary.
+- Godot 4.x is the single client/rendering runtime for duel, Forge, previews and collection. Three.js is outside the active V1 architecture unless the constitution is explicitly amended.
 - Rules truth is deterministic and renderer-independent: intent -> validation -> resolution -> events.
 - Sandbox content may be mutable/private; Canon editions are immutable and competitively legal only after required gates.
 - Players cannot directly author arbitrary competitive power.
@@ -47,4 +47,4 @@ NEXT:
 - Define acceptance scenarios sufficient for MM-03 schemas and MM-04 Godot vertical slice.
 
 VERIFY-FIRST:
-On next SIGA, fetch master HEAD, open PRs/issues/branches/checks, read docs/SIGA-HANDOFF.md, docs/ROADMAP.md and MM-01, then classify exactly RESUME/WATCH/ADVANCE before creating MM-02 work.
+On next SIGA, fetch master HEAD, open PRs/issues/branches/checks, read .specify/memory/constitution.md, docs/SIGA-HANDOFF.md, docs/ROADMAP.md and MM-01, then classify exactly RESUME/WATCH/ADVANCE before creating MM-02 work.

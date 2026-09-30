@@ -9,7 +9,7 @@ The roadmap is ordered by dependency. SIGA should advance one verified unit at a
 | MM-03 | Card Schema & Balance Budget | Versioned card/deck/event schemas and legal power budget |
 | MM-04 | Godot Duel Vertical Slice | Local duel with 20 test cards and deterministic bot |
 | MM-05 | Deckbuilder & Collection | 30-card validation, filtering, save/load |
-| MM-06 | Meme Forge / Three.js | Upload/crop/name/type/generated stats/private preview |
+| MM-06 | Meme Forge / Godot | Upload/crop/name/type/generated stats/private preview in Godot |
 | MM-07 | UGC Provenance & Moderation | Rights metadata, reports and moderation state machine |
 | MM-08 | Canon & Set Versioning | Immutable editions and format legality |
 | MM-09 | Online Match Protocol | Authoritative intent/event protocol, reconnect and replay |
@@ -25,7 +25,7 @@ Target: a complete local duel can finish repeatedly with deterministic results a
 
 MM-05 -> MM-06
 
-Target: players can build decks and forge private meme cards through a web experience.
+Target: players can build decks and forge private meme cards in the Godot client; web delivery may use Godot Web export.
 
 ## Milestone C — Community becomes safe and reproducible
 

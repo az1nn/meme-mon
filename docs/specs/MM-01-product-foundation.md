@@ -117,19 +117,19 @@ A versioned balance system maps:
 ## 10. Architecture boundary
 
 ### Godot
-Owns:
-- duel scene;
+Godot 4.x is the single client/rendering runtime and owns:
+- duel scenes;
 - local simulation;
 - input/game feel;
 - event animation;
-- bot/playtest harness.
-
-### Three.js + React
-Owns:
-- Forge;
-- 3D card preview;
+- bot/playtest harness;
+- Forge UI;
+- card preview;
 - collection/binder;
-- foil/parallax/reveal presentation.
+- foil/parallax/reveal presentation;
+- browser delivery through Godot Web export when required.
+
+Three.js is explicitly outside the active V1 architecture. A second renderer requires a future explicit architecture/constitution amendment.
 
 ### Shared contract
 Cards, decks and match events use versioned schemas.
@@ -169,7 +169,7 @@ MM-01 is satisfied when the repository clearly defines:
 - original vocabulary;
 - Alpha deck/match assumptions;
 - Sandbox vs Canon boundary;
-- Godot vs Three.js responsibilities;
+- the Godot-only client/rendering boundary;
 - what is explicitly postponed.
 
 ## 14. Downstream dependencies

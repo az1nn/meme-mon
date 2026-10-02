@@ -1,6 +1,6 @@
 # MM-02 — Alpha Duel Rules
 
-Status: PROPOSED FOR ACCEPTANCE  
+Status: ACCEPTED FOR IMPLEMENTATION  
 Rules version: Alpha 0.1  
 Depends on: MM-01 Product Foundation  
 Unlocks: MM-03 Card Schema & Balance Budget; MM-04 Godot Duel Vertical Slice

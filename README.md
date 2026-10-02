@@ -23,7 +23,14 @@ Mememom is not a clone of Pokémon. It is an original digital card game where me
 - 30-card decks.
 - Max 2 copies of the same card ID.
 - Zones: Active, Queue, Hand, Deck, Archive, Format, Hype.
-- Resource: Trend, refilled automatically each turn.
+- Resource: Trend, base cap progresses from 1 to 5 and refills each turn.
+- Queue capacity: 3.
+- Baseline voluntary switch: 1 Trend, once per turn.
+- Baseline attack: once per turn and ends Main after resolution.
+- Required draw from an empty Deck loses immediately.
+- An empty Active with no Mememom in Queue or hand loses by no-field.
+- Automatic triggers resolve deterministically without a free-form response stack.
+- Competitive randomness is seeded, versioned and replayable.
 - Card kinds: Mememom, Reaction, Format.
 - Types: Classic, Reaction, Brainrot, Surreal, Wholesome.
 
@@ -43,8 +50,9 @@ Mememom is not a clone of Pokémon. It is an original digital card game where me
 
 ## Current workstream
 
-MM-01 is complete. Next: MM-02 — Alpha Duel Rules.
+MM-02 — Alpha Duel Rules is complete for Alpha 0.1. Next: MM-03 — Card Schema & Balance Budget.
 
 See:
 - `docs/specs/MM-01-product-foundation.md`
+- `docs/specs/MM-02-alpha-duel-rules.md`
 - `docs/ROADMAP.md`

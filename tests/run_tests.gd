@@ -56,13 +56,13 @@ func _engine(seed: int = 123456789, first: String = "p1"):
 	var engine = DuelEngine.new()
 	var loaded: Dictionary = engine.load_card_definitions(definitions)
 	_assert(bool(loaded["ok"]), "card definitions load")
-	var deck := _demo_deck(engine)
+	var deck: Array = _demo_deck(engine)
 	var started: Dictionary = engine.new_match(seed, deck, deck, first)
 	_assert(bool(started["ok"]), "match starts")
 	return engine
 
 func _demo_deck(engine) -> Array:
-	var ids := engine.cards.keys()
+	var ids: Array = engine.cards.keys()
 	ids.sort()
 	var deck: Array = []
 	for id in ids:
@@ -151,7 +151,7 @@ func _test_trend_progression() -> void:
 func _test_illegal_intent_zero_side_effects() -> void:
 	var e = _engine()
 	var before := e.normalized_snapshot()
-	var before_rng := e.rng.rng_index
+	var before_rng: int = e.rng.rng_index
 	var before_seq := int(e.state["next_event_seq"])
 	var result: Dictionary = e.apply_intent(_intent(e, "p2", "attack"))
 	_assert(not result["ok"] and result["code"] == "NOT_ACTIVE_PLAYER", "illegal wrong-player rejected")
@@ -231,7 +231,7 @@ func _test_forced_replacement_hand() -> void:
 				break
 	p["active"]["hp_remaining"] = 0
 	e.checkpoint_for_test()
-	var idx := p["hand"].find(meme)
+	var idx: int = p["hand"].find(meme)
 	var result: Dictionary = e.apply_intent(_intent(e, "p2", "choose_replacement", {"source":"hand","index":idx}))
 	_assert(result["ok"] and p["active"] != null, "forced replacement from hand")
 

@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mememom.dev/schemas/alpha-0.1/deck-definition.schema.json",
+  "title": "Mememom DeckDefinition alpha-0.1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "rules_version",
+    "deck_id",
+    "format_id",
+    "cards"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "alpha-0.1"
+    },
+    "rules_version": {
+      "const": "alpha-0.1"
+    },
+    "deck_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "format_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 80
+    },
+    "cards": {
+      "type": "array",
+      "minItems": 30,
+      "maxItems": 30,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "card_id",
+          "edition_id"
+        ],
+        "properties": {
+          "card_id": {
+            "type": "string",
+            "minLength": 3
+          },
+          "edition_id": {
+            "type": "string",
+            "minLength": 3
+          }
+        }
+      }
+    }
+  }
+}

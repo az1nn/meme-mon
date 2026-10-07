@@ -1,0 +1,23 @@
+{
+  "schema_version": "alpha-0.1",
+  "rules_version": "alpha-0.1",
+  "card_id": "mememom.brainrot.too-much",
+  "edition_id": "mememom.brainrot.too-much@alpha.1",
+  "kind": "mememom",
+  "type": "brainrot",
+  "tier": "standard",
+  "trend_cost": 1,
+  "name": "Too Much",
+  "mememom": {
+    "hp": 90,
+    "attack": {
+      "attack_id": "overflow",
+      "trend_cost": 0,
+      "damage": 60,
+      "effects": []
+    },
+    "triggers": [],
+    "activated_abilities": []
+  },
+  "_expected_validation_error": "CARD_STAT_OUT_OF_RANGE"
+}

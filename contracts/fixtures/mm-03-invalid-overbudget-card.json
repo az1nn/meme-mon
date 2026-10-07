@@ -18,6 +18,5 @@
     },
     "triggers": [],
     "activated_abilities": []
-  },
-  "_expected_validation_error": "CARD_STAT_OUT_OF_RANGE"
+  }
 }

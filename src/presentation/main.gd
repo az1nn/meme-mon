@@ -13,7 +13,7 @@ func _ready() -> void:
 	if not load_result["ok"]:
 		push_error("Card load failed: %s" % load_result)
 		return
-	var deck := _demo_deck()
+	var deck: Array = _demo_deck()
 	var started: Dictionary = engine.new_match(123456789, deck, deck, "p1")
 	if not started["ok"]:
 		push_error("Match start failed: %s" % started)
@@ -22,21 +22,21 @@ func _ready() -> void:
 	_render()
 
 func _build_ui() -> void:
-	var root := VBoxContainer.new()
+	var root: VBoxContainer = VBoxContainer.new()
 	root.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	root.add_theme_constant_override("separation", 12)
 	add_child(root)
-	var title := Label.new()
+	var title: Label = Label.new()
 	title.text = "MEMEMOM — MM-04 deterministic local duel"
 	title.add_theme_font_size_override("font_size", 24)
 	root.add_child(title)
 	status_label = Label.new()
 	status_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	root.add_child(status_label)
-	var actions := HBoxContainer.new()
+	var actions: HBoxContainer = HBoxContainer.new()
 	root.add_child(actions)
 	for spec in [["Attack", "_on_attack"], ["Play first card", "_on_play"], ["Pass", "_on_pass"], ["Run bot-vs-bot", "_on_autorun"]]:
-		var button := Button.new()
+		var button: Button = Button.new()
 		button.text = spec[0]
 		button.pressed.connect(Callable(self, spec[1]))
 		actions.add_child(button)
@@ -72,9 +72,9 @@ func _on_pass() -> void:
 
 func _on_autorun() -> void:
 	var human_bot = DeterministicBot.new("p1")
-	var guard := 0
+	var guard: int = 0
 	while engine.state["terminal"] == null and guard < 500:
-		var current := str(engine.state["active_player_id"])
+		var current: String = str(engine.state["active_player_id"])
 		var actor = human_bot if current == "p1" else bot
 		var result: Dictionary = engine.apply_intent(actor.choose_intent(engine))
 		if not result["ok"]:
@@ -84,7 +84,7 @@ func _on_autorun() -> void:
 	_render()
 
 func _drive_bot_if_needed() -> void:
-	var guard := 0
+	var guard: int = 0
 	while engine.state["terminal"] == null and (str(engine.state["active_player_id"]) == "p2" or (not engine.state["pending_replacements"].is_empty() and str(engine.state["pending_replacements"][0]) == "p2")) and guard < 20:
 		var result: Dictionary = engine.apply_intent(bot.choose_intent(engine))
 		if not result["ok"]:
@@ -103,11 +103,11 @@ func _render() -> void:
 		p2["hype"], p2["trend"]["current"], p2["trend"]["cap"], p2["hand"].size(), p2["queue"].size(),
 		str(s["terminal"])
 	]
-	var recent := engine.events.slice(max(0, engine.events.size() - 8))
+	var recent: Array = engine.events.slice(max(0, engine.events.size() - 8))
 	event_label.text = "Recent events:\n" + JSON.stringify(recent, "  ")
 
 func _demo_deck() -> Array:
-	var ids := engine.cards.keys()
+	var ids: Array = engine.cards.keys()
 	ids.sort()
 	var deck: Array = []
 	for id in ids:

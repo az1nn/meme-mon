@@ -368,7 +368,7 @@ func _auto_field(pid: String) -> void:
 			player["active"] = instance
 			player["hand"].remove_at(i)
 			break
-	var index := player["hand"].size() - 1
+	var index: int = player["hand"].size() - 1
 	while index >= 0 and player["queue"].size() < 3:
 		var instance: Dictionary = player["hand"][index]
 		if str(cards[instance["edition_id"]]["kind"]) == "mememom":

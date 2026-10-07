@@ -57,10 +57,10 @@ func _validate_mememom(card: Dictionary) -> Dictionary:
 	if not payload.has("hp") or not payload.has("attack"):
 		return _fail("SCHEMA_INVALID")
 	var cost := int(card["trend_cost"])
-	var hp_min := [30, 40, 60, 80, 100][cost - 1] if cost > 0 else 1
-	var hp_max := [50, 70, 90, 110, 140][cost - 1] if cost > 0 else 30
-	var attack_max := [20, 30, 40, 50, 70][cost - 1] if cost > 0 else 10
-	var points_max := [2, 3, 4, 5, 6][cost - 1] if cost > 0 else 1
+	var hp_min: int = int([30, 40, 60, 80, 100][cost - 1]) if cost > 0 else 1
+	var hp_max: int = int([50, 70, 90, 110, 140][cost - 1]) if cost > 0 else 30
+	var attack_max: int = int([20, 30, 40, 50, 70][cost - 1]) if cost > 0 else 10
+	var points_max: int = int([2, 3, 4, 5, 6][cost - 1]) if cost > 0 else 1
 	if str(card["tier"]) == "headliner":
 		hp_max += 20
 		attack_max += 10

@@ -10,14 +10,28 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: barichello/godot-ci:4.7.2
+    defaults:
+      run:
+        shell: bash
     steps:
       - name: Checkout
         uses: actions/checkout@v7
       - name: Engine version
         run: godot --version
       - name: Import and parse
-        run: godot --headless --path . --import
+        run: |
+          set -o pipefail
+          godot --headless --path . --import 2>&1 | tee import.log
+          ! grep -E "SCRIPT ERROR|Failed to load script|Compile Error|Parse Error|Invalid call|Invalid access" import.log
       - name: Headless regression suite
-        run: godot --headless --path . --script res://tests/run_tests.gd
+        run: |
+          set -o pipefail
+          godot --headless --path . --script res://tests/run_tests.gd 2>&1 | tee tests.log
+          ! grep -E "SCRIPT ERROR|Failed to load script|Compile Error|Parse Error|Invalid call|Invalid access" tests.log
+          grep -q "MM-04 HEADLESS GATES PASS" tests.log
+          grep -Eq "MM-04 checks: [1-9][0-9]+, failures: 0" tests.log
       - name: Main scene smoke boot
-        run: godot --headless --path . --quit-after 2
+        run: |
+          set -o pipefail
+          godot --headless --path . --quit-after 2 2>&1 | tee smoke.log
+          ! grep -E "SCRIPT ERROR|Failed to load script|Compile Error|Parse Error|Invalid call|Invalid access" smoke.log

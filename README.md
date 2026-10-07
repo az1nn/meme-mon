@@ -59,14 +59,34 @@ MM-03 freezes the Alpha 0.1 portable competitive contract:
 - `.specify/memory/constitution.md`
 - `docs/decisions/ADR-0001-godot-only-runtime.md`
 
+## Executable Alpha slice
+
+MM-04 turns the frozen Alpha 0.1 rules into an executable Godot 4.7.2 vertical slice:
+
+- deterministic `xorshift32-v1` domain RNG;
+- fail-closed MM-03 contract ingestion under `src/data/`;
+- authoritative intent -> validation -> resolution -> event flow under `src/domain/`;
+- 20 legal data-driven Alpha test cards;
+- Queue, Reaction, Format, activated ability, attack, KO, Hype, replacement and terminal flows;
+- deterministic trigger waves and replay checks;
+- deterministic local bot and a minimal playable Godot scene;
+- hardened headless CI that fails on parser/compiler/runtime script errors.
+
+Run the regression suite with:
+
+```bash
+godot --headless --path . --script res://tests/run_tests.gd
+```
+
 ## Current workstream
 
-MM-03 — Card Schema & Balance Budget is complete for Alpha 0.1. Next: MM-04 — Godot Duel Vertical Slice.
+MM-04 — Godot Duel Vertical Slice is complete and verified. Next: MM-05 — Deckbuilder & Collection.
 
 See:
 - `docs/specs/MM-01-product-foundation.md`
 - `docs/specs/MM-02-alpha-duel-rules.md`
 - `docs/specs/MM-03-card-schema-balance-budget.md`
+- `docs/specs/MM-04-godot-duel-vertical-slice.md`
 - `contracts/schemas/`
 - `contracts/fixtures/`
 - `docs/ROADMAP.md`

@@ -1,6 +1,6 @@
 # MM-04 — Godot Duel Vertical Slice
 
-Status: ACCEPTED FOR IMPLEMENTATION
+Status: DONE — VERIFIED
 Runtime: Godot 4.7.2 stable
 Rules version: Alpha 0.1
 Schema version: alpha-0.1
@@ -129,3 +129,20 @@ Required merge gates:
 - `tests/run_tests.gd` exits 0;
 - exact PR head is green;
 - no unresolved human gate remains.
+
+## 9. Verification evidence
+
+The implementation was verified in GitHub Actions with the hardened `Godot headless gates` workflow on Godot 4.7.2.
+
+Verified code-head evidence before documentation closure:
+- import/parser gate: PASS;
+- headless suite: 194 checks, 0 failures;
+- main-scene smoke boot: PASS;
+- CI rejects masked GDScript parser/compiler/runtime errors;
+- MM-03 CardDefinition and MatchState fixtures are accepted;
+- unknown contract/RNG versions fail closed;
+- runtime MatchEvent and exported MatchState boundaries carry the Alpha 0.1 contract fields;
+- deterministic bot-vs-bot duel terminates;
+- replay and trigger-wave regressions are green.
+
+The PR is mergeable only after the final documentation HEAD repeats the same automated gate successfully.

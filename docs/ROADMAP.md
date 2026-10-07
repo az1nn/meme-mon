@@ -7,8 +7,8 @@ The roadmap is ordered by dependency. SIGA should advance one verified unit at a
 | MM-01 | Product Foundation | DONE | Identity, vocabulary, boundaries and non-goals versioned |
 | MM-02 | Alpha Duel Rules | DONE | Complete deterministic Alpha 0.1 rules contract |
 | MM-03 | Card Schema & Balance Budget | DONE | Versioned card/deck/event schemas and legal power budget |
-| MM-04 | Godot Duel Vertical Slice | NEXT | Local duel with 20 test cards and deterministic bot |
-| MM-05 | Deckbuilder & Collection | PLANNED | 30-card validation, filtering, save/load |
+| MM-04 | Godot Duel Vertical Slice | DONE | Local duel with 20 test cards and deterministic bot |
+| MM-05 | Deckbuilder & Collection | NEXT | 30-card validation, filtering, save/load |
 | MM-06 | Meme Forge / Godot | PLANNED | Upload/crop/name/type/generated stats/private preview in Godot |
 | MM-07 | UGC Provenance & Moderation | PLANNED | Rights metadata, reports and moderation state machine |
 | MM-08 | Canon & Set Versioning | PLANNED | Immutable editions and format legality |
@@ -45,6 +45,6 @@ Do not pull MM-06 forward merely because the Forge is visually attractive. The F
 
 ## Current dependency edge
 
-MM-03 freezes the Alpha 0.1 portable data boundary: versioned card/deck/intent/event/state contracts, bounded effect primitives, legal balance envelopes and `xorshift32-v1` deterministic randomness.
+MM-04 proves the Alpha 0.1 contract as an executable Godot game slice: fail-closed contract ingestion, deterministic intent/event resolution, replayable RNG, legal data cards, trigger waves, bot-vs-bot termination, a local presentation scene and hardened headless CI.
 
-MM-04 must now implement those contracts in Godot behind the intent -> validation -> deterministic resolution -> event boundary, prove replay compatibility from fixtures and provide a local duel with at least 20 legal test cards plus a deterministic bot.
+MM-05 must now build deck construction and collection persistence on top of that proven duel boundary without moving rules truth into presentation code.

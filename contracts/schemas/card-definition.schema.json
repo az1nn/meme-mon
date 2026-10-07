@@ -1,0 +1,481 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mememom.dev/schemas/alpha-0.1/card-definition.schema.json",
+  "title": "Mememom CardDefinition alpha-0.1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "card_id",
+    "kind",
+    "type",
+    "tier",
+    "trend_cost",
+    "name"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "alpha-0.1"
+    },
+    "rules_version": {
+      "const": "alpha-0.1"
+    },
+    "card_id": {
+      "type": "string",
+      "minLength": 3
+    },
+    "edition_id": {
+      "type": "string",
+      "minLength": 3
+    },
+    "kind": {
+      "enum": [
+        "mememom",
+        "reaction",
+        "format"
+      ]
+    },
+    "type": {
+      "enum": [
+        "classic",
+        "reaction",
+        "brainrot",
+        "surreal",
+        "wholesome"
+      ]
+    },
+    "tier": {
+      "enum": [
+        "standard",
+        "headliner"
+      ]
+    },
+    "trend_cost": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 5
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 80
+    },
+    "flavor": {
+      "type": "string",
+      "maxLength": 280
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 40
+      },
+      "uniqueItems": true,
+      "maxItems": 16
+    },
+    "mememom": {
+      "$ref": "#/$defs/mememomPayload"
+    },
+    "reaction": {
+      "$ref": "#/$defs/reactionPayload"
+    },
+    "format": {
+      "$ref": "#/$defs/formatPayload"
+    }
+  },
+  "$defs": {
+    "target": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "side",
+        "zone",
+        "selection"
+      ],
+      "properties": {
+        "side": {
+          "enum": [
+            "self",
+            "opponent"
+          ]
+        },
+        "zone": {
+          "enum": [
+            "active",
+            "queue",
+            "hand",
+            "archive",
+            "format"
+          ]
+        },
+        "selection": {
+          "enum": [
+            "self",
+            "chosen",
+            "random",
+            "all"
+          ]
+        },
+        "count": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 3
+        },
+        "filter": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "kind": {
+              "enum": [
+                "mememom",
+                "reaction",
+                "format"
+              ]
+            },
+            "type": {
+              "enum": [
+                "classic",
+                "reaction",
+                "brainrot",
+                "surreal",
+                "wholesome"
+              ]
+            },
+            "tier": {
+              "enum": [
+                "standard",
+                "headliner"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "effect": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "primitive"
+      ],
+      "properties": {
+        "primitive": {
+          "enum": [
+            "deal_damage",
+            "heal",
+            "draw",
+            "gain_trend",
+            "modify_stat",
+            "force_switch",
+            "move_card",
+            "set_action_allowance"
+          ]
+        },
+        "target": {
+          "$ref": "#/$defs/target"
+        },
+        "amount": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 999
+        },
+        "stat": {
+          "enum": [
+            "hp",
+            "attack_damage"
+          ]
+        },
+        "delta": {
+          "type": "integer",
+          "minimum": -999,
+          "maximum": 999
+        },
+        "duration": {
+          "enum": [
+            "atomic",
+            "until_end_of_turn",
+            "until_next_turn",
+            "while_in_play"
+          ]
+        },
+        "from_zone": {
+          "enum": [
+            "active",
+            "queue",
+            "hand",
+            "deck",
+            "archive",
+            "format"
+          ]
+        },
+        "to_zone": {
+          "enum": [
+            "active",
+            "queue",
+            "hand",
+            "deck",
+            "archive",
+            "format"
+          ]
+        },
+        "allowance": {
+          "enum": [
+            "attack",
+            "voluntary_switch"
+          ]
+        },
+        "value": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9
+        }
+      }
+    },
+    "trigger": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "trigger_id",
+        "event",
+        "effects"
+      ],
+      "properties": {
+        "trigger_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "event": {
+          "enum": [
+            "turn_started",
+            "turn_ending",
+            "card_drawn",
+            "entered_play",
+            "attack_declared",
+            "damage_dealt",
+            "mememom_ko",
+            "switched_in"
+          ]
+        },
+        "phase": {
+          "enum": [
+            "start",
+            "draw",
+            "main",
+            "end"
+          ]
+        },
+        "once_per_turn": {
+          "type": "boolean",
+          "default": false
+        },
+        "effects": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 8,
+          "items": {
+            "$ref": "#/$defs/effect"
+          }
+        }
+      }
+    },
+    "attack": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "attack_id",
+        "trend_cost",
+        "damage"
+      ],
+      "properties": {
+        "attack_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "trend_cost": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 5
+        },
+        "damage": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 999
+        },
+        "effects": {
+          "type": "array",
+          "maxItems": 8,
+          "items": {
+            "$ref": "#/$defs/effect"
+          }
+        }
+      }
+    },
+    "activatedAbility": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "ability_id",
+        "trend_cost",
+        "effects"
+      ],
+      "properties": {
+        "ability_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "trend_cost": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 5
+        },
+        "once_per_turn": {
+          "type": "boolean",
+          "default": false
+        },
+        "effects": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 8,
+          "items": {
+            "$ref": "#/$defs/effect"
+          }
+        }
+      }
+    },
+    "mememomPayload": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "hp",
+        "attack"
+      ],
+      "properties": {
+        "hp": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 999
+        },
+        "attack": {
+          "$ref": "#/$defs/attack"
+        },
+        "triggers": {
+          "type": "array",
+          "maxItems": 6,
+          "items": {
+            "$ref": "#/$defs/trigger"
+          }
+        },
+        "activated_abilities": {
+          "type": "array",
+          "maxItems": 4,
+          "items": {
+            "$ref": "#/$defs/activatedAbility"
+          }
+        }
+      }
+    },
+    "reactionPayload": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "effects"
+      ],
+      "properties": {
+        "effects": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 8,
+          "items": {
+            "$ref": "#/$defs/effect"
+          }
+        }
+      }
+    },
+    "formatPayload": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "effects": {
+          "type": "array",
+          "maxItems": 8,
+          "items": {
+            "$ref": "#/$defs/effect"
+          }
+        },
+        "triggers": {
+          "type": "array",
+          "maxItems": 6,
+          "items": {
+            "$ref": "#/$defs/trigger"
+          }
+        }
+      },
+      "anyOf": [
+        {
+          "required": [
+            "effects"
+          ]
+        },
+        {
+          "required": [
+            "triggers"
+          ]
+        }
+      ]
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "kind": {
+            "const": "mememom"
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "mememom"
+        ]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "kind": {
+            "const": "reaction"
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "reaction"
+        ],
+        "properties": {
+          "tier": {
+            "const": "standard"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "kind": {
+            "const": "format"
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "format"
+        ],
+        "properties": {
+          "tier": {
+            "const": "standard"
+          }
+        }
+      }
+    }
+  ]
+}

@@ -14,6 +14,6 @@
 - [x] T12 Implement minimal local duel presentation scene.
 - [x] T13 Add headless acceptance/replay regression suite.
 - [x] T14 Add CI gate pinned to Godot 4.7.2 and make it fail closed on script errors.
-- [x] T15 Run hardened CI and correct all discovered failures; code head reached 194 checks / 0 failures.
+- [x] T15 Run hardened CI and correct all discovered failures; final PR head reached 194 checks / 0 failures.
 - [x] T16 Update README, ROADMAP, spec completion state and verification report.
-- [ ] T17 Merge PR #5 only after the final documentation HEAD is green; then persist the SIGA handoff on master.
+- [x] T17 Merge PR #5 after the final exact-head CI passed; persist the SIGA handoff on master.

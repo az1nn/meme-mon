@@ -1,0 +1,23 @@
+name: Godot headless gates
+
+on:
+  pull_request:
+  push:
+    branches: [master]
+
+jobs:
+  mm04:
+    runs-on: ubuntu-latest
+    container:
+      image: barichello/godot-ci:4.7.2
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+      - name: Engine version
+        run: godot --version
+      - name: Import and parse
+        run: godot --headless --path . --import
+      - name: Headless regression suite
+        run: godot --headless --path . --script res://tests/run_tests.gd
+      - name: Main scene smoke boot
+        run: godot --headless --path . --quit-after 2

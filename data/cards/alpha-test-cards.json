@@ -1,0 +1,495 @@
+{
+  "schema_version": "alpha-0.1",
+  "rules_version": "alpha-0.1",
+  "cards": [
+    {
+      "schema_version": "alpha-0.1",
+      "rules_version": "alpha-0.1",
+      "card_id": "test.mememom.01",
+      "edition_id": "test.mememom.01@alpha.1",
+      "kind": "mememom",
+      "type": "classic",
+      "tier": "standard",
+      "trend_cost": 1,
+      "name": "Test Mememom 1",
+      "mememom": {
+        "hp": 40,
+        "attack": {
+          "attack_id": "attack-1",
+          "trend_cost": 1,
+          "damage": 20,
+          "effects": []
+        },
+        "triggers": [],
+        "activated_abilities": [
+          {
+            "ability_id": "small-heal",
+            "trend_cost": 1,
+            "once_per_turn": true,
+            "effects": [
+              {
+                "primitive": "heal",
+                "target": {
+                  "side": "self",
+                  "zone": "active",
+                  "selection": "self"
+                },
+                "amount": 20
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "schema_version": "alpha-0.1",
+      "rules_version": "alpha-0.1",
+      "card_id": "test.mememom.02",
+      "edition_id": "test.mememom.02@alpha.1",
+      "kind": "mememom",
+      "type": "reaction",
+      "tier": "standard",
+      "trend_cost": 2,
+      "name": "Test Mememom 2",
+      "mememom": {
+        "hp": 50,
+        "attack": {
+          "attack_id": "attack-2",
+          "trend_cost": 1,
+          "damage": 25,
+          "effects": []
+        },
+        "triggers": [
+          {
+            "trigger_id": "switch-heal",
+            "event": "switched_in",
+            "once_per_turn": true,
+            "effects": [
+              {
+                "primitive": "heal",
+                "target": {
+                  "side": "self",
+                  "zone": "active",
+                  "selection": "self"
+                },
+                "amount": 10
+              }
+            ]
+          }
+        ],
+        "activated_abilities": []
+      }
+    },
+    {
+      "schema_version": "alpha-0.1",
+      "rules_version": "alpha-0.1",
+      "card_id": "test.mememom.03",
+      "edition_id": "test.mememom.03@alpha.1",
+      "kind": "mememom",
+      "type": "brainrot",
+      "tier": "standard",
+      "trend_cost": 3,
+      "name": "Test Mememom 3",
+      "mememom": {
+        "hp": 70,
+        "attack": {
+          "attack_id": "attack-3",
+          "trend_cost": 1,
+          "damage": 30,
+          "effects": []
+        },
+        "triggers": [],
+        "activated_abilities": []
+      }
+    },
+    {
+      "schema_version": "alpha-0.1",
+      "rules_version": "alpha-0.1",
+      "card_id": "test.mememom.04",
+      "edition_id": "test.mememom.04@alpha.1",
+      "kind": "mememom",
+      "type": "surreal",
+      "tier": "standard",
+      "trend_cost": 4,
+      "name": "Test Mememom 4",
+      "mememom": {
+        "hp": 90,
+        "attack": {
+          "attack_id": "attack-4",
+          "trend_cost": 1,
+          "damage": 35,
+          "effects": []
+        },
+        "triggers": [],
+        "activated_abilities": []
+      }
+    },
+    {
+      "schema_version": "alpha-0.1",
+      "rules_version": "alpha-0.1",
+      "card_id": "test.mememom.05",
+      "edition_id": "test.mememom.05@alpha.1",
+      "kind": "mememom",
+      "type": "wholesome",
+      "tier": "standard",
+      "trend_cost": 5,
+      "name": "Test Mememom 5",
+      "mememom": {
+        "hp": 110,
+        "attack": {
+          "attack_id": "attack-5",
+          "trend_cost": 1,
+          "damage": 40,
+          "effects": []
+        },
+        "triggers": [],
+        "activated_abilities": []
+      }
+    },
+    {
+      "schema_version": "alpha-0.1",
+      "rules_version": "alpha-0.1",
+      "card_id": "test.mememom.06",
+      "edition_id": "test.mememom.06@alpha.1",
+      "kind": "mememom",
+      "type": "classic",
+      "tier": "standard",
+      "trend_cost": 1,
+      "name": "Test Mememom 6",
+      "mememom": {
+        "hp": 40,
+        "attack": {
+          "attack_id": "attack-6",
+          "trend_cost": 1,
+          "damage": 20,
+          "effects": []
+        },
+        "triggers": [],
+        "activated_abilities": []
+      }
+    },
+    {
+      "schema_version": "alpha-0.1",
+      "rules_version": "alpha-0.1",
+      "card_id": "test.mememom.07",
+      "edition_id": "test.mememom.07@alpha.1",
+      "kind": "mememom",
+      "type": "reaction",
+      "tier": "standard",
+      "trend_cost": 2,
+      "name": "Test Mememom 7",
+      "mememom": {
+        "hp": 50,
+        "attack": {
+          "attack_id": "attack-7",
+          "trend_cost": 1,
+          "damage": 25,
+          "effects": []
+        },
+        "triggers": [],
+        "activated_abilities": []
+      }
+    },
+    {
+      "schema_version": "alpha-0.1",
+      "rules_version": "alpha-0.1",
+      "card_id": "test.mememom.08",
+      "edition_id": "test.mememom.08@alpha.1",
+      "kind": "mememom",
+      "type": "brainrot",
+      "tier": "standard",
+      "trend_cost": 3,
+      "name": "Test Mememom 8",
+      "mememom": {
+        "hp": 70,
+        "attack": {
+          "attack_id": "attack-8",
+          "trend_cost": 1,
+          "damage": 30,
+          "effects": []
+        },
+        "triggers": [],
+        "activated_abilities": []
+      }
+    },
+    {
+      "schema_version": "alpha-0.1",
+      "rules_version": "alpha-0.1",
+      "card_id": "test.mememom.09",
+      "edition_id": "test.mememom.09@alpha.1",
+      "kind": "mememom",
+      "type": "surreal",
+      "tier": "standard",
+      "trend_cost": 4,
+      "name": "Test Mememom 9",
+      "mememom": {
+        "hp": 90,
+        "attack": {
+          "attack_id": "attack-9",
+          "trend_cost": 1,
+          "damage": 35,
+          "effects": []
+        },
+        "triggers": [],
+        "activated_abilities": []
+      }
+    },
+    {
+      "schema_version": "alpha-0.1",
+      "rules_version": "alpha-0.1",
+      "card_id": "test.mememom.10",
+      "edition_id": "test.mememom.10@alpha.1",
+      "kind": "mememom",
+      "type": "wholesome",
+      "tier": "standard",
+      "trend_cost": 5,
+      "name": "Test Mememom 10",
+      "mememom": {
+        "hp": 110,
+        "attack": {
+          "attack_id": "attack-10",
+          "trend_cost": 1,
+          "damage": 40,
+          "effects": []
+        },
+        "triggers": [],
+        "activated_abilities": []
+      }
+    },
+    {
+      "schema_version": "alpha-0.1",
+      "rules_version": "alpha-0.1",
+      "card_id": "test.mememom.11",
+      "edition_id": "test.mememom.11@alpha.1",
+      "kind": "mememom",
+      "type": "classic",
+      "tier": "standard",
+      "trend_cost": 1,
+      "name": "Test Mememom 11",
+      "mememom": {
+        "hp": 40,
+        "attack": {
+          "attack_id": "attack-11",
+          "trend_cost": 1,
+          "damage": 20,
+          "effects": []
+        },
+        "triggers": [],
+        "activated_abilities": []
+      }
+    },
+    {
+      "schema_version": "alpha-0.1",
+      "rules_version": "alpha-0.1",
+      "card_id": "test.mememom.12",
+      "edition_id": "test.mememom.12@alpha.1",
+      "kind": "mememom",
+      "type": "reaction",
+      "tier": "headliner",
+      "trend_cost": 2,
+      "name": "Test Mememom 12",
+      "mememom": {
+        "hp": 70,
+        "attack": {
+          "attack_id": "attack-12",
+          "trend_cost": 1,
+          "damage": 35,
+          "effects": []
+        },
+        "triggers": [],
+        "activated_abilities": []
+      }
+    },
+    {
+      "schema_version": "alpha-0.1",
+      "rules_version": "alpha-0.1",
+      "card_id": "test.reaction.draw",
+      "edition_id": "test.reaction.draw@alpha.1",
+      "kind": "reaction",
+      "type": "reaction",
+      "tier": "standard",
+      "trend_cost": 1,
+      "name": "Scroll More",
+      "reaction": {
+        "effects": [
+          {
+            "primitive": "draw",
+            "target": {
+              "side": "self",
+              "zone": "hand",
+              "selection": "self"
+            },
+            "amount": 1
+          }
+        ]
+      }
+    },
+    {
+      "schema_version": "alpha-0.1",
+      "rules_version": "alpha-0.1",
+      "card_id": "test.reaction.heal",
+      "edition_id": "test.reaction.heal@alpha.1",
+      "kind": "reaction",
+      "type": "wholesome",
+      "tier": "standard",
+      "trend_cost": 1,
+      "name": "Wholesome Reply",
+      "reaction": {
+        "effects": [
+          {
+            "primitive": "heal",
+            "target": {
+              "side": "self",
+              "zone": "active",
+              "selection": "self"
+            },
+            "amount": 20
+          }
+        ]
+      }
+    },
+    {
+      "schema_version": "alpha-0.1",
+      "rules_version": "alpha-0.1",
+      "card_id": "test.reaction.damage",
+      "edition_id": "test.reaction.damage@alpha.1",
+      "kind": "reaction",
+      "type": "brainrot",
+      "tier": "standard",
+      "trend_cost": 2,
+      "name": "Ratio",
+      "reaction": {
+        "effects": [
+          {
+            "primitive": "deal_damage",
+            "target": {
+              "side": "opponent",
+              "zone": "active",
+              "selection": "self"
+            },
+            "amount": 20
+          }
+        ]
+      }
+    },
+    {
+      "schema_version": "alpha-0.1",
+      "rules_version": "alpha-0.1",
+      "card_id": "test.reaction.trend",
+      "edition_id": "test.reaction.trend@alpha.1",
+      "kind": "reaction",
+      "type": "classic",
+      "tier": "standard",
+      "trend_cost": 2,
+      "name": "Trending Now",
+      "reaction": {
+        "effects": [
+          {
+            "primitive": "gain_trend",
+            "target": {
+              "side": "self",
+              "zone": "active",
+              "selection": "self"
+            },
+            "amount": 1
+          }
+        ]
+      }
+    },
+    {
+      "schema_version": "alpha-0.1",
+      "rules_version": "alpha-0.1",
+      "card_id": "test.format.heal",
+      "edition_id": "test.format.heal@alpha.1",
+      "kind": "format",
+      "type": "wholesome",
+      "tier": "standard",
+      "trend_cost": 1,
+      "name": "Cozy Timeline",
+      "format": {
+        "effects": [
+          {
+            "primitive": "heal",
+            "target": {
+              "side": "self",
+              "zone": "active",
+              "selection": "self"
+            },
+            "amount": 20
+          }
+        ]
+      }
+    },
+    {
+      "schema_version": "alpha-0.1",
+      "rules_version": "alpha-0.1",
+      "card_id": "test.format.damage",
+      "edition_id": "test.format.damage@alpha.1",
+      "kind": "format",
+      "type": "surreal",
+      "tier": "standard",
+      "trend_cost": 2,
+      "name": "Cursed Timeline",
+      "format": {
+        "effects": [
+          {
+            "primitive": "deal_damage",
+            "target": {
+              "side": "opponent",
+              "zone": "active",
+              "selection": "self"
+            },
+            "amount": 10
+          }
+        ]
+      }
+    },
+    {
+      "schema_version": "alpha-0.1",
+      "rules_version": "alpha-0.1",
+      "card_id": "test.format.trend",
+      "edition_id": "test.format.trend@alpha.1",
+      "kind": "format",
+      "type": "classic",
+      "tier": "standard",
+      "trend_cost": 2,
+      "name": "Front Page",
+      "format": {
+        "effects": [
+          {
+            "primitive": "gain_trend",
+            "target": {
+              "side": "self",
+              "zone": "active",
+              "selection": "self"
+            },
+            "amount": 1
+          }
+        ]
+      }
+    },
+    {
+      "schema_version": "alpha-0.1",
+      "rules_version": "alpha-0.1",
+      "card_id": "test.format.switch",
+      "edition_id": "test.format.switch@alpha.1",
+      "kind": "format",
+      "type": "reaction",
+      "tier": "standard",
+      "trend_cost": 2,
+      "name": "Context Collapse",
+      "format": {
+        "effects": [
+          {
+            "primitive": "force_switch",
+            "target": {
+              "side": "opponent",
+              "zone": "active",
+              "selection": "self"
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,91 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mememom.dev/schemas/alpha-0.1/match-event.schema.json",
+  "title": "Mememom MatchEvent alpha-0.1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "rules_version",
+    "match_id",
+    "event_seq",
+    "event_type",
+    "payload"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "alpha-0.1"
+    },
+    "rules_version": {
+      "const": "alpha-0.1"
+    },
+    "match_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "event_seq": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "event_type": {
+      "enum": [
+        "TURN_STARTED",
+        "CARD_DRAWN",
+        "CARD_PLAYED",
+        "TREND_SPENT",
+        "ACTIVE_SWITCHED",
+        "ATTACK_DECLARED",
+        "DAMAGE_APPLIED",
+        "HEAL_APPLIED",
+        "MEMEMOM_KO",
+        "HYPE_CHANGED",
+        "TRIGGER_ORDERED",
+        "REPLACEMENT_REQUIRED",
+        "REPLACEMENT_CHOSEN",
+        "RNG_RESULT",
+        "TURN_ENDING",
+        "TURN_ENDED",
+        "MATCH_ENDED"
+      ]
+    },
+    "actor_player_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "payload": {
+      "type": "object"
+    },
+    "rng": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "rng_version",
+        "start_index",
+        "end_index"
+      ],
+      "properties": {
+        "rng_version": {
+          "const": "xorshift32-v1"
+        },
+        "start_index": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "end_index": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "outputs": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 4294967295
+          }
+        }
+      }
+    }
+  }
+}

@@ -142,7 +142,23 @@
           "damage": 40,
           "effects": []
         },
-        "triggers": [],
+        "triggers": [
+          {
+            "trigger_id": "draw-heal",
+            "event": "card_drawn",
+            "effects": [
+              {
+                "primitive": "heal",
+                "target": {
+                  "side": "self",
+                  "zone": "active",
+                  "selection": "self"
+                },
+                "amount": 10
+              }
+            ]
+          }
+        ],
         "activated_abilities": []
       }
     },
@@ -455,15 +471,22 @@
       "trend_cost": 2,
       "name": "Front Page",
       "format": {
-        "effects": [
+        "triggers": [
           {
-            "primitive": "gain_trend",
-            "target": {
-              "side": "self",
-              "zone": "active",
-              "selection": "self"
-            },
-            "amount": 1
+            "trigger_id": "feed-scroll",
+            "event": "card_drawn",
+            "once_per_turn": true,
+            "effects": [
+              {
+                "primitive": "draw",
+                "target": {
+                  "side": "self",
+                  "zone": "hand",
+                  "selection": "self"
+                },
+                "amount": 1
+              }
+            ]
           }
         ]
       }

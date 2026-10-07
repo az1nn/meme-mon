@@ -24,7 +24,9 @@ func _run() -> void:
 	_test_opening_repair()
 	_test_trend_progression()
 	_test_illegal_intent_zero_side_effects()
+	_test_queue_play_and_full()
 	_test_queue_and_switch()
+	_test_reaction_and_format_play()
 	_test_attack_ends_main()
 	_test_normal_ko()
 	_test_headliner_ko()
@@ -36,6 +38,8 @@ func _run() -> void:
 	_test_simultaneous_hype_draw()
 	_test_activated_ability()
 	_test_trigger_on_switch()
+	_test_trigger_order_and_wave()
+	_test_replay_intent_stream()
 	_test_deterministic_bot_choice()
 	_test_complete_bot_duel()
 	print("MM-04 checks: %d, failures: %d" % [checks, failures.size()])
@@ -159,6 +163,24 @@ func _test_illegal_intent_zero_side_effects() -> void:
 	_assert(int(e.state["next_event_seq"]) == before_seq, "illegal intent emits no event")
 	_assert(e.normalized_snapshot() == before, "illegal intent changes no state")
 
+func _test_queue_play_and_full() -> void:
+	var e = _engine()
+	var p: Dictionary = e.state["players"]["p1"]
+	p["queue"] = []
+	p["trend"]["current"] = 5
+	var legal: Dictionary = e.make_instance("p1", "test.mememom.03@alpha.1", "queue-play")
+	p["hand"].append(legal)
+	var result: Dictionary = e.apply_intent(_intent(e, "p1", "play_card", {"hand_index": p["hand"].size() - 1}))
+	_assert(result["ok"] and p["queue"].size() == 1, "legal Queue placement")
+	while p["queue"].size() < 3:
+		p["queue"].append(e.make_instance("p1", "test.mememom.04@alpha.1", "queue-full"))
+	p["trend"]["current"] = 5
+	p["hand"].append(e.make_instance("p1", "test.mememom.06@alpha.1", "blocked-queue"))
+	var before: String = e.normalized_snapshot()
+	var blocked: Dictionary = e.apply_intent(_intent(e, "p1", "play_card", {"hand_index": p["hand"].size() - 1}))
+	_assert(not blocked["ok"] and blocked["code"] == "QUEUE_FULL", "full Queue rejects Mememom")
+	_assert(e.normalized_snapshot() == before, "full Queue rejection has zero side effects")
+
 func _test_queue_and_switch() -> void:
 	var e = _engine()
 	var p: Dictionary = e.state["players"]["p1"]
@@ -174,6 +196,26 @@ func _test_queue_and_switch() -> void:
 	var second: Dictionary = e.apply_intent(_intent(e, "p1", "switch_active", {"queue_index":0}))
 	_assert(not second["ok"] and second["code"] == "SWITCH_LIMIT", "second switch rejected")
 	_assert(int(e.state["next_event_seq"]) == seq, "second switch no events")
+
+func _test_reaction_and_format_play() -> void:
+	var e = _engine()
+	var p: Dictionary = e.state["players"]["p1"]
+	var opponent: Dictionary = e.state["players"]["p2"]
+	p["trend"]["current"] = 5
+	p["hand"].append(e.make_instance("p1", "test.reaction.damage@alpha.1", "reaction"))
+	var hp_before: int = int(opponent["active"]["hp_remaining"])
+	var reaction_result: Dictionary = e.apply_intent(_intent(e, "p1", "play_card", {"hand_index": p["hand"].size() - 1}))
+	_assert(reaction_result["ok"], "Reaction card plays")
+	_assert(int(opponent["active"]["hp_remaining"]) == hp_before - 20, "Reaction effect resolves")
+	var old_format: Dictionary = e.make_instance("p1", "test.format.damage@alpha.1", "old-format")
+	p["format"] = old_format
+	p["active"]["hp_remaining"] = max(1, int(p["active"]["hp_remaining"]) - 10)
+	p["trend"]["current"] = 5
+	p["hand"].append(e.make_instance("p1", "test.format.heal@alpha.1", "new-format"))
+	var format_result: Dictionary = e.apply_intent(_intent(e, "p1", "play_card", {"hand_index": p["hand"].size() - 1}))
+	_assert(format_result["ok"], "Format card plays")
+	_assert(str(p["format"]["edition_id"]) == "test.format.heal@alpha.1", "new Format replaces old Format")
+	_assert(old_format in p["archive"], "replaced Format moves to Archive")
 
 func _test_attack_ends_main() -> void:
 	var e = _engine()
@@ -287,6 +329,63 @@ func _test_trigger_on_switch() -> void:
 	var active: Dictionary = e.state["players"]["p1"]["active"]
 	var max_hp := int(e.cards[active["edition_id"]]["mememom"]["hp"])
 	_assert(int(active["hp_remaining"]) == max_hp, "switched_in trigger heals deterministically")
+
+func _test_trigger_order_and_wave() -> void:
+	var e = _engine()
+	e.state["active_player_id"] = "p1"
+	var p1: Dictionary = e.state["players"]["p1"]
+	var p2: Dictionary = e.state["players"]["p2"]
+	p1["active"] = e.make_instance("p1", "test.mememom.05@alpha.1", "trigger-p1")
+	p2["active"] = e.make_instance("p2", "test.mememom.05@alpha.1", "trigger-p2")
+	p1["active"]["hp_remaining"] -= 20
+	p2["active"]["hp_remaining"] -= 20
+	p1["format"] = e.make_instance("p1", "test.format.trend@alpha.1", "trigger-format")
+	p1["trigger_used"] = {}
+	p2["trigger_used"] = {}
+	var event_start: int = e.events.size()
+	e.resolve_trigger_event_for_test("card_drawn")
+	var recent: Array = e.events.slice(event_start)
+	var ordered: Array = []
+	var generated_draws: int = 0
+	for event in recent:
+		if str(event["event_type"]) == "TRIGGER_ORDERED":
+			ordered.append(event)
+		elif str(event["event_type"]) == "CARD_DRAWN":
+			generated_draws += 1
+	_assert(ordered.size() >= 5, "trigger wave emits ordered trigger events")
+	_assert(str(ordered[0]["actor_player_id"]) == "p1", "active player's trigger resolves first")
+	var first_p2: int = -1
+	for i in range(ordered.size()):
+		if str(ordered[i]["actor_player_id"]) == "p2":
+			first_p2 = i
+			break
+	_assert(first_p2 >= 2, "non-active triggers resolve after active-player trigger group")
+	_assert(generated_draws == 1, "trigger-generated draw creates exactly one next wave")
+	var format_count: int = 0
+	for event in ordered:
+		if str(event["payload"].get("trigger_id", "")) == "feed-scroll":
+			format_count += 1
+	_assert(format_count == 1, "once-per-turn trigger does not recurse")
+	_assert(int(p1["active"]["hp_remaining"]) > int(e.cards[p1["active"]["edition_id"]]["mememom"]["hp"]) - 20, "generated trigger wave resolves follow-up heal")
+
+func _test_replay_intent_stream() -> void:
+	var a = _engine(991)
+	var b = _engine(991)
+	var bots_a := {"p1": DeterministicBot.new("p1"), "p2": DeterministicBot.new("p2")}
+	var bots_b := {"p1": DeterministicBot.new("p1"), "p2": DeterministicBot.new("p2")}
+	for _step in range(20):
+		if a.state["terminal"] != null or b.state["terminal"] != null:
+			break
+		var actor_a: String = str(a.state["pending_replacements"][0]) if not a.state["pending_replacements"].is_empty() else str(a.state["active_player_id"])
+		var actor_b: String = str(b.state["pending_replacements"][0]) if not b.state["pending_replacements"].is_empty() else str(b.state["active_player_id"])
+		_assert(actor_a == actor_b, "replay actors remain identical")
+		var intent_a: Dictionary = bots_a[actor_a].choose_intent(a)
+		var intent_b: Dictionary = bots_b[actor_b].choose_intent(b)
+		_assert(intent_a == intent_b, "replay intent stream remains identical")
+		var result_a: Dictionary = a.apply_intent(intent_a)
+		var result_b: Dictionary = b.apply_intent(intent_b)
+		_assert(result_a["ok"] and result_b["ok"], "replay intents accepted")
+	_assert(a.normalized_snapshot() == b.normalized_snapshot(), "same seed and intent stream yield identical events/state")
 
 func _test_deterministic_bot_choice() -> void:
 	var a = _engine(77)

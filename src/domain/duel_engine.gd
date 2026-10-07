@@ -10,6 +10,8 @@ var events: Array = []
 var rng = null
 var last_rejection: String = ""
 var _instance_counter: int = 0
+var _resolving_triggers: bool = false
+var _queued_trigger_events: Array = []
 
 func load_card_definitions(definitions: Array) -> Dictionary:
 	var validator = CardValidator.new()
@@ -91,7 +93,8 @@ func _make_player(pid: String, editions: Array) -> Dictionary:
 		"trend": {"current": 0, "cap": 1},
 		"turns_taken": 0,
 		"turn_markers": {"baseline_attack_used": false, "voluntary_switch_used": false},
-		"ability_used": {}
+		"ability_used": {},
+		"trigger_used": {}
 	}
 
 func make_instance(pid: String, edition_id: String, prefix: String = "card") -> Dictionary:
@@ -176,6 +179,7 @@ func _play_card(pid: String, payload: Dictionary) -> Dictionary:
 		player["format"] = instance
 		_apply_effects(pid, card["format"].get("effects", []))
 	_emit("CARD_PLAYED", pid, {"instance_id": instance["instance_id"], "edition_id": instance["edition_id"], "kind": kind})
+	_resolve_triggers("entered_play")
 	_checkpoint()
 	return {"ok": true}
 
@@ -246,12 +250,18 @@ func _attack(pid: String) -> Dictionary:
 	_spend_trend(pid, cost)
 	player["turn_markers"]["baseline_attack_used"] = true
 	_emit("ATTACK_DECLARED", pid, {"instance_id": attacker["instance_id"], "attack_id": attack["attack_id"]})
+	_resolve_triggers("attack_declared")
+	if state["terminal"] != null:
+		return {"ok": true}
 	var target: Dictionary = opponent["active"]
 	var damage := int(attack.get("damage", 0))
 	target["hp_remaining"] = int(target["hp_remaining"]) - damage
 	_emit("DAMAGE_APPLIED", pid, {"target_instance_id": target["instance_id"], "amount": damage})
 	_apply_effects(pid, attack.get("effects", []))
 	_checkpoint()
+	if state["terminal"] == null:
+		_resolve_triggers("damage_dealt")
+		_checkpoint()
 	if state["terminal"] == null:
 		if state["pending_replacements"].is_empty():
 			_end_turn()
@@ -298,6 +308,8 @@ func _begin_turn() -> void:
 		return
 	var pid := str(state["active_player_id"])
 	var player: Dictionary = state["players"][pid]
+	for reset_pid in ["p1", "p2"]:
+		state["players"][reset_pid]["trigger_used"] = {}
 	state["phase"] = "start"
 	player["turns_taken"] = int(player["turns_taken"]) + 1
 	if int(player["turns_taken"]) > 1:
@@ -407,6 +419,10 @@ func _apply_effect(owner_pid: String, effect: Dictionary) -> void:
 				if not _draw_card(target_pid, true):
 					_end_match(_other(target_pid), "deck_out")
 					return
+				_resolve_triggers("card_drawn")
+				_checkpoint()
+				if state["terminal"] != null:
+					return
 		"gain_trend":
 			var amount := int(effect.get("amount", 1))
 			target_player["trend"]["current"] = min(int(target_player["trend"]["cap"]), int(target_player["trend"]["current"]) + amount)
@@ -427,7 +443,17 @@ func _apply_effect(owner_pid: String, effect: Dictionary) -> void:
 func _resolve_triggers(trigger_event: String) -> void:
 	if state.is_empty() or state["terminal"] != null:
 		return
-	var order := [str(state["active_player_id"]), _other(str(state["active_player_id"]))]
+	_queued_trigger_events.append(trigger_event)
+	if _resolving_triggers:
+		return
+	_resolving_triggers = true
+	while not _queued_trigger_events.is_empty() and state["terminal"] == null:
+		var next_event: String = str(_queued_trigger_events.pop_front())
+		_resolve_trigger_wave(next_event)
+	_resolving_triggers = false
+
+func _resolve_trigger_wave(trigger_event: String) -> void:
+	var order: Array = [str(state["active_player_id"]), _other(str(state["active_player_id"]))]
 	for pid in order:
 		var player: Dictionary = state["players"][pid]
 		var sources: Array = []
@@ -445,11 +471,19 @@ func _resolve_triggers(trigger_event: String) -> void:
 			for trigger in triggers:
 				if str(trigger.get("event", "")) != trigger_event:
 					continue
-				_emit("TRIGGER_ORDERED", pid, {"trigger_id": trigger["trigger_id"], "source_instance_id": instance["instance_id"]})
+				var trigger_key: String = str(instance["instance_id"]) + ":" + str(trigger["trigger_id"])
+				if bool(trigger.get("once_per_turn", false)) and player["trigger_used"].has(trigger_key):
+					continue
+				if bool(trigger.get("once_per_turn", false)):
+					player["trigger_used"][trigger_key] = true
+				_emit("TRIGGER_ORDERED", pid, {"trigger_id": trigger["trigger_id"], "source_instance_id": instance["instance_id"], "event": trigger_event})
 				_apply_effects(pid, trigger.get("effects", []))
 				_checkpoint()
 				if state["terminal"] != null:
 					return
+
+func resolve_trigger_event_for_test(trigger_event: String) -> void:
+	_resolve_triggers(trigger_event)
 
 func _checkpoint() -> void:
 	if state.is_empty() or state["terminal"] != null:

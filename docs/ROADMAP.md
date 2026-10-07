@@ -6,8 +6,8 @@ The roadmap is ordered by dependency. SIGA should advance one verified unit at a
 |---|---|---|---|
 | MM-01 | Product Foundation | DONE | Identity, vocabulary, boundaries and non-goals versioned |
 | MM-02 | Alpha Duel Rules | DONE | Complete deterministic Alpha 0.1 rules contract |
-| MM-03 | Card Schema & Balance Budget | NEXT | Versioned card/deck/event schemas and legal power budget |
-| MM-04 | Godot Duel Vertical Slice | PLANNED | Local duel with 20 test cards and deterministic bot |
+| MM-03 | Card Schema & Balance Budget | DONE | Versioned card/deck/event schemas and legal power budget |
+| MM-04 | Godot Duel Vertical Slice | NEXT | Local duel with 20 test cards and deterministic bot |
 | MM-05 | Deckbuilder & Collection | PLANNED | 30-card validation, filtering, save/load |
 | MM-06 | Meme Forge / Godot | PLANNED | Upload/crop/name/type/generated stats/private preview in Godot |
 | MM-07 | UGC Provenance & Moderation | PLANNED | Rights metadata, reports and moderation state machine |
@@ -45,4 +45,6 @@ Do not pull MM-06 forward merely because the Forge is visually attractive. The F
 
 ## Current dependency edge
 
-MM-02 freezes the Alpha 0.1 timing contract. MM-03 must now encode card/deck/event schemas and balance constraints capable of expressing MM-02 without moving rule truth into Godot scenes.
+MM-03 freezes the Alpha 0.1 portable data boundary: versioned card/deck/intent/event/state contracts, bounded effect primitives, legal balance envelopes and `xorshift32-v1` deterministic randomness.
+
+MM-04 must now implement those contracts in Godot behind the intent -> validation -> deterministic resolution -> event boundary, prove replay compatibility from fixtures and provide a local duel with at least 20 legal test cards plus a deterministic bot.

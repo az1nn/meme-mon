@@ -46,7 +46,10 @@ func _build_ui() -> void:
 
 func _intent(kind: String, payload: Dictionary = {}) -> Dictionary:
 	return {
-		"match_id": "local",
+		"schema_version": "alpha-0.1",
+		"rules_version": "alpha-0.1",
+		"intent_id": "human.p1.%d.%s" % [int(engine.state["next_event_seq"]), kind],
+		"match_id": str(engine.state["match_id"]),
 		"player_id": "p1",
 		"expected_event_seq": int(engine.state["next_event_seq"]),
 		"kind": kind,

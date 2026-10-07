@@ -2,6 +2,7 @@ extends SceneTree
 
 const MemeRng = preload("res://src/domain/rng.gd")
 const CardValidator = preload("res://src/domain/card_validator.gd")
+const ContractLoader = preload("res://src/data/contract_loader.gd")
 const DuelEngine = preload("res://src/domain/duel_engine.gd")
 const DeterministicBot = preload("res://src/domain/bot.gd")
 
@@ -19,6 +20,7 @@ func _run() -> void:
 	_test_rng_zero_seed()
 	_test_rng_shuffle_replay()
 	_test_mm03_fixtures()
+	_test_contract_boundaries()
 	_test_twenty_cards_legal()
 	_test_setup_replay()
 	_test_opening_repair()
@@ -76,7 +78,7 @@ func _demo_deck(engine) -> Array:
 	return deck
 
 func _intent(engine, pid: String, kind: String, payload: Dictionary = {}) -> Dictionary:
-	return {"match_id":"local","player_id":pid,"expected_event_seq":int(engine.state["next_event_seq"]),"kind":kind,"payload":payload}
+	return {"schema_version":"alpha-0.1","rules_version":"alpha-0.1","intent_id":"test.%s.%d.%s" % [pid, int(engine.state["next_event_seq"]), kind],"match_id":str(engine.state["match_id"]),"player_id":pid,"expected_event_seq":int(engine.state["next_event_seq"]),"kind":kind,"payload":payload}
 
 func _test_rng_known_sequence() -> void:
 	var r = MemeRng.new(123456789)
@@ -109,6 +111,30 @@ func _test_mm03_fixtures() -> void:
 	var invalid = JSON.parse_string(FileAccess.get_file_as_string("res://contracts/fixtures/mm-03-invalid-overbudget-card.json"))
 	_assert(validator.validate_card(legal)["ok"], "MM-03 legal fixture accepted")
 	_assert(validator.validate_card(invalid)["code"] == "CARD_STAT_OUT_OF_RANGE", "MM-03 overbudget fixture rejected")
+
+func _test_contract_boundaries() -> void:
+	var loader = ContractLoader.new()
+	var card_fixture: Dictionary = loader.validate_card_fixture("res://contracts/fixtures/mm-03-card-keyboard-cat.json")
+	_assert(card_fixture["ok"], "contract loader accepts MM-03 card fixture")
+	var match_fixture: Dictionary = loader.validate_match_state_file("res://contracts/fixtures/mm-03-match-state.json")
+	_assert(match_fixture["ok"], "contract loader accepts MM-03 MatchState fixture")
+	var raw_match = JSON.parse_string(FileAccess.get_file_as_string("res://contracts/fixtures/mm-03-match-state.json"))
+	raw_match["rng_version"] = "unknown-rng"
+	_assert(loader.validate_match_state_data(raw_match)["code"] == "UNKNOWN_RNG_VERSION", "contract loader fails closed on unknown RNG version")
+	var e = _engine()
+	var exported: Dictionary = e.export_match_state()
+	_assert(loader.validate_match_state_data(exported)["ok"], "runtime exports portable MatchState shape")
+	_assert(e.events.size() > 0, "runtime emits events")
+	var event: Dictionary = e.events[0]
+	_assert(str(event.get("schema_version", "")) == "alpha-0.1", "MatchEvent carries schema version")
+	_assert(str(event.get("rules_version", "")) == "alpha-0.1", "MatchEvent carries rules version")
+	_assert(str(event.get("match_id", "")) == "local", "MatchEvent carries match id")
+	var before: String = e.normalized_snapshot()
+	var bad_intent: Dictionary = _intent(e, str(e.state["active_player_id"]), "pass")
+	bad_intent["schema_version"] = "future"
+	var rejected: Dictionary = e.apply_intent(bad_intent)
+	_assert(not rejected["ok"] and rejected["code"] == "UNKNOWN_SCHEMA_VERSION", "intent boundary fails closed on unknown schema version")
+	_assert(e.normalized_snapshot() == before, "invalid contract intent has zero side effects")
 
 func _test_twenty_cards_legal() -> void:
 	var validator = CardValidator.new()
@@ -307,7 +333,7 @@ func _test_simultaneous_hype_draw() -> void:
 	e.state["players"]["p1"]["active"]["hp_remaining"] = 0
 	e.state["players"]["p2"]["active"]["hp_remaining"] = 0
 	e.checkpoint_for_test()
-	_assert(e.state["terminal"] != null and e.state["terminal"]["result"] == "draw" and e.state["terminal"]["reason"] == "simultaneous_hype", "simultaneous Hype is draw")
+	_assert(e.state["terminal"] != null and e.state["terminal"]["result"] == "draw" and e.state["terminal"]["reason"] == "simultaneous", "simultaneous Hype is draw")
 
 func _test_activated_ability() -> void:
 	var e = _engine()

@@ -2,7 +2,7 @@ class_name DuelEngine
 extends RefCounted
 
 const MemeRng = preload("res://src/domain/rng.gd")
-const CardValidator = preload("res://src/domain/card_validator.gd")
+const ContractLoader = preload("res://src/data/contract_loader.gd")
 
 var cards: Dictionary = {}
 var state: Dictionary = {}
@@ -14,28 +14,16 @@ var _resolving_triggers: bool = false
 var _queued_trigger_events: Array = []
 
 func load_card_definitions(definitions: Array) -> Dictionary:
-	var validator = CardValidator.new()
-	var loaded := {}
-	for raw in definitions:
-		if typeof(raw) != TYPE_DICTIONARY:
-			return {"ok": false, "code": "SCHEMA_INVALID"}
-		var card: Dictionary = raw
-		var verdict: Dictionary = validator.validate_card(card)
-		if not verdict["ok"]:
-			return {"ok": false, "code": verdict["code"], "card_id": card.get("card_id", "")}
-		if not card.has("edition_id"):
-			return {"ok": false, "code": "UNKNOWN_CARD_EDITION"}
-		loaded[str(card["edition_id"])] = card.duplicate(true)
-	cards = loaded
-	return {"ok": true, "count": cards.size()}
+	var result: Dictionary = ContractLoader.new().catalog_from_definitions(definitions)
+	if result["ok"]:
+		cards = result["cards"]
+	return {"ok": result["ok"], "code": result.get("code", "OK"), "count": result.get("count", 0)}
 
 func load_card_file(path: String) -> Dictionary:
-	if not FileAccess.file_exists(path):
-		return {"ok": false, "code": "FILE_NOT_FOUND"}
-	var parsed = JSON.parse_string(FileAccess.get_file_as_string(path))
-	if typeof(parsed) != TYPE_DICTIONARY or not parsed.has("cards"):
-		return {"ok": false, "code": "SCHEMA_INVALID"}
-	return load_card_definitions(parsed["cards"])
+	var result: Dictionary = ContractLoader.new().load_card_catalog(path)
+	if result["ok"]:
+		cards = result["cards"]
+	return {"ok": result["ok"], "code": result.get("code", "OK"), "count": result.get("count", 0)}
 
 func new_match(seed: int, deck_a: Array, deck_b: Array, first_player: String = "") -> Dictionary:
 	events = []
@@ -55,6 +43,7 @@ func new_match(seed: int, deck_a: Array, deck_b: Array, first_player: String = "
 		"schema_version": "alpha-0.1",
 		"rules_version": "alpha-0.1",
 		"rng_version": "xorshift32-v1",
+		"match_id": "local",
 		"match_seed": seed,
 		"turn_number": 1,
 		"phase": "setup",
@@ -115,7 +104,13 @@ func apply_intent(intent: Dictionary) -> Dictionary:
 		return _reject("MATCH_NOT_STARTED")
 	if state["terminal"] != null:
 		return _reject("MATCH_ALREADY_ENDED")
-	if str(intent.get("match_id", "local")) != "local":
+	if str(intent.get("schema_version", "")) != "alpha-0.1":
+		return _reject("UNKNOWN_SCHEMA_VERSION")
+	if str(intent.get("rules_version", "")) != "alpha-0.1":
+		return _reject("RULES_VERSION_MISMATCH")
+	if str(intent.get("intent_id", "")).is_empty():
+		return _reject("SCHEMA_INVALID")
+	if str(intent.get("match_id", "")) != str(state["match_id"]):
 		return _reject("MATCH_ID_MISMATCH")
 	if int(intent.get("expected_event_seq", state["next_event_seq"])) != int(state["next_event_seq"]):
 		return _reject("STALE_EVENT_SEQ")
@@ -508,7 +503,7 @@ func _checkpoint() -> void:
 	var p1_win := int(state["players"]["p1"]["hype"]) >= 5
 	var p2_win := int(state["players"]["p2"]["hype"]) >= 5
 	if p1_win and p2_win:
-		_end_match("", "simultaneous_hype")
+		_end_match("", "simultaneous")
 		return
 	if p1_win:
 		_end_match("p1", "hype")
@@ -535,18 +530,20 @@ func checkpoint_for_test() -> void:
 func _end_match(winner: String, reason: String) -> void:
 	if state.get("terminal", null) != null:
 		return
-	var result := "draw" if winner == "" else "win"
+	var result := "draw" if winner == "" else "player_win"
 	state["terminal"] = {"result": result, "winner_player_id": winner, "reason": reason}
 	state["phase"] = "terminal"
 	_emit("MATCH_ENDED", winner, state["terminal"].duplicate(true))
 
 func _emit(event_type: String, actor: String, payload: Dictionary) -> void:
 	var event := {
+		"schema_version": "alpha-0.1",
+		"rules_version": "alpha-0.1",
+		"match_id": str(state["match_id"]),
 		"event_seq": int(state["next_event_seq"]),
 		"event_type": event_type,
 		"actor_player_id": actor,
-		"payload": payload.duplicate(true),
-		"rules_version": "alpha-0.1"
+		"payload": payload.duplicate(true)
 	}
 	events.append(event)
 	state["next_event_seq"] = int(state["next_event_seq"]) + 1
@@ -563,6 +560,51 @@ func _other(pid: String) -> String:
 func _reject(code: String) -> Dictionary:
 	last_rejection = code
 	return {"ok": false, "code": code}
+
+func export_match_state() -> Dictionary:
+	var players_out: Array = []
+	for pid in ["p1", "p2"]:
+		var player: Dictionary = state["players"][pid]
+		players_out.append({
+			"player_id": pid,
+			"deck": _zone_editions(player["deck"]),
+			"hand": _zone_editions(player["hand"]),
+			"active": null if player["active"] == null else str(player["active"]["edition_id"]),
+			"queue": _zone_editions(player["queue"]),
+			"archive": _zone_editions(player["archive"]),
+			"format": null if player["format"] == null else str(player["format"]["edition_id"]),
+			"hype": int(player["hype"]),
+			"trend": {"current": int(player["trend"]["current"]), "cap": int(player["trend"]["cap"])},
+			"turn_markers": {
+				"baseline_attack_used": bool(player["turn_markers"]["baseline_attack_used"]),
+				"voluntary_switch_used": bool(player["turn_markers"]["voluntary_switch_used"])
+			}
+		})
+	var pending: Array = []
+	for trigger_event in _queued_trigger_events:
+		pending.append({"event": str(trigger_event)})
+	return {
+		"schema_version": "alpha-0.1",
+		"rules_version": "alpha-0.1",
+		"rng_version": "xorshift32-v1",
+		"match_id": str(state["match_id"]),
+		"match_seed": int(state["match_seed"]),
+		"rng_state": int(rng.state),
+		"rng_index": int(rng.rng_index),
+		"turn_number": int(state["turn_number"]),
+		"phase": "end" if state["terminal"] != null else str(state["phase"]),
+		"active_player_id": str(state["active_player_id"]),
+		"players": players_out,
+		"pending_triggers": pending,
+		"next_event_seq": int(state["next_event_seq"]),
+		"terminal": null if state["terminal"] == null else state["terminal"].duplicate(true)
+	}
+
+func _zone_editions(zone: Array) -> Array:
+	var out: Array = []
+	for instance in zone:
+		out.append(str(instance["edition_id"]))
+	return out
 
 func normalized_snapshot() -> String:
 	var snapshot := state.duplicate(true)

@@ -9,7 +9,10 @@ func _init(pid: String) -> void:
 func choose_intent(engine) -> Dictionary:
 	var state: Dictionary = engine.state
 	var base := {
-		"match_id": "local",
+		"schema_version": "alpha-0.1",
+		"rules_version": "alpha-0.1",
+		"intent_id": "bot.%s.%d" % [player_id, int(state["next_event_seq"])],
+		"match_id": str(state["match_id"]),
 		"player_id": player_id,
 		"expected_event_seq": int(state["next_event_seq"])
 	}

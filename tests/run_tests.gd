@@ -184,11 +184,12 @@ func _test_attack_ends_main() -> void:
 
 func _test_normal_ko() -> void:
 	var e = _engine()
-	e.state["players"]["p1"]["trend"]["current"] = 5
+	e.state["players"]["p2"]["active"] = e.make_instance("p2", "test.mememom.03@alpha.1", "normal-ko")
 	e.state["players"]["p2"]["active"]["hp_remaining"] = 1
+	e.state["players"]["p1"]["trend"]["current"] = 5
 	var before := int(e.state["players"]["p1"]["hype"])
 	e.apply_intent(_intent(e, "p1", "attack"))
-	_assert(int(e.state["players"]["p1"]["hype"]) == before + 1, "normal KO grants 1 Hype")
+	_assert(int(e.state["players"]["p1"]["hype"]) == before + 1, "normal KO grants exactly 1 Hype")
 
 func _test_headliner_ko() -> void:
 	var e = _engine()

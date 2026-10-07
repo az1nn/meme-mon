@@ -1,0 +1,117 @@
+{
+  "schema_version": "alpha-0.1",
+  "rules_version": "alpha-0.1",
+  "rng_version": "xorshift32-v1",
+  "match_id": "fixture.mm03.001",
+  "match_seed": 123456789,
+  "rng_state": 123456789,
+  "rng_index": 0,
+  "turn_number": 1,
+  "phase": "main",
+  "active_player_id": "p1",
+  "players": [
+    {
+      "player_id": "p1",
+      "deck": [
+        "test.a03",
+        "test.a04",
+        "test.a05",
+        "test.a06",
+        "test.a07",
+        "test.a08",
+        "test.a09",
+        "test.a10",
+        "test.a11",
+        "test.a12",
+        "test.a13",
+        "test.a14",
+        "test.a15",
+        "test.a16",
+        "test.a17",
+        "test.a18",
+        "test.a19",
+        "test.a20",
+        "test.a21",
+        "test.a22",
+        "test.a23",
+        "test.a24",
+        "test.a25"
+      ],
+      "hand": [
+        "test.a26",
+        "test.a27",
+        "test.a28",
+        "test.a29",
+        "test.a30"
+      ],
+      "active": "mememom.classic.keyboard-cat@alpha.1",
+      "queue": [
+        "test.a02"
+      ],
+      "archive": [],
+      "format": null,
+      "hype": 0,
+      "trend": {
+        "current": 1,
+        "cap": 1
+      },
+      "turn_markers": {
+        "baseline_attack_used": false,
+        "voluntary_switch_used": false
+      }
+    },
+    {
+      "player_id": "p2",
+      "deck": [
+        "test.b03",
+        "test.b04",
+        "test.b05",
+        "test.b06",
+        "test.b07",
+        "test.b08",
+        "test.b09",
+        "test.b10",
+        "test.b11",
+        "test.b12",
+        "test.b13",
+        "test.b14",
+        "test.b15",
+        "test.b16",
+        "test.b17",
+        "test.b18",
+        "test.b19",
+        "test.b20",
+        "test.b21",
+        "test.b22",
+        "test.b23",
+        "test.b24",
+        "test.b25"
+      ],
+      "hand": [
+        "test.b26",
+        "test.b27",
+        "test.b28",
+        "test.b29",
+        "test.b30"
+      ],
+      "active": "test.b01",
+      "queue": [
+        "test.b02"
+      ],
+      "archive": [],
+      "format": null,
+      "hype": 0,
+      "trend": {
+        "current": 0,
+        "cap": 1
+      },
+      "turn_markers": {
+        "baseline_attack_used": false,
+        "voluntary_switch_used": false
+      }
+    }
+  ],
+  "pending_triggers": [],
+  "next_event_seq": 1,
+  "terminal": null
+}

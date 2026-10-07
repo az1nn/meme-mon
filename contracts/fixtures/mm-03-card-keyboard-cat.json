@@ -1,0 +1,44 @@
+{
+  "schema_version": "alpha-0.1",
+  "rules_version": "alpha-0.1",
+  "card_id": "mememom.classic.keyboard-cat",
+  "edition_id": "mememom.classic.keyboard-cat@alpha.1",
+  "kind": "mememom",
+  "type": "classic",
+  "tier": "standard",
+  "trend_cost": 2,
+  "name": "Keyboard Cat",
+  "flavor": "Plays you off the timeline.",
+  "tags": [
+    "classic",
+    "music"
+  ],
+  "mememom": {
+    "hp": 60,
+    "attack": {
+      "attack_id": "play-off",
+      "trend_cost": 1,
+      "damage": 20,
+      "effects": []
+    },
+    "triggers": [
+      {
+        "trigger_id": "encore",
+        "event": "switched_in",
+        "once_per_turn": true,
+        "effects": [
+          {
+            "primitive": "heal",
+            "target": {
+              "side": "self",
+              "zone": "active",
+              "selection": "self"
+            },
+            "amount": 10
+          }
+        ]
+      }
+    ],
+    "activated_abilities": []
+  }
+}

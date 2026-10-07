@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mememom.dev/schemas/alpha-0.1/player-intent.schema.json",
+  "title": "Mememom PlayerIntent alpha-0.1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "rules_version",
+    "intent_id",
+    "match_id",
+    "player_id",
+    "expected_event_seq",
+    "kind",
+    "payload"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "alpha-0.1"
+    },
+    "rules_version": {
+      "const": "alpha-0.1"
+    },
+    "intent_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "match_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "player_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "expected_event_seq": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "kind": {
+      "enum": [
+        "mulligan",
+        "select_active",
+        "place_queue",
+        "play_card",
+        "switch_active",
+        "activate_ability",
+        "attack",
+        "order_triggers",
+        "choose_replacement",
+        "pass"
+      ]
+    },
+    "payload": {
+      "type": "object"
+    }
+  }
+}

@@ -1,0 +1,218 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mememom.dev/schemas/alpha-0.1/match-state.schema.json",
+  "title": "Mememom MatchState alpha-0.1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "rules_version",
+    "rng_version",
+    "match_id",
+    "match_seed",
+    "rng_state",
+    "rng_index",
+    "turn_number",
+    "phase",
+    "active_player_id",
+    "players",
+    "pending_triggers",
+    "next_event_seq",
+    "terminal"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "alpha-0.1"
+    },
+    "rules_version": {
+      "const": "alpha-0.1"
+    },
+    "rng_version": {
+      "const": "xorshift32-v1"
+    },
+    "match_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "match_seed": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295
+    },
+    "rng_state": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295
+    },
+    "rng_index": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "turn_number": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "phase": {
+      "enum": [
+        "start",
+        "draw",
+        "main",
+        "end",
+        "setup"
+      ]
+    },
+    "active_player_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "players": {
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 2,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "player_id",
+          "deck",
+          "hand",
+          "active",
+          "queue",
+          "archive",
+          "format",
+          "hype",
+          "trend",
+          "turn_markers"
+        ],
+        "properties": {
+          "player_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "deck": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "hand": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "active": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "queue": {
+            "type": "array",
+            "maxItems": 3,
+            "items": {
+              "type": "string"
+            }
+          },
+          "archive": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "format": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "hype": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "trend": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "current",
+              "cap"
+            ],
+            "properties": {
+              "current": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 5
+              },
+              "cap": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 5
+              }
+            }
+          },
+          "turn_markers": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "baseline_attack_used",
+              "voluntary_switch_used"
+            ],
+            "properties": {
+              "baseline_attack_used": {
+                "type": "boolean"
+              },
+              "voluntary_switch_used": {
+                "type": "boolean"
+              }
+            }
+          }
+        }
+      }
+    },
+    "pending_triggers": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "next_event_seq": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "terminal": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "result": {
+          "enum": [
+            "player_win",
+            "draw"
+          ]
+        },
+        "winner_player_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "reason": {
+          "enum": [
+            "hype",
+            "deck_out",
+            "no_field",
+            "card_effect",
+            "simultaneous"
+          ]
+        }
+      },
+      "required": [
+        "result",
+        "winner_player_id",
+        "reason"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

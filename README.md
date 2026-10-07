@@ -34,6 +34,17 @@ Mememom is not a clone of Pokémon. It is an original digital card game where me
 - Card kinds: Mememom, Reaction, Format.
 - Types: Classic, Reaction, Brainrot, Surreal, Wholesome.
 
+## Data contract snapshot
+
+MM-03 freezes the Alpha 0.1 portable competitive contract:
+
+- JSON Schema contracts for CardDefinition, DeckDefinition, PlayerIntent, MatchEvent and MatchState.
+- Card effects are a constrained data AST; arbitrary executable card scripts are not allowed.
+- Headliner status is represented only by `tier: headliner`.
+- Balance legality is computed from cost-band stat envelopes and effect complexity points.
+- Canonical RNG is `xorshift32-v1` with rejection-sampled bounded values and Fisher–Yates shuffle.
+- Normative fixtures live in `contracts/fixtures/`.
+
 ## Architecture direction
 
 - **Godot 4.x is the single client/rendering runtime**.
@@ -50,9 +61,12 @@ Mememom is not a clone of Pokémon. It is an original digital card game where me
 
 ## Current workstream
 
-MM-02 — Alpha Duel Rules is complete for Alpha 0.1. Next: MM-03 — Card Schema & Balance Budget.
+MM-03 — Card Schema & Balance Budget is complete for Alpha 0.1. Next: MM-04 — Godot Duel Vertical Slice.
 
 See:
 - `docs/specs/MM-01-product-foundation.md`
 - `docs/specs/MM-02-alpha-duel-rules.md`
+- `docs/specs/MM-03-card-schema-balance-budget.md`
+- `contracts/schemas/`
+- `contracts/fixtures/`
 - `docs/ROADMAP.md`

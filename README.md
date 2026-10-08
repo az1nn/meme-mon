@@ -99,3 +99,9 @@ See:
 - `contracts/schemas/`
 - `contracts/fixtures/`
 - `docs/ROADMAP.md`
+
+## Optional Web delivery (INFRA-01)
+
+Godot 4.7.2 exports once in GitHub Actions; the same verified output is packaged for Cloudflare Workers Static Assets (primary) and a manually triggered Vercel Build Output API v3 deployment (backup). Neither provider is configured to rebuild game sources on each commit. See [delivery setup](docs/plans/INFRA-01-smart-web-delivery.md), [specification](docs/specs/INFRA-01-smart-web-delivery.md), and [workflow](.github/workflows/web-delivery.yml).
+
+Web delivery requires explicit provider credentials, and production publication is off by default. To verify locally with Godot and export templates installed: `bash tools/build_web.sh && node tools/prepare_web_artifact.mjs && node tools/prepare_vercel_output.mjs`.

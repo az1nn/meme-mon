@@ -50,3 +50,7 @@ MM-05 builds on the Alpha 0.1 Godot duel. Deck legality is a domain contract, wi
 MM-05 was validated against Godot 4.7.2 by 194 MM-04 regression checks and 94 new MM-05 checks with 0 failures, plus import/parser and both scene smoke gates (code HEAD 0876e331; final PR documentation-head CI passed at run 37782362544).
 
 MM-06 is the next dependency unit: add a Godot-only meme Forge that produces private Sandbox previews using constrained MM-03 budgets, without skipping MM-07 rights/provenance and moderation gates.
+
+## Parallel infrastructure lane — INFRA-01
+
+INFRA-01 provides **cost-aware Godot Web export and optional Cloudflare/Vercel publication** without changing the MM-06 -> MM-10 product dependency order. It is a delivery capability, not a new renderer or a substitute for browser acceptance. See [spec](specs/INFRA-01-smart-web-delivery.md), [plan](plans/INFRA-01-smart-web-delivery.md) and [tasks](tasks/INFRA-01-smart-web-delivery.md).

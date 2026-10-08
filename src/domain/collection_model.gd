@@ -71,6 +71,8 @@ func add_card(deck_id: String, edition_id: String) -> Dictionary:
 	if used >= int(owned.get(edition_id, 0)):
 		return {"ok": false, "code": "CARD_NOT_OWNED"}
 	deck["cards"].append({"card_id": str(catalog[edition_id]["card_id"]), "edition_id": edition_id})
+	if selected_deck_id == deck_id:
+		selected_deck_id = ""
 	return {"ok": true, "count": deck["cards"].size()}
 
 func remove_card(deck_id: String, edition_id: String) -> Dictionary:

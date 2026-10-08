@@ -45,6 +45,14 @@ jobs:
           grep -q "ART-002 NAVIGATION GATES PASS" art002-tests.log
           grep -Eq "ART-002 navigation checks: [1-9][0-9]+, failures: 0" art002-tests.log
 
+      - name: ART-002 data-bound HUD tests
+        run: |
+          set -o pipefail
+          godot --headless --path . --script res://tests/run_art002_hud_tests.gd 2>&1 | tee art002-hud-tests.log
+          ! grep -E "SCRIPT ERROR|Failed to load script|Compile Error|Parse Error|Invalid call|Invalid access" art002-hud-tests.log
+          grep -q "ART-002 HUD GATES PASS" art002-hud-tests.log
+          grep -Eq "ART-002 HUD checks: [1-9][0-9]+, failures: 0" art002-hud-tests.log
+
       - name: Main scene smoke boot
         run: |
           set -o pipefail

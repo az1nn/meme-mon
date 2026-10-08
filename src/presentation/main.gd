@@ -7,11 +7,13 @@ const CollectionStore = preload("res://src/data/collection_store.gd")
 const DeckValidator = preload("res://src/domain/deck_validator.gd")
 const PROFILE_PATH := "user://mememom/profile.json"
 const NavigationShell = preload("res://src/presentation/navigation_shell.gd")
+const DuelHud = preload("res://src/presentation/duel_hud.gd")
 
 var engine = DuelEngine.new()
 var bot = DeterministicBot.new("p2")
 var status_label: Label
 var event_label: Label
+var duel_hud
 
 func _ready() -> void:
 	_build_ui()
@@ -70,22 +72,14 @@ func _build_ui() -> void:
 	intro.add_theme_font_size_override("font_size", 24)
 	root.add_child(intro)
 
-	var arena := PanelContainer.new()
-	arena.add_theme_stylebox_override("panel", _arena_style())
-	root.add_child(arena)
-	var arena_body := VBoxContainer.new()
-	arena_body.add_theme_constant_override("separation", 10)
-	arena.add_child(arena_body)
-	var hint := Label.new()
-	hint.text = "HYPE • TREND • TURNOS | ALPHA 0.1"
-	hint.add_theme_color_override("font_color", NavigationShell.CYAN)
-	hint.add_theme_font_size_override("font_size", 14)
-	arena_body.add_child(hint)
+	duel_hud = DuelHud.new()
+	duel_hud.name = "DuelHud"
+	root.add_child(duel_hud)
 	status_label = Label.new()
 	status_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	status_label.add_theme_color_override("font_color", Color.WHITE)
-	status_label.add_theme_font_size_override("font_size", 16)
-	arena_body.add_child(status_label)
+	status_label.add_theme_color_override("font_color", NavigationShell.INK)
+	status_label.visible = false
+	root.add_child(status_label)
 
 	var buttons_title := Label.new()
 	buttons_title.text = "SUAS AÇÕES"
@@ -122,16 +116,6 @@ func _build_ui() -> void:
 	event_label.add_theme_color_override("font_color", NavigationShell.INK)
 	event_label.add_theme_font_size_override("font_size", 12)
 	root.add_child(event_label)
-
-func _arena_style() -> StyleBoxFlat:
-	var style := StyleBoxFlat.new()
-	style.bg_color = NavigationShell.NAVY
-	style.set_corner_radius_all(18)
-	style.content_margin_left = 16.0
-	style.content_margin_top = 20.0
-	style.content_margin_right = 16.0
-	style.content_margin_bottom = 20.0
-	return style
 
 func _on_global_route(route: String) -> void:
 	if route == "collection":
@@ -199,19 +183,15 @@ func _drive_bot_if_needed() -> void:
 		guard += 1
 
 func _render() -> void:
-	if status_label == null:
+	if status_label == null or duel_hud == null or engine.state.is_empty():
 		return
-	var s: Dictionary = engine.state
-	var p1: Dictionary = s["players"]["p1"]
-	var p2: Dictionary = s["players"]["p2"]
-	status_label.text = "Turn %s | phase %s | active %s\nP1 Hype %s Trend %s/%s Hand %s Queue %s\nP2 Hype %s Trend %s/%s Hand %s Queue %s\nTerminal: %s" % [
-		s["turn_number"], s["phase"], s["active_player_id"],
-		p1["hype"], p1["trend"]["current"], p1["trend"]["cap"], p1["hand"].size(), p1["queue"].size(),
-		p2["hype"], p2["trend"]["current"], p2["trend"]["cap"], p2["hand"].size(), p2["queue"].size(),
-		str(s["terminal"])
-	]
-	var recent: Array = engine.events.slice(max(0, engine.events.size() - 8))
-	event_label.text = "Recent events:\n" + JSON.stringify(recent, "  ")
+	duel_hud.update_from_match(engine.state, engine.cards)
+	status_label.visible = false
+	var recent: Array = engine.events.slice(maxi(0, engine.events.size() - 5))
+	var messages := PackedStringArray()
+	for event in recent:
+		messages.append(str(event.get("event_type", "Evento")).replace("_", " ").capitalize())
+	event_label.text = "ÚLTIMOS EVENTOS: " + (" • ".join(messages) if not messages.is_empty() else "Nenhum evento")
 
 func _demo_deck() -> Array:
 	var ids: Array = engine.cards.keys()

@@ -1,6 +1,6 @@
 # ARTIST-003 — V1 visual baseline and battle-character grilling
 
-**Status:** VISUAL BASELINE APPROVED; G1 CARD-FIRST + G2 HYBRID PROVISIONALLY SELECTED; G3 OPEN  
+**Status:** VISUAL BASELINE APPROVED; G1 CARD-FIRST + G2 HYBRID + G3 IMAGE/VIDEO PROVISIONALLY SELECTED; G4 OPEN  
 **Date:** 2026-10-08  
 **Scope:** Mememom; Godot-only runtime; documentation/art-direction decision record.
 
@@ -14,6 +14,7 @@
 | Mockup logo and any franchise-resembling branding | REJECTED AS FINAL BRANDING | Create a distinct Mememom wordmark, emblem, iconography and battle vocabulary; never reproduce Pokémon/Digimon/Pokémon Center trade dress or familiar proprietary symbols. |
 | Battle character representation | G1 — PROVISIONAL: D / CARD-FIRST | Animated illustrated cards are the on-screen combatants. No 3D character models required in V1. This is not a final engine specification. |
 | Card animation architecture | G2 — PROVISIONAL: D / HYBRID | Reusable modular animations are the default; special cards may have curated unique visual animations. No arbitrary gameplay code embedded in card assets. |
+| Accepted animation media | G3 — PROVISIONAL: C / STILL + VIDEO | Still art plus curated GIF/video sources through validated conversion/optimization before Godot runtime use, always with still-frame fallback. |
 
 ## Original generated reference asset
 
@@ -86,18 +87,28 @@ This decision does not override MM-02 rules. Further gates: accepted media categ
 - **Exception:** selected special cards (rarity/title/status still to be specified) may receive authored unique animations and audiovisual identity. Such variants are visual-only and must not determine gameplay results.
 - **Technical boundary:** Godot's presentation layer consumes authoritative `MatchEvent` data and drives animation sequencing. Card content must not supply arbitrary executable scripts that can mutate rules, RNG, damage, Trend, Hype or match state.
 - **Accessibility / production guardrails (to be specified):** reduced motion, clear hit/KO readability, bounded asset/runtime cost and graceful fallback to common templates; the exact performance envelope is still open.
-- **Not decided:** animation toolchain, supported source/runtime media formats, specific special-card criteria, asset budgets or final effects art.
+- **Not decided at G2:** specific special-card criteria, runtime conversion targets, asset budgets or final effects art; source-media direction is provisionally set by G3.
 
-### G3 — Asset input contract (OPEN)
+### G3 — Asset input contract (2026-10-08)
 
-**Question:** What media formats / authoring model can become a playable combat-card visual in V1?
+- **Answer:** C — Still images + prerecorded animated clips.
+- **State:** PROVISIONAL / selected by user during grilling; not yet a frozen media specification or a claim of implemented support.
+- **Accepted source-media direction:** PNG/WebP illustrations and curated GIF/video uploads, subject to source validation, provenance, applicable usage rights and publishing/moderation gates.
+- **Import/packaging boundary:** Input GIFs and video files must be normalized/transcoded during a controlled import/build step into explicitly supported and tested Godot presentation resources. No assumption that every GIF, codec or container plays natively in Godot; no unreviewed runtime codec dependencies, network video streaming or arbitrary media execution in V1.
+- **Runtime boundary:** Presentation-only media is selected/playback-controlled by Godot after authoritative ordered `MatchEvent` events. It must not affect logical action resolution, random outcomes, hitpoints, Trend, Hype, timing of legality checks or replay determinism.
+- **Failure/accessibility behavior:** A still-card fallback must remain available for unsupported, unavailable, corrupted or disallowed motion content, and for reduced-motion settings. Engine state must not wait on successful media decoding.
+- **Not yet determined:** Specific output codec/runtime resource type, source limits, resolutions, loop handling, preloading, performance budgets, audio policy, clip lengths or exact battle playback triggers; decide through later gates and verify mobile/web export compatibility before implementation acceptance.
 
-- **A — Still image only:** one PNG/WebP illustration; all movement and impact VFX made by engine-level Godot tweens/shaders.
-- **B — Still + optional 2D layers or sprite sheets:** any card can be static; curated assets may provide transparent layers/frame sequences for expressive animation. Godot still owns runtime presentation.
-- **C — Still + prerecorded clips:** allow approved GIF/video animations in the asset pipeline, converted to a supported, optimized runtime format before playing (no arbitrary remote video at runtime).
-- **D — Extensible asset adapters:** define a plugin-style conversion system accommodating images, layered art and other formats from the start, with higher complexity.
+### G4 — Where do animated videos appear in combat? (OPEN)
 
-**Discussion recommendation (NOT ACCEPTED):** B balances distinctive visual identity and a predictable mobile Godot pipeline. Every published asset still needs provenance and rights checks; media compatibility alone never grants Canon admission.
+**Question:** How should video clips be used within the Card-first combat presentation? (This determines orchestration and performance expectations, not gameplay rules.)
+
+- **A — Idle card animation only:** an optional looping video lives inside an Active card; attacks/KO use common Godot motion and effects.
+- **B — Event clips only:** the Active card is normally a still image; short clips play only on events such as entrance, ability, attack, hit or KO.
+- **C — Hybrid contextual playback:** lightweight idle loops are optional, and short event-specific clips may play on impactful actions. Godot coordinates these with engine VFX; static fallback/reduced motion always works.
+- **D — Full cinematic sequences:** individual card assets may prescribe longer screen-dominating video sequences during battle; requires stronger timeline, budget and pacing governance.
+
+**ARTIST + ARCH recommendation (NOT ACCEPTED):** C, with carefully bounded playback budgets and short skippable actions; visual playback never blocks or rewrites the deterministic rules.
 
 ## References
 
@@ -110,4 +121,4 @@ This decision does not override MM-02 rules. Further gates: accepted media categ
 
 ## Verification
 
-Documentation-only. G1 and G2 were explicitly selected provisionally and are documented; G3 and later grilling gates remain open. The binary import is still pending. No claim of image upload, accepted meme characters, battle-feature completion, or runtime-test result is made.
+Documentation-only. G1, G2 and G3 were explicitly selected provisionally and documented; G4 and later grilling gates remain open. The binary import is still pending. No claim of image upload, accepted meme characters, battle-feature completion, or runtime-test result is made.

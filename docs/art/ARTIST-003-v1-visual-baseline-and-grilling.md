@@ -31,6 +31,19 @@
 - Intended repository path for the visual binary: `docs/art/references/ARTIST-003-v1-menus-battle.png`.
 - **Binary import status: PENDING.** This record documents the source and approved elements; it does not misrepresent the reference PNG as committed. The asset must be uploaded without alteration or verified with the recorded SHA-256.
 
+## V1 deployment/runtime boundary — offline browser and in-memory (2026-10-08)
+
+**Decision from product owner:** V1 starts **offline in browser or in-memory**. Treat this as a cross-cutting launch constraint, not an extra G10 vote or a request to implement a second client.
+
+- **Primary playable target:** Godot 4.x Web export loaded into a browser. All required duel state, rule resolution, deterministic local-bot decisions, event sequencing and card presentation execute client-side. A fully in-memory match is valid without account, network APIs or persistent storage.
+- **No service in the V1 critical path:** Do not require authentication, online matchmaking, cloud profile sync, remote databases, centrally hosted UGC, media-stream endpoints, ranking services or moderation APIs to start and finish a local duel. An optional hosting/CDN endpoint can deliver a built game but cannot own gameplay truth.
+- **Persistence:** Keep existing local Godot `user://` profile support when available. Browser storage persistence is an optional enhancement/fallback path, not a precondition for playing. If storage is unavailable, deny persistent save clearly while allowing an in-memory match; do not silently claim saves survive refresh.
+- **Browser offline semantics:** A first navigation to a deployed web URL may require a network request to fetch the Godot bundle. Finishing a loaded match with the network disabled is an acceptance target. Cold-start/reopen while physically offline needs a separately specified and verified cache/service-worker packaging contract and is **not** claimed complete by this decision.
+- **Asset behavior:** Required rules, fixtures, posters and presentation templates belong in the packaged client; user-imported local media remains local by default. Video idle loops are optional per G3/G4/G6/G8 and must not require remote playback or delay the duel.
+- **Roadmap alignment:** MM-06 implements a private local Forge; MM-07/MM-08 public rights review and Canon publication remain future gates; MM-09 online match protocol is not needed for V1 offline play. INFRA-01 Cloudflare/Vercel is optional delivery infrastructure, not an authoritative game server.
+- **Testable future gates:** Godot Web can start and complete a local duel against the bundled bot with service endpoints unavailable; rule/event replay remains deterministic; absence of storage does not prevent a match; local media never uploads silently; browser compatibility is measured and reported before claiming completion.
+- **Authority:** `docs/decisions/ADR-0002-browser-local-first-v1.md` records this product direction alongside the existing Godot-only and deterministic-domain constitution. This ARTIST record does not modify G1–G9 or answer G10.
+
 ## Originality gate
 
 Mememom is not a franchise imitation. Avoid direct references to proprietary battle-screen framing, creature designs, badge systems, capsule/ball icons, famous franchise wordmarks and branded healing-center motifs. Approve all new character designs and branded assets on original-expression grounds, even if a previous exploratory mockup included franchise-adjacent details.

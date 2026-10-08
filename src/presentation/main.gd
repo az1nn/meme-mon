@@ -6,6 +6,7 @@ const CollectionModel = preload("res://src/domain/collection_model.gd")
 const CollectionStore = preload("res://src/data/collection_store.gd")
 const DeckValidator = preload("res://src/domain/deck_validator.gd")
 const PROFILE_PATH := "user://mememom/profile.json"
+const NavigationShell = preload("res://src/presentation/navigation_shell.gd")
 
 var engine = DuelEngine.new()
 var bot = DeterministicBot.new("p2")
@@ -58,27 +59,83 @@ func _ready() -> void:
 	_render()
 
 func _build_ui() -> void:
-	var root: VBoxContainer = VBoxContainer.new()
-	root.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	root.add_theme_constant_override("separation", 12)
-	add_child(root)
-	var title: Label = Label.new()
-	title.text = "MEMEMOM — MM-04 deterministic local duel"
-	title.add_theme_font_size_override("font_size", 24)
-	root.add_child(title)
+	var shell = NavigationShell.new()
+	add_child(shell)
+	shell.route_selected.connect(Callable(self, "_on_global_route"))
+	var root: VBoxContainer = shell.content
+
+	var intro := Label.new()
+	intro.text = "⚡ ARENA DE DUELO"
+	intro.add_theme_color_override("font_color", NavigationShell.INK)
+	intro.add_theme_font_size_override("font_size", 24)
+	root.add_child(intro)
+
+	var arena := PanelContainer.new()
+	arena.add_theme_stylebox_override("panel", _arena_style())
+	root.add_child(arena)
+	var arena_body := VBoxContainer.new()
+	arena_body.add_theme_constant_override("separation", 10)
+	arena.add_child(arena_body)
+	var hint := Label.new()
+	hint.text = "HYPE • TREND • TURNOS | ALPHA 0.1"
+	hint.add_theme_color_override("font_color", NavigationShell.CYAN)
+	hint.add_theme_font_size_override("font_size", 14)
+	arena_body.add_child(hint)
 	status_label = Label.new()
 	status_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	root.add_child(status_label)
-	var actions: HBoxContainer = HBoxContainer.new()
+	status_label.add_theme_color_override("font_color", Color.WHITE)
+	status_label.add_theme_font_size_override("font_size", 16)
+	arena_body.add_child(status_label)
+
+	var buttons_title := Label.new()
+	buttons_title.text = "SUAS AÇÕES"
+	buttons_title.add_theme_color_override("font_color", NavigationShell.INK)
+	buttons_title.add_theme_font_size_override("font_size", 17)
+	root.add_child(buttons_title)
+	var actions := HFlowContainer.new()
+	actions.add_theme_constant_override("h_separation", 9)
+	actions.add_theme_constant_override("v_separation", 9)
 	root.add_child(actions)
-	for spec in [["Attack", "_on_attack"], ["Play first card", "_on_play"], ["Pass", "_on_pass"], ["Run bot-vs-bot", "_on_autorun"], ["Collection / Deckbuilder", "_on_collection"]]:
-		var button: Button = Button.new()
+	for spec in [["ATACAR", "_on_attack"], ["USAR CARTA", "_on_play"], ["PASSAR", "_on_pass"], ["AUTO DUELO", "_on_autorun"]]:
+		var button := Button.new()
 		button.text = spec[0]
+		button.custom_minimum_size = Vector2(132, 56)
+		button.focus_mode = Control.FOCUS_ALL
+		button.add_theme_color_override("font_color", NavigationShell.INK)
+		var skin := StyleBoxFlat.new()
+		skin.bg_color = NavigationShell.CORAL if spec[1] == "_on_attack" else NavigationShell.YELLOW
+		skin.set_corner_radius_all(14)
+		skin.content_margin_left = 12.0
+		skin.content_margin_right = 12.0
+		skin.content_margin_top = 10.0
+		skin.content_margin_bottom = 10.0
+		button.add_theme_stylebox_override("normal", skin)
 		button.pressed.connect(Callable(self, spec[1]))
 		actions.add_child(button)
+
+	var history_title := Label.new()
+	history_title.text = "HISTÓRICO DA PARTIDA"
+	history_title.add_theme_color_override("font_color", NavigationShell.INK)
+	root.add_child(history_title)
 	event_label = Label.new()
 	event_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	event_label.add_theme_color_override("font_color", NavigationShell.INK)
+	event_label.add_theme_font_size_override("font_size", 12)
 	root.add_child(event_label)
+
+func _arena_style() -> StyleBoxFlat:
+	var style := StyleBoxFlat.new()
+	style.bg_color = NavigationShell.NAVY
+	style.set_corner_radius_all(18)
+	style.content_margin_left = 16.0
+	style.content_margin_top = 20.0
+	style.content_margin_right = 16.0
+	style.content_margin_bottom = 20.0
+	return style
+
+func _on_global_route(route: String) -> void:
+	if route == "collection":
+		_on_collection()
 
 func _intent(kind: String, payload: Dictionary = {}) -> Dictionary:
 	return {

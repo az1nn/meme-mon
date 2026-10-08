@@ -12,6 +12,6 @@ Status: IN PROGRESS
 - [x] T08 Connect selected validated deck to duel entry; invalid decks cannot start matches.
 - [x] T09 Add MM-05 headless tests and CI gate, keep all MM-04 regressions green.
 - [x] T10 Verify exact PR HEAD (import/parser, headless tests, scene smoke), correct failures.
-- [ ] T11 Record verification, refresh README/ROADMAP and SIGA handoff, merge only with all gates green.
+- [x] T11 Record verification, refresh README/ROADMAP and SIGA handoff, merge only with all gates green.
 
 Constitutional invariants: Godot-only client, portable deterministic rules, versioned data, Sandbox/Canon separation, no masked failed gates.

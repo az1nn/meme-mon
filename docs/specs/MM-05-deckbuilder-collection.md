@@ -1,6 +1,6 @@
 # MM-05 — Deckbuilder & Collection
 
-Status: DONE — VERIFIED (MM-05 code HEAD 0876e331; final documentation HEAD requires green CI)
+Status: DONE — VERIFIED / MERGED (PR #6; 2026-10-08)
 Schema/rules version: alpha-0.1
 Depends on: MM-01, MM-02, MM-03, MM-04
 Unlocks: MM-06 Meme Forge / Godot

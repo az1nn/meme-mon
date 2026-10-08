@@ -47,6 +47,6 @@ Do not pull MM-06 forward merely because the Forge is visually attractive. The F
 
 MM-05 builds on the Alpha 0.1 Godot duel. Deck legality is a domain contract, with correct card_id/edition_id references, format validation, deterministic search, local ownership and versioned saved decks. The native Godot collection/deckbuilder screen can select a legal saved deck for a local duel without moving rules into UI code.
 
-MM-05 was validated against Godot 4.7.2 by 194 MM-04 regression checks and 94 new MM-05 checks with 0 failures, plus import/parser and both scene smoke gates (code HEAD 0876e331; final PR documentation-head CI remains required).
+MM-05 was validated against Godot 4.7.2 by 194 MM-04 regression checks and 94 new MM-05 checks with 0 failures, plus import/parser and both scene smoke gates (code HEAD 0876e331; final PR documentation-head CI passed at run 37782362544).
 
 MM-06 is the next dependency unit: add a Godot-only meme Forge that produces private Sandbox previews using constrained MM-03 budgets, without skipping MM-07 rights/provenance and moderation gates.

@@ -1,0 +1,112 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" width="1600" height="900" role="img" aria-label="Mememom concept UI for collection and deckbuilder, visual proposal only">
+<defs>
+<pattern id="dots" width="14" height="14" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1" fill="#9EACC2" opacity=".16"/></pattern>
+<linearGradient id="grad" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#303866"/><stop offset="1" stop-color="#121A30"/></linearGradient>
+</defs>
+<rect width="1600" height="900" fill="#0B1020"/>
+<path d="M0 0H1600V155H0Z" fill="url(#grad)"/>
+<rect width="1600" height="900" fill="url(#dots)"/>
+<path d="M0 87H1600" stroke="#374158" stroke-width="2"/>
+<text x="52" y="52" font-size="38" font-family="DejaVu Sans,Arial,sans-serif" font-weight="900" fill="#CDFC5A" >MEMEMOM</text>
+<text x="291" y="49" font-size="14" font-family="DejaVu Sans,Arial,sans-serif" font-weight="700" fill="#C9D6F3" >INTERNET RELICS  /  ART-001</text>
+<rect x="1225" y="22" width="326" height="42" rx="12" fill="#22314A" stroke="#495572" stroke-width="1"/>
+<text x="1240" y="49" font-size="15" font-family="DejaVu Sans,Arial,sans-serif" font-weight="700" fill="#F5F7FD" >ALPHA 0.1  •  UI CONCEPT</text>
+<rect x="42" y="118" width="992" height="672" rx="20" fill="#182139" stroke="#46516A" stroke-width="2"/>
+<text x="67" y="164" font-size="32" font-family="DejaVu Sans,Arial,sans-serif" font-weight="900" fill="#F5F7FD" >COLLECTION</text>
+<text x="298" y="164" font-size="14" font-family="DejaVu Sans,Arial,sans-serif" font-weight="400" fill="#A5B3C9" >Your local Alpha cards · Not Canon</text>
+<rect x="66" y="183" width="339" height="47" rx="9" fill="#0B1020" stroke="#627089" stroke-width="1"/>
+<text x="82" y="214" font-size="17" font-family="DejaVu Sans,Arial,sans-serif" font-weight="500" fill="#CBD5E7" >⌕  Search cards and IDs</text>
+<rect x="417" y="183" width="178" height="47" rx="8" fill="#242F48" stroke="#627089" stroke-width="1"/>
+<text x="433" y="213" font-size="15" font-family="DejaVu Sans,Arial,sans-serif" font-weight="700" fill="#F5F7FD" >KIND · ALL</text>
+<rect x="607" y="183" width="191" height="47" rx="8" fill="#242F48" stroke="#627089" stroke-width="1"/>
+<text x="623" y="213" font-size="15" font-family="DejaVu Sans,Arial,sans-serif" font-weight="700" fill="#F5F7FD" >TYPE · ALL</text>
+<rect x="810" y="183" width="199" height="47" rx="8" fill="#242F48" stroke="#627089" stroke-width="1"/>
+<text x="826" y="213" font-size="15" font-family="DejaVu Sans,Arial,sans-serif" font-weight="700" fill="#F5F7FD" >TIER · ALL</text>
+<text x="67" y="253" font-size="14" font-family="DejaVu Sans,Arial,sans-serif" font-weight="700" fill="#A5B3C9" >3 OF 20 SAMPLE EDITIONS  /  3 ILLUSTRATIVE CARDS</text>
+<g>
+<rect x="73" y="260" width="276" height="414" rx="14" fill="#F3EFE4" stroke="#45506A" stroke-width="2"/>
+<rect x="85" y="271" width="252" height="44" rx="9" fill="#0B1020" stroke="none" stroke-width="1"/>
+<rect x="90" y="280" width="39" height="31" rx="8" fill="#CDFC5A" stroke="none" stroke-width="1"/>
+<text x="109" y="303" font-size="20" font-family="DejaVu Sans,Arial,sans-serif" font-weight="900" fill="#0B1020" text-anchor="middle">2</text>
+<text x="141" y="299" font-size="17" font-family="DejaVu Sans,Arial,sans-serif" font-weight="700" fill="#F5F7FD" >Test Mememom 12</text>
+<text x="142" y="314" font-size="9" font-family="DejaVu Sans,Arial,sans-serif" font-weight="500" fill="rgba(245,247,253,.7)" >TREND COST</text>
+<rect x="87" y="327" width="248" height="209" rx="10" fill="#393051" stroke="none" stroke-width="1"/>
+<circle cx="215" cy="447" r="76" fill="#422057"/><circle cx="190" cy="430" r="46" fill="#B594FF"/><rect x="136" y="466" width="139" height="47" rx="9" fill="#D6A654" transform="rotate(-9 203 489)"/><path d="M138 377 l42 -33 27 38 39 -22 34 39" fill="none" stroke="#F3EFE4" stroke-width="12" stroke-linejoin="round"/><circle cx="184" cy="425" r="7" fill="#0B1020"/><circle cx="234" cy="425" r="7" fill="#0B1020"/>
+<rect x="98" y="544" width="226" height="26" rx="7" fill="#0B1020" stroke="none" stroke-width="1"/>
+<text x="112" y="562" font-size="12" font-family="DejaVu Sans,Arial,sans-serif" font-weight="700" fill="#F5F7FD" >MEMEMOM  /  REACTION</text>
+<text x="97" y="591" font-size="12" font-family="DejaVu Sans,Arial,sans-serif" font-weight="800" fill="#6A3397" >HEADLINER</text>
+<text x="97" y="613" font-size="12" font-family="DejaVu Sans,Arial,sans-serif" font-weight="700" fill="#0B1020" >HP 70  •  ATK 35</text>
+<rect x="88" y="628" width="246" height="33" rx="7" fill="#E3E4DE" stroke="none" stroke-width="1"/>
+<text x="100" y="650" font-size="12" font-family="DejaVu Sans,Arial,sans-serif" font-weight="800" fill="#0B1020" >OWNED 2   /   IN DRAFT 1</text>
+</g>
+<g>
+<rect x="382" y="260" width="276" height="414" rx="14" fill="#F3EFE4" stroke="#45506A" stroke-width="2"/>
+<rect x="394" y="271" width="252" height="44" rx="9" fill="#0B1020" stroke="none" stroke-width="1"/>
+<rect x="399" y="280" width="39" height="31" rx="8" fill="#CDFC5A" stroke="none" stroke-width="1"/>
+<text x="418" y="303" font-size="20" font-family="DejaVu Sans,Arial,sans-serif" font-weight="900" fill="#0B1020" text-anchor="middle">1</text>
+<text x="450" y="299" font-size="17" font-family="DejaVu Sans,Arial,sans-serif" font-weight="700" fill="#F5F7FD" >Scroll More</text>
+<text x="451" y="314" font-size="9" font-family="DejaVu Sans,Arial,sans-serif" font-weight="500" fill="rgba(245,247,253,.7)" >TREND COST</text>
+<rect x="396" y="327" width="248" height="209" rx="10" fill="#143D63" stroke="none" stroke-width="1"/>
+<circle cx="522" cy="432" r="85" fill="#296987"/><path d="M458 405 h131 v22 h-131z M481 452 h130 v22 h-130z M456 497 h105 v22 h-105z" fill="#F3EFE4"/><circle cx="470" cy="345" r="15" fill="#CDFC5A"/><circle cx="607" cy="512" r="25" fill="#CDFC5A"/>
+<rect x="407" y="544" width="226" height="26" rx="7" fill="#0B1020" stroke="none" stroke-width="1"/>
+<text x="421" y="562" font-size="12" font-family="DejaVu Sans,Arial,sans-serif" font-weight="700" fill="#F5F7FD" >REACTION  /  REACTION</text>
+<text x="406" y="591" font-size="12" font-family="DejaVu Sans,Arial,sans-serif" font-weight="800" fill="#45506A" >STANDARD</text>
+<text x="406" y="613" font-size="12" font-family="DejaVu Sans,Arial,sans-serif" font-weight="700" fill="#0B1020" >DRAW 1 CARD</text>
+<rect x="397" y="628" width="246" height="33" rx="7" fill="#E3E4DE" stroke="none" stroke-width="1"/>
+<text x="409" y="650" font-size="12" font-family="DejaVu Sans,Arial,sans-serif" font-weight="800" fill="#0B1020" >OWNED 2   /   IN DRAFT 1</text>
+</g>
+<g>
+<rect x="691" y="260" width="276" height="414" rx="14" fill="#F3EFE4" stroke="#45506A" stroke-width="2"/>
+<rect x="703" y="271" width="252" height="44" rx="9" fill="#0B1020" stroke="none" stroke-width="1"/>
+<rect x="708" y="280" width="39" height="31" rx="8" fill="#CDFC5A" stroke="none" stroke-width="1"/>
+<text x="727" y="303" font-size="20" font-family="DejaVu Sans,Arial,sans-serif" font-weight="900" fill="#0B1020" text-anchor="middle">1</text>
+<text x="759" y="299" font-size="17" font-family="DejaVu Sans,Arial,sans-serif" font-weight="700" fill="#F5F7FD" >Cozy Timeline</text>
+<text x="760" y="314" font-size="9" font-family="DejaVu Sans,Arial,sans-serif" font-weight="500" fill="rgba(245,247,253,.7)" >TREND COST</text>
+<rect x="705" y="327" width="248" height="209" rx="10" fill="#245A55" stroke="none" stroke-width="1"/>
+<circle cx="833" cy="443" r="81" fill="#355F65"/><path d="M784 482 l26 -113 29 73 26 -96 33 136z" fill="#77E4B5"/><path d="M792 468 l42 -57 41 57" fill="none" stroke="#F3EFE4" stroke-width="14"/><circle cx="773" cy="372" r="14" fill="#F3EFE4"/><circle cx="901" cy="390" r="10" fill="#CDFC5A"/>
+<rect x="716" y="544" width="226" height="26" rx="7" fill="#0B1020" stroke="none" stroke-width="1"/>
+<text x="730" y="562" font-size="12" font-family="DejaVu Sans,Arial,sans-serif" font-weight="700" fill="#F5F7FD" >FORMAT  /  WHOLESOME</text>
+<text x="715" y="591" font-size="12" font-family="DejaVu Sans,Arial,sans-serif" font-weight="800" fill="#45506A" >STANDARD</text>
+<text x="715" y="613" font-size="12" font-family="DejaVu Sans,Arial,sans-serif" font-weight="700" fill="#0B1020" >HEAL 20</text>
+<rect x="706" y="628" width="246" height="33" rx="7" fill="#E3E4DE" stroke="none" stroke-width="1"/>
+<text x="718" y="650" font-size="12" font-family="DejaVu Sans,Arial,sans-serif" font-weight="800" fill="#0B1020" >OWNED 2   /   IN DRAFT 0</text>
+</g>
+<text x="76" y="737" font-size="16" font-family="DejaVu Sans,Arial,sans-serif" font-weight="500" fill="#CAD3E0" >Card imagery is original placeholder collage. Rules remain authoritative in MM-03/MM-05.</text>
+<text x="76" y="765" font-size="14" font-family="DejaVu Sans,Arial,sans-serif" font-weight="500" fill="#91A0BA" >Card shell 2:3  ·  Kind ≠ Type  ·  Owned ≠ Selected  ·  No invented stats</text>
+<rect x="1062" y="118" width="496" height="672" rx="20" fill="#182139" stroke="#46516A" stroke-width="2"/>
+<text x="1090" y="162" font-size="30" font-family="DejaVu Sans,Arial,sans-serif" font-weight="900" fill="#F5F7FD" >DECKBUILDER</text>
+<text x="1090" y="192" font-size="17" font-family="DejaVu Sans,Arial,sans-serif" font-weight="650" fill="#D7E0F1" >My First Deck</text>
+<rect x="1090" y="217" width="440" height="87" rx="12" fill="#0B1020" stroke="#586682" stroke-width="1"/>
+<text x="1111" y="250" font-size="14" font-family="DejaVu Sans,Arial,sans-serif" font-weight="700" fill="#A4B4D0" >DRAFT PROGRESS</text>
+<text x="1111" y="282" font-size="38" font-family="DejaVu Sans,Arial,sans-serif" font-weight="900" fill="#CDFC5A" >12 / 30</text>
+<rect x="1299" y="272" width="202" height="12" rx="6" fill="#293549" stroke="none" stroke-width="1"/>
+<rect x="1299" y="272" width="81" height="12" rx="6" fill="#CDFC5A" stroke="none" stroke-width="1"/>
+<text x="1090" y="343" font-size="15" font-family="DejaVu Sans,Arial,sans-serif" font-weight="700" fill="#A4B4D0" >SELECTED CARDS</text>
+<rect x="1090" y="358" width="439" height="68" rx="10" fill="#25304A" stroke="#445575" stroke-width="1"/>
+<rect x="1104" y="371" width="9" height="42" rx="3" fill="#B594FF" stroke="none" stroke-width="1"/>
+<text x="1125" y="387" font-size="17" font-family="DejaVu Sans,Arial,sans-serif" font-weight="700" fill="#F5F7FD" >Test Mememom 12</text>
+<text x="1125" y="411" font-size="13" font-family="DejaVu Sans,Arial,sans-serif" font-weight="450" fill="#B9C7DC" >Headliner  ·  1 copy</text>
+<text x="1485" y="397" font-size="19" font-family="DejaVu Sans,Arial,sans-serif" font-weight="900" fill="#FF6579" >−</text>
+<rect x="1090" y="438" width="439" height="68" rx="10" fill="#25304A" stroke="#445575" stroke-width="1"/>
+<rect x="1104" y="451" width="9" height="42" rx="3" fill="#55D9F1" stroke="none" stroke-width="1"/>
+<text x="1125" y="468" font-size="17" font-family="DejaVu Sans,Arial,sans-serif" font-weight="700" fill="#F5F7FD" >Scroll More</text>
+<text x="1125" y="491" font-size="13" font-family="DejaVu Sans,Arial,sans-serif" font-weight="450" fill="#B9C7DC" >Reaction  ·  1 copy</text>
+<text x="1485" y="477" font-size="19" font-family="DejaVu Sans,Arial,sans-serif" font-weight="900" fill="#FF6579" >−</text>
+<rect x="1090" y="519" width="439" height="68" rx="10" fill="#25304A" stroke="#445575" stroke-width="1"/>
+<rect x="1104" y="531" width="9" height="42" rx="3" fill="#77E4B5" stroke="none" stroke-width="1"/>
+<text x="1125" y="549" font-size="17" font-family="DejaVu Sans,Arial,sans-serif" font-weight="700" fill="#F5F7FD" >Cozy Timeline</text>
+<text x="1125" y="572" font-size="13" font-family="DejaVu Sans,Arial,sans-serif" font-weight="450" fill="#B9C7DC" >Format  ·  0 copies</text>
+<text x="1485" y="558" font-size="19" font-family="DejaVu Sans,Arial,sans-serif" font-weight="900" fill="#CDFC5A" >+</text>
+<rect x="1090" y="608" width="439" height="83" rx="9" fill="#462431" stroke="#FF6579" stroke-width="1"/>
+<text x="1110" y="634" font-size="14" font-family="DejaVu Sans,Arial,sans-serif" font-weight="800" fill="#FF9AA9" >DECK INVALID</text>
+<text x="1110" y="657" font-size="14" font-family="DejaVu Sans,Arial,sans-serif" font-weight="600" fill="#F7DCE4" >DECK_SIZE_INVALID · Add 18 more cards</text>
+<text x="1110" y="677" font-size="11" font-family="DejaVu Sans,Arial,sans-serif" font-weight="450" fill="#DCC1C9" >Illustrative state; actual verdict comes from domain</text>
+<rect x="1090" y="715" width="211" height="48" rx="8" fill="#2B394F" stroke="#667488" stroke-width="1"/>
+<text x="1157" y="745" font-size="15" font-family="DejaVu Sans,Arial,sans-serif" font-weight="800" fill="#F5F7FD" >SAVE DRAFT</text>
+<rect x="1313" y="715" width="216" height="48" rx="8" fill="#465063" stroke="none" stroke-width="1"/>
+<text x="1356" y="745" font-size="15" font-family="DejaVu Sans,Arial,sans-serif" font-weight="800" fill="#BBC3D3" >START DUEL</text>
+<rect x="41" y="814" width="1516" height="59" rx="12" fill="#10182B" stroke="#384660" stroke-width="1"/>
+<text x="67" y="851" font-size="16" font-family="DejaVu Sans,Arial,sans-serif" font-weight="900" fill="#CDFC5A" >ART-001 · MEMEMOM ONLY</text>
+<text x="392" y="851" font-size="15" font-family="DejaVu Sans,Arial,sans-serif" font-weight="700" fill="#DAE2F2" >STATIC CONCEPT — NOT GODOT RUNTIME EVIDENCE</text>
+<text x="1255" y="851" font-size="14" font-family="DejaVu Sans,Arial,sans-serif" font-weight="700" fill="#FFB481" >VISUAL GATE: PROPOSED</text>
+</svg>

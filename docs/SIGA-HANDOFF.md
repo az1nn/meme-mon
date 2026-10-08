@@ -1,56 +1,48 @@
 CAVEMAN HANDOFF v1
 
 APP: Mememom (az1nn/meme-mon)
-WORKSTREAM: MM-05 Deckbuilder & Collection -> MM-06 Meme Forge / Godot
-STATE: MM-05 implementation completed and PR #6 squash-merged; handoff commit follows; post-merge/master exact-head verification pending
-MODE: WATCH (for last master CI only; reclassify ADVANCE to MM-06 when verified green)
-CANONICAL SOURCE: GitHub live state; .specify/memory/constitution.md; docs/ROADMAP.md; docs/specs/MM-05-deckbuilder-collection.md; canonical SIGA az1nn/cpxlabs-admin/.agents/skills/siga/SKILL.md
+WORKSTREAM: ART-002 responsive navigation wave 1 -> next visual/runtime evidence; MM-06 Forge NEXT separately
+STATE: ART_STYLE_APPROVED; HAMBURGER_NAV_WAVE1_MERGED; FULL_UI_ART_AND_RUNTIME_SCREENSHOTS_PENDING
+MODE: WATCH (post-merge master CI for PR #10; reclassify once finished)
+CANONICAL SOURCE: live GitHub; az1nn/cpxlabs-admin/.agents/skills/siga/SKILL.md; .specify/memory/constitution.md; docs/art/ART-002-mememom-character-first.md; docs/specs/ART-002-responsive-navigation.md; docs/ROADMAP.md; issue #9
 
-CURRENT VERSION / HEAD: squash commit 1cbf4d8bb2fe9c1b88c510a16d875e22342a7583; handoff documentation commit follows
+CURRENT VERSION / HEAD: master 8e989c563ced14f115e200103a3290878ed5c71f; this handoff commit will advance HEAD again
 BASE: master
-BRANCH / ENV: master; Godot 4.7.2
-PR / MR / TASK: PR #6 MERGED; no open PRs prior to this merge; docs/tasks/MM-05-tasks.md complete
-SPEC / ADR: .specify/memory/constitution.md v1.0.0; ADR-0001 Godot-only runtime; MM-03, MM-04 and MM-05 specs
+BRANCH / ENV: master; Godot 4.7.2, single Godot renderer
+PR / MR / TASK: PR #10 SQUASH-MERGED; issue #9 OPEN; docs/tasks/ART-002-responsive-navigation-tasks.md
+SPEC / ADR: docs/art/ART-002-mememom-character-first.md; ART-002 responsive navigation spec; ADR-0001 Godot-only
 
 DONE:
-- Reconciled the live repository/CI and canonical SIGA; classified ADVANCE.
-- Created MM-05 specification/plan/tasks before implementation.
-- Added pure-domain Alpha 0.1 DeckValidator enforcing 30 cards, >=8 Mememom, <=2 copies per card_id across editions, <=2 Headliners, valid editions/format/version and optional ownership checks.
-- Added CollectionModel for owned-card filtering, multiple named drafts, selection invalidation and selected edition-ID handoff.
-- Added CollectionStore for versioned local JSON profile save/load with corrupt/future-profile rejection.
-- Added native Godot Collection.tscn and main-duel navigation/validated deck startup.
-- Added MM-05 headless regression script and CI collection scene smoke.
-- Updated verification report, README and ROADMAP; MM-06 is NEXT.
-- Squash-merged PR #6 after exact PR-head checks and clean mergeability.
+- Reconciled prior pending CI: ART-002 #8 master run 37810549552 passed; no active competing PR/branch owner identified before advance.
+- Created feat/art-002-hamburger-mobile-shell from exact master, implemented reusable Godot navigation_shell.gd and integrated Main/Collection scenes.
+- Global hamburger nav closes by default; overlay/drawer, explicit close, outside pointer/tap and Escape/back, routing between duel and collection; no fixed bottom tabs/permanent sidebar; contextual game actions retained.
+- Wrapped action/filter/deck controls for mobile, added shared cartoon-color presentation scaffolding, preserved domain/gameplay and local deck persistence.
+- Added ART-002 spec/plan/tasks, navigation headless test and CI requirement, verification report.
+- PR #10 first-head CI 37829558540 PASS, final exact-head CI 37829828750 PASS.
+- Squash-merged PR #10 as 8e989c563ced14f115e200103a3290878ed5c71f; confirmed merged PR, master updated and navigation_shell.gd present on master.
+- Updated issue #9 to track incomplete visual runtime proof separately from completed nav shell.
 
 VERIFY:
-- Code-head run https://github.com/az1nn/meme-mon/actions/runs/37782083018: Godot 4.7.2, MM-04 194 checks/0 failures, MM-05 94 checks/0 failures, import/parser and both smoke scenes PASS.
-- Final PR-head run https://github.com/az1nn/meme-mon/actions/runs/37782362544: all required checks PASS for HEAD dfd485a62a2f9b14b7a7e47f5f69391a4fe78e2b.
-- PR #6 merged commit 1cbf4d8bb2fe9c1b88c510a16d875e22342a7583 verified on master.
-- Post-merge master CI started at https://github.com/az1nn/meme-mon/actions/runs/37782604245 (in-progress when writing this handoff). New handoff commit will trigger its own master run.
-
+- Exact PR-head 8c0b88bd690851403b2d5489b309fc0fe1fdff40 CI PASS: Godot import/parse, MM-04 regression, MM-05 regression, ART-002 navigation regression, Main+Collection headless smoke (run 37829828750).
+- Post-merge master CI started: https://github.com/az1nn/meme-mon/actions/runs/37830029645; conclusion pending at handoff authoring.
+- Screenshot/running UI visual proof NOT obtained; do not equate CI smoke with rendered UI screenshot.
 GATES:
-- Spec-first PASS; Godot-only architecture PASS; deck contract/collection/persistence regression PASS.
-- Exact final PR-head CI PASS; mergeability clean; no required review/human gate pending.
-- Post-handoff master CI MUST be checked before MM-06 execution.
-
+- Human visual STYLE approval PASS and final; no re-approval.
+- Structural navigation code exact PR-head automated gates PASS.
+- Post-merge/post-handoff CI WATCH; full ART/INSPECTOR runtime visual review and final UX human gate PENDING.
 BLOCKERS:
-- No code blocker. WATCH only for latest master CI; do not duplicate work while running.
+- No known CI code failures. No local Godot renderer available during this run to capture genuine visual screenshots. Do not fabricate image evidence.
 
 INVARIANTS:
-- Mememom is an original, open-source meme TCG and not a Pokémon clone.
-- Godot 4.x is sole active client/rendering runtime; no Three.js.
-- Competitive rules remain portable, deterministic and independent of scenes.
-- Schema/rules alpha-0.1 and rng xorshift32-v1 are versioned contracts.
-- Local Alpha test cards are not published Canon and user uploads are not automatically licensed.
-- Unknown competitive formats and profile versions fail closed.
-- No Forge/UGC scope moves ahead of MM-05 proven boundary.
+- Preserve fully approved expressive, saturated, original cartoon/graffiti Mememom character/art direction; do not revert to ART-001.
+- Global navigation hidden by default in hamburger on mobile and desktop/web; no fixed tab bar or side nav. Duel actions remain visible.
+- Do not pretend static concept PNG is a Godot screenshot; do not close issue #9 until full in-game art and real runtime review.
+- Godot-only; domain handles deterministic rules; no arbitrary UGC Canon, no Three.js, no MM-06 scope creep.
+- Verify-first, ownership/concurrency and exact-head CI before merging.
 
 NEXT:
-- Verify the exact current master CI after this handoff commit.
-- If green and no active jobs/PRs, classify ADVANCE and create MM-06 Godot-only Meme Forge spec/plan/tasks.
-- Forge must support private upload/crop/name/type and generated budget-legal preview without promoting unpublished Sandbox data to Canon.
-- Keep MM-07 provenance/moderation separate; do not add a second renderer.
-
+- Verify latest exact master CI after this handoff commit (newer than 37830029645).
+- When green, reclassify ADVANCE and pick bounded issue #9 next wave: real visual Godot card/mascot UI and screenshot capture, with inspector tests for responsiveness, contrast, touch and keyboard.
+- Respect MM-06 Forge roadmap separation and re-reconcile any concurrent execution/PRs before creating work.
 VERIFY-FIRST:
-Fetch master HEAD, open PRs/issues/branches and latest master checks; inspect .specify/memory/constitution.md, docs/SIGA-HANDOFF.md, docs/ROADMAP.md, MM-05 spec/report, ADR-0001 and canonical SIGA skill. Classify RESUME/WATCH/ADVANCE from observed CI and tasks. Do not trust this handoff over live state.
+Read latest master SHA, exact GitHub Actions, open PRs/issues/branches, #9, ART-002 spec & verification report and canonical SIGA source. Prefer live state over this handoff. Do not mislabel the structural wave as finished visual V1.

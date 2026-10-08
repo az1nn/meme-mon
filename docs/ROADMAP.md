@@ -15,6 +15,18 @@ The roadmap is ordered by dependency. SIGA should advance one verified unit at a
 | MM-09 | Online Match Protocol | PLANNED | Authoritative intent/event protocol, reconnect and replay |
 | MM-10 | Open Source Governance | PLANNED | Code/content licenses and contribution/card-review policy |
 
+## V1 deployment constraint — browser-local / in-memory
+
+**Product decision (2026-10-08):** V1 starts as a **Godot Web game that runs locally in the browser, or entirely in session memory**. Neither authentication nor any gameplay API/database/server is allowed to gate initial solo play or completion of a match. See [ADR-0002](decisions/ADR-0002-browser-local-first-v1.md).
+
+- **V1 core:** local deterministic rules, bundled bot, deck/collection UI, private Sandbox Forge and Card-first ARTIST presentation.
+- **Runtime state:** session-memory play is valid; existing `user://` local profile persistence is optional, with graceful volatile fallback where browser storage is unavailable. Never claim in-memory saves survive reload.
+- **Network boundary:** delivery from a hosted URL may need network to fetch assets. Once loaded, the playable core must not need network. Entirely offline cold-start/reload requires a separately verified caching/export contract.
+- **Feature deferrals:** no mandatory login, online PvP, ranking, cloud sync, remote media upload, public UGC submission or public starter meme catalog for V1. Public rights/moderation/Canon workflows remain separate post-local-play dependencies.
+- **Build/CI gate to add:** verify the Godot Web export can finish a bundled local duel while disconnected after initial asset load; verify in-memory play when storage is unavailable; no silent remote upload.
+- **Infrastructure:** INFRA-01 hosts a static web artifact on Cloudflare/Vercel when configured. These platforms do not become gameplay backends.
+- **ARTIST:** G1–G9 decisions live in ARTIST-003; the offline clarification does not answer open G10.
+
 ## Milestone A — Rules are a game
 
 MM-01 -> MM-04

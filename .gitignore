@@ -1,0 +1,6 @@
+# Godot local caches and generated static exports
+.godot/
+web/
+.vercel/
+*.log
+.DS_Store

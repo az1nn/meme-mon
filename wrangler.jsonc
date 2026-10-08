@@ -1,0 +1,12 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "mememom",
+  "main": "infra/cloudflare/worker.js",
+  "compatibility_date": "2026-10-08",
+  "preview_urls": true,
+  "assets": {
+    "directory": "./web",
+    "binding": "ASSETS",
+    "run_worker_first": ["/index.wasm"]
+  }
+}

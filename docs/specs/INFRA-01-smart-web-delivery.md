@@ -1,6 +1,6 @@
 # INFRA-01 — Smart, cost-aware Godot Web delivery
 
-Status: IMPLEMENTING (infrastructure workstream; does not reorder MM-06).
+Status: READY_FOR_PROVIDER_INTEGRATION (CI verified, no live deployment; does not reorder MM-06).
 
 ## Intent and user value
 

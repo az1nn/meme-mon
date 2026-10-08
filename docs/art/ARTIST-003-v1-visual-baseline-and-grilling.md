@@ -1,6 +1,6 @@
 # ARTIST-003 — V1 visual baseline and battle-character grilling
 
-**Status:** VISUAL BASELINE APPROVED; G1 CARD-FIRST + G2 HYBRID + G3 IMAGE/VIDEO + G4 IDLE-ONLY VIDEO + G5 HYBRID SEQUENCER + G6 MANUAL 0/1/2 VIDEO + G7 TURN-OWNER PRIORITY + G8 DEFAULT ZERO VIDEO PROVISIONALLY SELECTED; G9 OPEN  
+**Status:** VISUAL BASELINE APPROVED; G1–G8 PRESERVED; G9 PUBLIC STARTER PACK DEFERRED / PRIVATE SANDBOX PROVISIONALLY SELECTED; G10 OPEN  
 **Date:** 2026-10-08  
 **Scope:** Mememom; Godot-only runtime; documentation/art-direction decision record.
 
@@ -20,6 +20,7 @@
 | Idle-loop resource allocation | G6 — PROVISIONAL: D / MANUAL 0–2 | Player sets a maximum of 0, 1 or 2 simultaneous Active-card idle clips; no automatic quality-tier switching. Visual failure remains nonblocking and uses a static fallback. |
 | One-slot video priority | G7 — PROVISIONAL: B / TURN OWNER | When set to 1, the current turn owner's Active card gets the optional idle-video slot, switching on authoritative turn change, with static fallback. |
 | Initial idle-video preference | G8 — PROVISIONAL: A / ZERO VIDEOS | New profiles initialize with zero idle-video loops; the player can explicitly enable one or two via the manual setting. Shared Godot attack/hit/KO VFX remain available. |
+| Starter meme catalog policy | G9 — PROVISIONAL: D / PRIVATE FIRST | No public meme starter pack at first. Use neutral, internally controlled playtest fixtures and private Forge/Sandbox; curate a public catalog only after MM-07 rights and moderation gates. |
 
 ## Original generated reference asset
 
@@ -162,16 +163,28 @@ This decision does not override MM-02 rules. Further gates: accepted media categ
 - **Implementation gates:** Specify schema/storage location, default migration behavior, full Godot Web/mobile decode fallback and player-facing labels before claiming feature completion.
 - **Preserved decisions:** G1 D Card-first; G2 D Hybrid animations; G3 C image/video import; G4 A idle-video-only; G5 C hybrid event sequencing; G6 D manual 0/1/2 control; G7 B one-slot priority follows turn owner.
 
-### G9 — Initial meme-asset sourcing policy (OPEN)
+### G9 — Deferred public starter catalog (2026-10-08)
 
-**Question:** Which sources of meme imagery should populate the curated, playable V1 starter catalog? This is separate from private Forge/Sandbox uploads and never waives rights, personality or trademark checks.
+- **Answer:** D — No public meme starter pack initially.
+- **State:** PROVISIONAL / user explicitly selected D during grilling; not a published content-policy implementation.
+- **Initial playable content:** Use only neutral, internally controlled fixture art sufficient for the existing deterministic duel, collection and upcoming Godot Forge tests. Fixture cards are not public meme Canon, rights-approved public assets, community releases, or evidence that any recognizable external meme may be shipped.
+- **Private-first creation:** Follow the existing MM-06 intent: local/private Sandbox Forge supports meme media import/crop, name, type and constrained preview without automatic public sharing or competitive Canon promotion. A private upload is not proof of copyright ownership or lawful onward redistribution.
+- **Public catalog gate:** Do not seed or advertise an official public meme pack until MM-07 provenance and moderation procedures and MM-08 immutable Canon/versioning gates are satisfied as appropriate, with documented sources/licenses, review of trademarks/likeness and distribution/adaptation permissions.
+- **What 'collecting suggestions' means:** Candidate media and submissions remain non-public and unapproved; opt-in collection/central submission are **not** silently authorized by this decision. G10 will determine when/how much rights information a private Forge asks for.
+- **Privacy/security:** No external image fetch/upload or central publication is implied by simply importing local art. Treat unknown rights as non-publishable; do not assume that CC0/claimed public domain clears trademark or publicity rights.
+- **Preserved decisions:** G1 D Card-first; G2 D hybrid motion/VFX; G3 C images + imported GIF/video sources; G4 A idle-only video; G5 C event-sequenced critical effects; G6 D manual 0/1/2 loops; G7 B turn-owner priority for one loop; G8 A default zero videos.
+- **Implementation boundary:** Documentation/ARTIST direction only. MM-06 (Forge), MM-07 (provenance/moderation) and MM-08 (Canon/editions) preserve their separate dependency gates.
 
-- **A — Verified public-domain / CC0 only:** Starter catalog contains solely media with defensible public-domain status or valid CC0 from an authorized rights holder; no first-party original cards in the initial official pack.
-- **B — Public-domain / CC0 + original Mememom illustrations:** Mix verified reusable historical/public-domain meme material and first-party original creations designed for a trademark-distinct visual identity. Do not assume meme popularity establishes rights.
-- **C — Curated licensed third-party material too:** Include A/B sources plus explicitly licensed third-party meme imagery under documented distribution, adaptation and commercial-use permissions; higher review burden.
-- **D — No public starter meme pack initially:** Ship only neutral internal playable fixture art while collecting source-cleared suggestions through a private Sandbox; introduce a curated public pack after MM-07 governance gates.
+### G10 — Provenance collection timing in the private Forge (OPEN)
 
-**ARTIST + LORE + ARCH recommendation (NOT ACCEPTED):** B provides a recognizable yet legally reviewable, original V1 identity without demanding external licenses for every card. In all options, require source URL/creator/rightsholder, license/evidence and trademark/likeness checks; **no unverified community uploads become public Canon**. Existing MM-06 private Forge and MM-07 provenance/moderation ordering remain binding.
+**Question:** At which stage should the private Meme Forge request source and usage-rights information for an imported meme? A user creating private artwork should not accidentally publish it.
+
+- **A — From first import (strict):** The private Forge requires source URL/creator, license or rightsholder declaration and supporting evidence before accepting any image. Strong provenance from day one; more friction.
+- **B — Only when submitted for review:** The local private Forge accepts an import without provenance; publishing/submitting to an official moderation queue requires all rights/evidence fields first.
+- **C — Only at Canon approval:** No provenance input in private Forge or candidate submission; reviewers obtain complete evidence later before Canon publication. Easiest early flow but generates moderation rework.
+- **D — Progressive capture:** At local import request lightweight origin/rights indication (including 'unknown'; still allowed **privately**); detailed source, permissions, evidence and screening become mandatory **before** any candidate enters the future official public review pipeline. Unknown/unverified entries can never be promoted automatically.
+
+**ARTIST + DESIGN + ARCH recommendation (NOT ACCEPTED):** D — fast private creativity, early provenance hints, and a firm fail-closed legal gate before public review or Canon. This does not authorize a public submission service in MM-06; workflow gating remains MM-07/MM-08 scope.
 
 ## References
 
@@ -184,4 +197,4 @@ This decision does not override MM-02 rules. Further gates: accepted media categ
 
 ## Verification
 
-Documentation-only. G1–G8 were explicitly selected provisionally and documented; G9 and later grilling gates remain open. This does not establish implemented media playback or engine behavior. The binary import is still pending. No claim of image upload, accepted meme characters, battle-feature completion, or runtime-test result is made.
+Documentation-only. G1–G9 were explicitly selected provisionally and documented; G10 and later grilling gates remain open. This does not establish implemented media playback or engine behavior. The binary import is still pending. No claim of image upload, accepted meme characters, battle-feature completion, or runtime-test result is made.

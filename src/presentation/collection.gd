@@ -140,7 +140,7 @@ func _on_pick_deck(index: int) -> void:
 	_render_cards()
 
 func _create_new_deck() -> void:
-	var deck_num := model.decks.size() + 1
+	var deck_num: int = model.decks.size() + 1
 	var new_id := "local.%d" % deck_num
 	while model.decks.has(new_id):
 		deck_num += 1

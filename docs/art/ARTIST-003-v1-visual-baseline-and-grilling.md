@@ -1,6 +1,6 @@
 # ARTIST-003 — V1 visual baseline and battle-character grilling
 
-**Status:** VISUAL BASELINE APPROVED; G1 CARD-FIRST PROVISIONALLY SELECTED; G2 OPEN  
+**Status:** VISUAL BASELINE APPROVED; G1 CARD-FIRST + G2 HYBRID PROVISIONALLY SELECTED; G3 OPEN  
 **Date:** 2026-10-08  
 **Scope:** Mememom; Godot-only runtime; documentation/art-direction decision record.
 
@@ -13,6 +13,7 @@
 | Characters, specific memes and creature identities appearing in the mockup | NOT APPROVED | Concept placeholders only; independently select legally usable and recognizably original combatants. |
 | Mockup logo and any franchise-resembling branding | REJECTED AS FINAL BRANDING | Create a distinct Mememom wordmark, emblem, iconography and battle vocabulary; never reproduce Pokémon/Digimon/Pokémon Center trade dress or familiar proprietary symbols. |
 | Battle character representation | G1 — PROVISIONAL: D / CARD-FIRST | Animated illustrated cards are the on-screen combatants. No 3D character models required in V1. This is not a final engine specification. |
+| Card animation architecture | G2 — PROVISIONAL: D / HYBRID | Reusable modular animations are the default; special cards may have curated unique visual animations. No arbitrary gameplay code embedded in card assets. |
 
 ## Original generated reference asset
 
@@ -70,12 +71,33 @@ This decision does not override MM-02 rules. Further gates: accepted media categ
 - **Product intent:** Illustrated meme cards themselves represent the two Active duelists. Emphasize readable attack, hit, damage, KO and card-entry animation through reusable effects without mandatory 3D models or character rigs.
 - **Engine boundary:** Godot scene/presentation subscribes to authoritative ordered `MatchEvent` stream and plays audiovisual sequences; competitive validation, RNG, hitpoints, Hype/Trend/KO and game-state mutation remain in the existing deterministic domain. The visible pair are the two Active cards, not a new independent two-character ruleset.
 - **Explicit exclusions for G1:** Mandatory 3D fighter modeling; implementing bespoke attack logic in presentation; copying franchise-specific battle visual identity; assumption that illustrative mockup characters are final accepted assets.
-- **Next question (G2):** How much unique animation can an individual card define?
+- **Question asked (G2, answered D):** How much unique animation can an individual card define?
   - A: Uniform animation/VFX templates for every card; fastest and simplest.
   - B: Shared, data-driven modular animations (motion/timing/impact/VFX chosen by data), no per-card custom animation.
   - C: Bespoke visual animations for every card.
   - D: Hybrid — modular templates by default; curated unique visuals for special cards, without executing arbitrary gameplay scripts.
-- **Recommendation for discussion, NOT ACCEPTED:** D for expressiveness with predictable cost; exact budget and permitted media formats remain open.
+- **Resolution:** D selected provisionally on 2026-10-08; production budget and file/media contracts remain open.
+
+### G2 — Animation architecture (2026-10-08)
+
+- **Answer:** D — Hybrid.
+- **State:** PROVISIONAL / user-approved for the current grilling, not yet an implementation specification or engine completion.
+- **Default:** shared, configurable data-driven card animations for entrance, idle, attack, hit, KO, status and reveal where relevant. Reuse motion, timing and VFX presets to keep content scalable.
+- **Exception:** selected special cards (rarity/title/status still to be specified) may receive authored unique animations and audiovisual identity. Such variants are visual-only and must not determine gameplay results.
+- **Technical boundary:** Godot's presentation layer consumes authoritative `MatchEvent` data and drives animation sequencing. Card content must not supply arbitrary executable scripts that can mutate rules, RNG, damage, Trend, Hype or match state.
+- **Accessibility / production guardrails (to be specified):** reduced motion, clear hit/KO readability, bounded asset/runtime cost and graceful fallback to common templates; the exact performance envelope is still open.
+- **Not decided:** animation toolchain, supported source/runtime media formats, specific special-card criteria, asset budgets or final effects art.
+
+### G3 — Asset input contract (OPEN)
+
+**Question:** What media formats / authoring model can become a playable combat-card visual in V1?
+
+- **A — Still image only:** one PNG/WebP illustration; all movement and impact VFX made by engine-level Godot tweens/shaders.
+- **B — Still + optional 2D layers or sprite sheets:** any card can be static; curated assets may provide transparent layers/frame sequences for expressive animation. Godot still owns runtime presentation.
+- **C — Still + prerecorded clips:** allow approved GIF/video animations in the asset pipeline, converted to a supported, optimized runtime format before playing (no arbitrary remote video at runtime).
+- **D — Extensible asset adapters:** define a plugin-style conversion system accommodating images, layered art and other formats from the start, with higher complexity.
+
+**Discussion recommendation (NOT ACCEPTED):** B balances distinctive visual identity and a predictable mobile Godot pipeline. Every published asset still needs provenance and rights checks; media compatibility alone never grants Canon admission.
 
 ## References
 
@@ -88,4 +110,4 @@ This decision does not override MM-02 rules. Further gates: accepted media categ
 
 ## Verification
 
-Documentation-only. G1 was explicitly selected provisionally and is documented; G2 and later grilling gates remain open. The binary import is still pending. No claim of image upload, accepted meme characters, battle-feature completion, or runtime-test result is made.
+Documentation-only. G1 and G2 were explicitly selected provisionally and are documented; G3 and later grilling gates remain open. The binary import is still pending. No claim of image upload, accepted meme characters, battle-feature completion, or runtime-test result is made.

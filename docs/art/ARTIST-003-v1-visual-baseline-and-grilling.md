@@ -1,6 +1,6 @@
 # ARTIST-003 — V1 visual baseline and battle-character grilling
 
-**Status:** VISUAL BASELINE APPROVED; character and engine decisions OPEN  
+**Status:** VISUAL BASELINE APPROVED; G1 CARD-FIRST PROVISIONALLY SELECTED; G2 OPEN  
 **Date:** 2026-10-08  
 **Scope:** Mememom; Godot-only runtime; documentation/art-direction decision record.
 
@@ -12,7 +12,7 @@
 | Battle environment/composition and broad visual quality | APPROVED V1 BASELINE | Presentation layout only, not a rule-system replacement. |
 | Characters, specific memes and creature identities appearing in the mockup | NOT APPROVED | Concept placeholders only; independently select legally usable and recognizably original combatants. |
 | Mockup logo and any franchise-resembling branding | REJECTED AS FINAL BRANDING | Create a distinct Mememom wordmark, emblem, iconography and battle vocabulary; never reproduce Pokémon/Digimon/Pokémon Center trade dress or familiar proprietary symbols. |
-| Battle character representation, animation and underlying implementation | GRILLING / HUMAN GATE | Must be decided before committing a new implementation scope. |
+| Battle character representation | G1 — PROVISIONAL: D / CARD-FIRST | Animated illustrated cards are the on-screen combatants. No 3D character models required in V1. This is not a final engine specification. |
 
 ## Original generated reference asset
 
@@ -61,6 +61,22 @@ D. Card-first battle: illustrated cards act as combatants, with only limited ava
 
 This decision does not override MM-02 rules. Further gates: accepted media categories; animated assets; attack vocabulary; rigging/retargeting; combatant state machine and visual event mapping; mobile frame budget; model-factory pipeline; accessibility and trademark/content gates.
 
+## Grilling decisions — tracked human gates
+
+### G1 — Combatant representation (2026-10-08)
+
+- **Answer:** D — Card-first.
+- **State:** PROVISIONAL / accepted as current grilling direction, not a finalized implementation authorization.
+- **Product intent:** Illustrated meme cards themselves represent the two Active duelists. Emphasize readable attack, hit, damage, KO and card-entry animation through reusable effects without mandatory 3D models or character rigs.
+- **Engine boundary:** Godot scene/presentation subscribes to authoritative ordered `MatchEvent` stream and plays audiovisual sequences; competitive validation, RNG, hitpoints, Hype/Trend/KO and game-state mutation remain in the existing deterministic domain. The visible pair are the two Active cards, not a new independent two-character ruleset.
+- **Explicit exclusions for G1:** Mandatory 3D fighter modeling; implementing bespoke attack logic in presentation; copying franchise-specific battle visual identity; assumption that illustrative mockup characters are final accepted assets.
+- **Next question (G2):** How much unique animation can an individual card define?
+  - A: Uniform animation/VFX templates for every card; fastest and simplest.
+  - B: Shared, data-driven modular animations (motion/timing/impact/VFX chosen by data), no per-card custom animation.
+  - C: Bespoke visual animations for every card.
+  - D: Hybrid — modular templates by default; curated unique visuals for special cards, without executing arbitrary gameplay scripts.
+- **Recommendation for discussion, NOT ACCEPTED:** D for expressiveness with predictable cost; exact budget and permitted media formats remain open.
+
 ## References
 
 - Constitution: `.specify/memory/constitution.md`
@@ -72,4 +88,4 @@ This decision does not override MM-02 rules. Further gates: accepted media categ
 
 ## Verification
 
-Documentation-only. The binary and G1 gameplay-direction decision remain human/action gates; no claim of image upload, acceptance of specific memes, battle-feature completion or runtime-test result is made.
+Documentation-only. G1 was explicitly selected provisionally and is documented; G2 and later grilling gates remain open. The binary import is still pending. No claim of image upload, accepted meme characters, battle-feature completion, or runtime-test result is made.

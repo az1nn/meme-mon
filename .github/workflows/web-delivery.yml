@@ -1,0 +1,194 @@
+name: Godot Web artifact and controlled delivery
+
+on:
+  pull_request:
+    paths:
+      - "src/**"
+      - "scenes/**"
+      - "data/**"
+      - "contracts/**"
+      - "tests/**"
+      - "project.godot"
+      - "export_presets.cfg"
+      - "infra/cloudflare/**"
+      - "tools/build_web.sh"
+      - "tools/prepare_web_artifact.mjs"
+      - "tools/prepare_vercel_output.mjs"
+      - "wrangler.jsonc"
+      - "vercel.json"
+      - ".github/workflows/web-delivery.yml"
+  push:
+    branches: [master]
+    paths:
+      - "src/**"
+      - "scenes/**"
+      - "data/**"
+      - "contracts/**"
+      - "tests/**"
+      - "project.godot"
+      - "export_presets.cfg"
+      - "infra/cloudflare/**"
+      - "tools/build_web.sh"
+      - "tools/prepare_web_artifact.mjs"
+      - "tools/prepare_vercel_output.mjs"
+      - "wrangler.jsonc"
+      - "vercel.json"
+      - ".github/workflows/web-delivery.yml"
+  workflow_dispatch:
+    inputs:
+      publish:
+        description: "Publish the verified artifact (default: no deployment)"
+        required: true
+        default: none
+        type: choice
+        options: [none, cloudflare, vercel, both]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: mememom-web-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  build:
+    name: Test, export and inspect exact-head artifact
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Cache pinned Godot export templates
+        id: template-cache
+        uses: actions/cache@v4
+        with:
+          path: ~/.local/share/godot/export_templates/4.7.2.stable
+          key: mememom-godot-export-templates-4.7.2-v1
+
+      - name: Install pinned Godot engine
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p "$RUNNER_TEMP/godot"
+          curl -fsSL --retry 3 -o "$RUNNER_TEMP/godot.zip" \
+            "https://github.com/godotengine/godot/releases/download/4.7.2-stable/Godot_v4.7.2-stable_linux.x86_64.zip"
+          echo "cadd3204e728a35d3f13adb7fd0d7902636b79f6b95c40c265eb73b6c35329e4  $RUNNER_TEMP/godot.zip" | sha256sum -c -
+          unzip -q "$RUNNER_TEMP/godot.zip" -d "$RUNNER_TEMP/godot"
+          chmod +x "$RUNNER_TEMP/godot/Godot_v4.7.2-stable_linux.x86_64"
+          echo "GODOT_BIN=$RUNNER_TEMP/godot/Godot_v4.7.2-stable_linux.x86_64" >> "$GITHUB_ENV"
+
+      - name: Install export templates on cache miss
+        if: steps.template-cache.outputs.cache-hit != 'true'
+        shell: bash
+        run: |
+          set -euo pipefail
+          curl -fsSL --retry 3 -o "$RUNNER_TEMP/templates.tpz" \
+            "https://github.com/godotengine/godot/releases/download/4.7.2-stable/Godot_v4.7.2-stable_export_templates.tpz"
+          unzip -q "$RUNNER_TEMP/templates.tpz" -d "$RUNNER_TEMP/templates"
+          mkdir -p "$HOME/.local/share/godot/export_templates/4.7.2.stable"
+          cp -R "$RUNNER_TEMP/templates/templates/." "$HOME/.local/share/godot/export_templates/4.7.2.stable/"
+
+      - name: Verify tests and scene smoke
+        shell: bash
+        run: |
+          set -euo pipefail
+          "$GODOT_BIN" --version
+          "$GODOT_BIN" --headless --path . --import
+          "$GODOT_BIN" --headless --path . --script res://tests/run_tests.gd 2>&1 | tee mm04.log
+          grep -q "MM-04 HEADLESS GATES PASS" mm04.log
+          grep -Eq "MM-04 checks: [1-9][0-9]+, failures: 0" mm04.log
+          "$GODOT_BIN" --headless --path . --script res://tests/run_mm05_tests.gd 2>&1 | tee mm05.log
+          grep -q "MM-05 HEADLESS GATES PASS" mm05.log
+          grep -Eq "MM-05 checks: [1-9][0-9]+, failures: 0" mm05.log
+          "$GODOT_BIN" --headless --path . --quit-after 2 2>&1 | tee smoke.log
+          "$GODOT_BIN" --headless --path . res://scenes/Collection.tscn --quit-after 2 2>&1 | tee collection-smoke.log
+          ! grep -E "SCRIPT ERROR|Failed to load script|Compile Error|Parse Error|Invalid call|Invalid access" mm04.log mm05.log smoke.log collection-smoke.log
+
+      - name: Export once and enforce metadata and free-tier file limits
+        shell: bash
+        run: |
+          set -euo pipefail
+          bash tools/build_web.sh
+          node tools/prepare_web_artifact.mjs
+          node tools/prepare_vercel_output.mjs
+          test -s .vercel/output/config.json
+          test -s .vercel/output/static/index.wasm
+          test -s web/index.wasm.br
+          test -s web/index.wasm.gz
+          test -s web/.assetsignore
+
+      - name: Upload verified artifact only
+        uses: actions/upload-artifact@v4
+        with:
+          name: mememom-web-${{ github.sha }}
+          path: web/
+          include-hidden-files: true
+          if-no-files-found: error
+          retention-days: 1
+
+  cloudflare:
+    name: Publish once to Cloudflare Workers Static Assets
+    needs: build
+    if: ${{ (github.event_name == 'workflow_dispatch' && (inputs.publish == 'cloudflare' || inputs.publish == 'both')) || (github.event_name == 'push' && vars.CLOUDFLARE_AUTO_DEPLOY == 'true') }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - uses: actions/download-artifact@v4
+        with:
+          name: mememom-web-${{ github.sha }}
+          path: web/
+      - name: Gate missing account setup
+        run: |
+          test -n "$CLOUDFLARE_API_TOKEN" || { echo "Missing CLOUDFLARE_API_TOKEN"; exit 1; }
+          test -n "$CLOUDFLARE_ACCOUNT_ID" || { echo "Missing CLOUDFLARE_ACCOUNT_ID"; exit 1; }
+          test -s web/.assetsignore
+          test -s web/index.wasm.br
+      - name: Deploy verified assets without rebuilding Godot
+        run: npx --yes wrangler@4.147.0 deploy
+
+  vercel:
+    name: Optional on-demand Vercel backup
+    needs: build
+    if: ${{ github.event_name == 'workflow_dispatch' && (inputs.publish == 'vercel' || inputs.publish == 'both') }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+      VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+      VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - uses: actions/download-artifact@v4
+        with:
+          name: mememom-web-${{ github.sha }}
+          path: web/
+      - name: Gate missing project setup
+        run: |
+          test -n "$VERCEL_TOKEN" || { echo "Missing VERCEL_TOKEN"; exit 1; }
+          test -n "$VERCEL_ORG_ID" || { echo "Missing VERCEL_ORG_ID"; exit 1; }
+          test -n "$VERCEL_PROJECT_ID" || { echo "Missing VERCEL_PROJECT_ID"; exit 1; }
+      - name: Repackage identical verified Web artifact for Vercel
+        run: |
+          node tools/prepare_vercel_output.mjs
+          mkdir -p .vercel
+          node -e 'require("fs").writeFileSync(".vercel/project.json",JSON.stringify({orgId:process.env.VERCEL_ORG_ID,projectId:process.env.VERCEL_PROJECT_ID}))'
+      - name: Deploy prebuilt static output, no remote build
+        run: npx --yes vercel@latest deploy --prebuilt --prod --yes --token="$VERCEL_TOKEN"

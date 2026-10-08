@@ -121,6 +121,8 @@ func _run() -> void:
 	low_meme["cards"] = revised
 	_assert(validator.validate_deck(low_meme, min_catalog)["code"] == "DECK_MIN_MEMEMOM", "minimum eight Mememom enforced")
 
+	_assert(model.create_deck("secondary", "Second deck")["ok"], "create second named deck")
+	_assert(model.add_card("secondary", ids[0])["ok"], "different deck may reuse owned cards")
 	var store = CollectionStore.new()
 	var path := "user://mm05-tests/profile.json"
 	var profile: Dictionary = model.export_profile()
@@ -131,6 +133,7 @@ func _run() -> void:
 	var other = CollectionModel.new()
 	other.load_definitions(data["cards"])
 	_assert(other.import_profile(loaded["profile"])["ok"], "import verified profile")
+	_assert(other.decks.size() == 2, "multiple named decks survive persistence")
 	_assert(JSON.stringify(other.export_profile()) == JSON.stringify(profile), "profile round-trip deterministic")
 	_assert(other.selected_edition_ids()["ok"], "selected deck survives restart")
 	var before := JSON.stringify(other.export_profile())
@@ -143,7 +146,11 @@ func _run() -> void:
 	_assert(other.import_profile(broken)["code"] == "UNKNOWN_CARD_EDITION", "invalid saved edition rejected")
 	_assert(JSON.stringify(other.export_profile()) == before, "rejected bad deck does not mutate state")
 	_assert(model.remove_card("alpha", ids[0])["ok"], "remove drafted edition")
-	_assert(model.selected_deck_id.is_empty(), "edit invalidates previous selection")
+	_assert(model.selected_deck_id.is_empty(), "remove invalidates previous selection")
+	_assert(model.select_deck("alpha")["code"] == "DECK_SIZE_INVALID", "edited deck must be legal to reselect")
+	_assert(model.add_card("alpha", ids[0])["ok"], "restore missing card to draft")
+	_assert(model.selected_deck_id.is_empty(), "add cannot silently restore selection")
+	_assert(model.select_deck("alpha")["ok"], "repaired deck can be selected")
 
 	var temp = FileAccess.open(path, FileAccess.WRITE)
 	if temp != null:

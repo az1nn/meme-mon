@@ -123,8 +123,10 @@ func import_profile(profile: Dictionary) -> Dictionary:
 		return {"ok": false, "code": "SCHEMA_INVALID"}
 	var next_owned: Dictionary = profile["owned"].duplicate(true)
 	for edition_id in next_owned:
-		if not catalog.has(edition_id) or typeof(next_owned[edition_id]) != TYPE_INT or int(next_owned[edition_id]) < 0:
+		var quantity = next_owned[edition_id]
+		if not catalog.has(edition_id) or typeof(quantity) not in [TYPE_INT, TYPE_FLOAT] or float(quantity) < 0.0 or floor(float(quantity)) != float(quantity):
 			return {"ok": false, "code": "SCHEMA_INVALID"}
+		next_owned[edition_id] = int(quantity)
 	var next_decks: Dictionary = {}
 	for raw in profile["decks"]:
 		if typeof(raw) != TYPE_DICTIONARY:

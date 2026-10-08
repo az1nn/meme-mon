@@ -42,3 +42,9 @@ jobs:
           set -o pipefail
           godot --headless --path . --quit-after 2 2>&1 | tee smoke.log
           ! grep -E "SCRIPT ERROR|Failed to load script|Compile Error|Parse Error|Invalid call|Invalid access" smoke.log
+
+      - name: Collection scene smoke boot
+        run: |
+          set -o pipefail
+          godot --headless --path . res://scenes/Collection.tscn --quit-after 2 2>&1 | tee collection-smoke.log
+          ! grep -E "SCRIPT ERROR|Failed to load script|Compile Error|Parse Error|Invalid call|Invalid access" collection-smoke.log

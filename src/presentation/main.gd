@@ -2,6 +2,10 @@ extends Node
 
 const DuelEngine = preload("res://src/domain/duel_engine.gd")
 const DeterministicBot = preload("res://src/domain/bot.gd")
+const CollectionModel = preload("res://src/domain/collection_model.gd")
+const CollectionStore = preload("res://src/data/collection_store.gd")
+const DeckValidator = preload("res://src/domain/deck_validator.gd")
+const PROFILE_PATH := "user://mememom/profile.json"
 
 var engine = DuelEngine.new()
 var bot = DeterministicBot.new("p2")
@@ -9,16 +13,48 @@ var status_label: Label
 var event_label: Label
 
 func _ready() -> void:
+	_build_ui()
 	var load_result: Dictionary = engine.load_card_file("res://data/cards/alpha-test-cards.json")
 	if not load_result["ok"]:
-		push_error("Card load failed: %s" % load_result)
+		status_label.text = "Card load blocked: %s" % load_result["code"]
+		push_error(status_label.text)
 		return
 	var deck: Array = _demo_deck()
-	var started: Dictionary = engine.new_match(123456789, deck, deck, "p1")
-	if not started["ok"]:
-		push_error("Match start failed: %s" % started)
+	var draft_refs: Array = []
+	for edition_id in deck:
+		draft_refs.append({"card_id": str(engine.cards[edition_id]["card_id"]), "edition_id": edition_id})
+	var fallback: Dictionary = {"schema_version": "alpha-0.1", "rules_version": "alpha-0.1", "deck_id": "local-demo", "format_id": "alpha-0.1", "cards": draft_refs}
+	var legal: Dictionary = DeckValidator.new().validate_deck(fallback, engine.cards)
+	if not legal["ok"]:
+		status_label.text = "Demo deck rejected: %s" % legal["code"]
+		push_error(status_label.text)
 		return
-	_build_ui()
+	if FileAccess.file_exists(PROFILE_PATH):
+		var stored: Dictionary = CollectionStore.new().load_profile(PROFILE_PATH)
+		if not stored["ok"]:
+			status_label.text = "Local profile rejected: %s" % stored["code"]
+			return
+		var model = CollectionModel.new()
+		var fixture = JSON.parse_string(FileAccess.get_file_as_string("res://data/cards/alpha-test-cards.json"))
+		var catalog_result: Dictionary = model.load_definitions(fixture["cards"])
+		if not catalog_result["ok"]:
+			status_label.text = "Catalog rejected: %s" % catalog_result["code"]
+			return
+		var imported: Dictionary = model.import_profile(stored["profile"])
+		if not imported["ok"]:
+			status_label.text = "Profile rejected: %s" % imported["code"]
+			return
+		if not model.selected_deck_id.is_empty():
+			var selected: Dictionary = model.selected_edition_ids()
+			if not selected["ok"]:
+				status_label.text = "Selected deck rejected: %s" % selected["code"]
+				return
+			deck = selected["edition_ids"]
+	var started: Dictionary = engine.new_match(123456789, deck, _demo_deck(), "p1")
+	if not started["ok"]:
+		status_label.text = "Match start blocked: %s" % started["code"]
+		push_error(status_label.text)
+		return
 	_render()
 
 func _build_ui() -> void:
@@ -35,7 +71,7 @@ func _build_ui() -> void:
 	root.add_child(status_label)
 	var actions: HBoxContainer = HBoxContainer.new()
 	root.add_child(actions)
-	for spec in [["Attack", "_on_attack"], ["Play first card", "_on_play"], ["Pass", "_on_pass"], ["Run bot-vs-bot", "_on_autorun"]]:
+	for spec in [["Attack", "_on_attack"], ["Play first card", "_on_play"], ["Pass", "_on_pass"], ["Run bot-vs-bot", "_on_autorun"], ["Collection / Deckbuilder", "_on_collection"]]:
 		var button: Button = Button.new()
 		button.text = spec[0]
 		button.pressed.connect(Callable(self, spec[1]))
@@ -56,12 +92,19 @@ func _intent(kind: String, payload: Dictionary = {}) -> Dictionary:
 		"payload": payload
 	}
 
+func _on_collection() -> void:
+	get_tree().change_scene_to_file("res://scenes/Collection.tscn")
+
 func _on_attack() -> void:
+	if engine.state.is_empty():
+		return
 	engine.apply_intent(_intent("attack"))
 	_drive_bot_if_needed()
 	_render()
 
 func _on_play() -> void:
+	if engine.state.is_empty():
+		return
 	var p: Dictionary = engine.state["players"]["p1"]
 	if not p["hand"].is_empty():
 		engine.apply_intent(_intent("play_card", {"hand_index": 0}))
@@ -69,11 +112,15 @@ func _on_play() -> void:
 	_render()
 
 func _on_pass() -> void:
+	if engine.state.is_empty():
+		return
 	engine.apply_intent(_intent("pass"))
 	_drive_bot_if_needed()
 	_render()
 
 func _on_autorun() -> void:
+	if engine.state.is_empty():
+		return
 	var human_bot = DeterministicBot.new("p1")
 	var guard: int = 0
 	while engine.state["terminal"] == null and guard < 500:

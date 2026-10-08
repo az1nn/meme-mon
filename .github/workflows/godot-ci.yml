@@ -30,6 +30,13 @@ jobs:
           ! grep -E "SCRIPT ERROR|Failed to load script|Compile Error|Parse Error|Invalid call|Invalid access" tests.log
           grep -q "MM-04 HEADLESS GATES PASS" tests.log
           grep -Eq "MM-04 checks: [1-9][0-9]+, failures: 0" tests.log
+      - name: MM-05 collection and deckbuilder regressions
+        run: |
+          set -o pipefail
+          godot --headless --path . --script res://tests/run_mm05_tests.gd 2>&1 | tee mm05-tests.log
+          ! grep -E "SCRIPT ERROR|Failed to load script|Compile Error|Parse Error|Invalid call|Invalid access" mm05-tests.log
+          grep -q "MM-05 HEADLESS GATES PASS" mm05-tests.log
+          grep -Eq "MM-05 checks: [1-9][0-9]+, failures: 0" mm05-tests.log
       - name: Main scene smoke boot
         run: |
           set -o pipefail

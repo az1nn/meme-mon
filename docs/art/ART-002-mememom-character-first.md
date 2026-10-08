@@ -42,7 +42,7 @@ Recommended palette as exploration, not a standard: cream `#FFF4DC`, cobalt `#27
 
 - [x] Reconcile repository and ART-001 reject.
 - [x] Write distinct ART-002 concept contract on isolated branch.
-- [ ] Produce and display a **rendered image in chat**; previous SVG-on-GitHub failure must not recur.
+- [x] Produce and display a **rendered PNG in chat**; previous SVG-on-GitHub failure must not recur. This is a chat attachment, **not** a GitHub binary asset or Godot screenshot. Manual render is the valid reference; an earlier off-scope automatic image was disqualified.
 - [ ] Human approves/rejects/revises concept after seeing the image.
 - [ ] Upon approval only: open bounded Godot SCENE/ART implementation spec, capture real runtime before/after screenshot, test controls, run exact-head CI.
 - [ ] Do not merge the proposal as an adopted baseline before its human gate.

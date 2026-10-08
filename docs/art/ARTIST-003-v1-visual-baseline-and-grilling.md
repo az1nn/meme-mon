@@ -1,6 +1,6 @@
 # ARTIST-003 — V1 visual baseline and battle-character grilling
 
-**Status:** VISUAL BASELINE APPROVED; G1 CARD-FIRST + G2 HYBRID + G3 IMAGE/VIDEO + G4 IDLE-ONLY VIDEO PROVISIONALLY SELECTED; G5 OPEN  
+**Status:** VISUAL BASELINE APPROVED; G1 CARD-FIRST + G2 HYBRID + G3 IMAGE/VIDEO + G4 IDLE-ONLY VIDEO + G5 HYBRID SEQUENCER PROVISIONALLY SELECTED; G6 OPEN  
 **Date:** 2026-10-08  
 **Scope:** Mememom; Godot-only runtime; documentation/art-direction decision record.
 
@@ -16,6 +16,7 @@
 | Card animation architecture | G2 — PROVISIONAL: D / HYBRID | Reusable modular animations are the default; special cards may have curated unique visual animations. No arbitrary gameplay code embedded in card assets. |
 | Accepted animation media | G3 — PROVISIONAL: C / STILL + VIDEO | Still art plus curated GIF/video sources through validated conversion/optimization before Godot runtime use, always with still-frame fallback. |
 | Runtime video use | G4 — PROVISIONAL: A / IDLE LOOP ONLY | Optional looping animation within the currently Active card; attack, hit, KO and special-action effects use Godot's shared animation/VFX system, not event-specific video clips. |
+| Visual event synchronization | G5 — PROVISIONAL: C / HYBRID EVENT SEQUENCER | Critical combat beats are presented in canonical event order; lightweight idle loops and ambient UI can continue asynchronously. Visual playback never mutates or blocks deterministic game rules. |
 
 ## Original generated reference asset
 
@@ -111,16 +112,27 @@ This decision does not override MM-02 rules. Further gates: accepted media categ
 - **Authority:** Active card identity and combat events derive from domain state and ordered `MatchEvent` emissions; the presentation independently runs/stops optional idle video and transient VFX. Decoding, animation duration, looping and visual errors must never block rule resolution.
 - **Open engineering details:** Loop codec/texture path, initial poster frames, playback budgets, mobile/web compatibility, effect preset mapping, sound, reduced motion and transition handling.
 
-### G5 — Visual event synchronization (OPEN)
+### G5 — Visual event synchronization (2026-10-08)
 
-**Question:** How should Godot sequence attacks, hits, KO and transitions relative to the deterministic `MatchEvent` stream, given that optional card video only loops at idle?
+- **Answer:** C — Hybrid event sequencer.
+- **State:** PROVISIONAL / explicitly selected by user during grilling. This is a presentation contract direction, not a claim that the sequencer has been implemented.
+- **Core causality:** The presentation consumes canonical, monotonically ordered `MatchEvent` events and stages critical attack → damage → KO → replacement beats in the same logical order, with stable event-to-effect mapping.
+- **Concurrent presentation:** Card idle-loop video (G4), non-causal ambience and UI decoration may run asynchronously; they cannot preempt or reorder critical combat beats.
+- **Logic authority:** Deterministic match resolution, RNG and state transitions remain entirely within the existing domain. The event presentation queue is not a second rule engine, must not generate authoritative events, and cannot block logical resolution on video decoding, tweens, particle systems or audio.
+- **Accessibility/resilience:** Effects must have bounded duration, fast-forward or skip affordances, reduced-motion alternatives, still-card fallback, safe catch-up after delayed/unavailable assets, and clear readable KO/damage states. Exact durations and input-lock strategy remain open engineering details.
+- **Rendering edge cases to specify and test:** simultaneous KOs and draw results, chained triggers, forced replacement, terminal results, replay seeking, out-of-date visual queues and app background/foreground interruptions. Never alter the canonical event order to make the effects look better.
+- **Preserved decisions:** G1 D Card-first; G2 D Hybrid authored+shared VFX; G3 C image/video source inputs with conversion; G4 A video as optional idle animation only.
 
-- **A — Fully sequential:** Every visual effect queues strictly after the previous effect and the game waits for that sequence before allowing more visual inputs; straightforward but can feel slow.
-- **B — Fully asynchronous:** Every event launches independent effects immediately; responsive but may visually overlap, reorder or obscure cause and effect.
-- **C — Hybrid event sequencer:** Keep critical attack → damage → KO/replacement visual beats in authoritative event order, while lightweight idle loops/HUD ambience remain asynchronous; bound durations, allow fast-forward/reduced-motion and immediately catch up when animation is unavailable. Logic does not wait for decoding/playback.
-- **D — Player-paced timeline:** Combat pauses presentation between major effects until the player advances or confirms each beat; more deliberate but increases friction.
+### G6 — Concurrent idle-loop playback and mobile performance (OPEN)
 
-**ARTIST + ARCH recommendation (NOT ACCEPTED):** C — ordered visual causality with responsive, nonblocking presentation and resilient replay-friendly mapping. Exact timing budgets and input policies are subsequent gates.
+**Question:** In a duel with two visible Active cards, how should optional idle-video loops use device resources?
+
+- **A — One loop at a time:** Only one focused/foreground Active card may animate with video; the other remains on its static poster frame. Simplest mobile performance budget, less visual symmetry.
+- **B — Two loops:** Both Active cards may animate at the same time if they have approved media. Fixed two-stream design, easier visual symmetry but heavier resource requirements.
+- **C — Adaptive tier:** Allow up to two idle loops on measured/supported high-capability devices, automatically degrade to one loop or fully static presentation on constrained/mobile-web devices. Provide an explicit reduce-motion/static override. No game-state dependence on tier.
+- **D — Manual quality setting only:** Players configure 0, 1 or 2 loops themselves; no automatic runtime adaptation. Predictable configuration but manual burden.
+
+**ARTIST + ARCH recommendation (NOT ACCEPTED):** C, with a hard cap of two loops and measured quality gates on the actual Godot web/mobile runtime; do not assume hardware/codec support before testing. The approved G5 sequencer continues to work identically in all presentation tiers.
 
 ## References
 
@@ -133,4 +145,4 @@ This decision does not override MM-02 rules. Further gates: accepted media categ
 
 ## Verification
 
-Documentation-only. G1–G4 were explicitly selected provisionally and documented; G5 and later grilling gates remain open. This does not establish implemented media playback or engine behavior. The binary import is still pending. No claim of image upload, accepted meme characters, battle-feature completion, or runtime-test result is made.
+Documentation-only. G1–G5 were explicitly selected provisionally and documented; G6 and later grilling gates remain open. This does not establish implemented media playback or engine behavior. The binary import is still pending. No claim of image upload, accepted meme characters, battle-feature completion, or runtime-test result is made.

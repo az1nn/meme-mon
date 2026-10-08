@@ -57,7 +57,7 @@ for (const filename of fs.readdirSync(dir)) {
   }
 }
 
-const commit = process.env.GITHUB_SHA || execFileSync("git", ["rev-parse", "HEAD"], { cwd: root, encoding: "utf8" }).trim();
+const commit = execFileSync("git", ["rev-parse", "HEAD"], { cwd: root, encoding: "utf8" }).trim();
 const manifest = {
   schema: "mememom-web-v1",
   source_commit: commit,

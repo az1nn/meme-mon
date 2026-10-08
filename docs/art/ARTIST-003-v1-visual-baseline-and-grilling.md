@@ -1,6 +1,6 @@
 # ARTIST-003 — V1 visual baseline and battle-character grilling
 
-**Status:** VISUAL BASELINE APPROVED; G1 CARD-FIRST + G2 HYBRID + G3 IMAGE/VIDEO + G4 IDLE-ONLY VIDEO + G5 HYBRID SEQUENCER PROVISIONALLY SELECTED; G6 OPEN  
+**Status:** VISUAL BASELINE APPROVED; G1 CARD-FIRST + G2 HYBRID + G3 IMAGE/VIDEO + G4 IDLE-ONLY VIDEO + G5 HYBRID SEQUENCER + G6 MANUAL 0/1/2 VIDEO PROVISIONALLY SELECTED; G7 OPEN  
 **Date:** 2026-10-08  
 **Scope:** Mememom; Godot-only runtime; documentation/art-direction decision record.
 
@@ -17,6 +17,7 @@
 | Accepted animation media | G3 — PROVISIONAL: C / STILL + VIDEO | Still art plus curated GIF/video sources through validated conversion/optimization before Godot runtime use, always with still-frame fallback. |
 | Runtime video use | G4 — PROVISIONAL: A / IDLE LOOP ONLY | Optional looping animation within the currently Active card; attack, hit, KO and special-action effects use Godot's shared animation/VFX system, not event-specific video clips. |
 | Visual event synchronization | G5 — PROVISIONAL: C / HYBRID EVENT SEQUENCER | Critical combat beats are presented in canonical event order; lightweight idle loops and ambient UI can continue asynchronously. Visual playback never mutates or blocks deterministic game rules. |
+| Idle-loop resource allocation | G6 — PROVISIONAL: D / MANUAL 0–2 | Player sets a maximum of 0, 1 or 2 simultaneous Active-card idle clips; no automatic quality-tier switching. Visual failure remains nonblocking and uses a static fallback. |
 
 ## Original generated reference asset
 
@@ -123,16 +124,29 @@ This decision does not override MM-02 rules. Further gates: accepted media categ
 - **Rendering edge cases to specify and test:** simultaneous KOs and draw results, chained triggers, forced replacement, terminal results, replay seeking, out-of-date visual queues and app background/foreground interruptions. Never alter the canonical event order to make the effects look better.
 - **Preserved decisions:** G1 D Card-first; G2 D Hybrid authored+shared VFX; G3 C image/video source inputs with conversion; G4 A video as optional idle animation only.
 
-### G6 — Concurrent idle-loop playback and mobile performance (OPEN)
+### G6 — Manual idle-loop count (2026-10-08)
 
-**Question:** In a duel with two visible Active cards, how should optional idle-video loops use device resources?
+- **Answer:** D — Manual quality setting only.
+- **State:** PROVISIONAL / user-selected during grilling; not yet an implemented settings UI or an accepted performance certification.
+- **Player-facing option:** Allow explicit selection of **0, 1 or 2 concurrent idle-video loops** in the game's graphics/accessibility settings. The value is an upper bound, not a guarantee that every card has a playable loop.
+- **0 loops:** Both Active cards display approved static poster artwork; canonical combat effects and game logic are unchanged.
+- **1 loop:** At most one of the two Active cards may play its optional idle loop; the other uses the static poster. **G7 will decide which card gets priority.**
+- **2 loops:** Both Active cards may play optional idle loops where the source media is valid and the runtime supports playback.
+- **Manual control:** No automatic capability-based quality tier switching or silent changes to the user's selected 0/1/2 setting. A playback failure, unsupported format, user-enabled reduced motion or missing media must gracefully display a static image without altering stored user preference, match logic or replay.
+- **Runtime constraints:** Hard cap of two active video instances; cleanly start/stop/unload clips as Active identities change. Prevent queued cards or offscreen items from spawning idle-video decoders. Avoid blocking the ordered G5 event queue while media is loading/decoding.
+- **Persistence and compatibility to spec:** Decide default, local preference versioning, cross-platform decode support, pause/resume behavior, testing budget and exact poster fallback during implementation planning. Verify on Godot desktop/web/mobile before marking this feature complete.
+- **Preserved approvals:** G1 D Card-first; G2 D Hybrid animation templates + selected custom VFX; G3 C still image + GIF/video as import sources; G4 A video idle-only; G5 C hybrid sequencer.
 
-- **A — One loop at a time:** Only one focused/foreground Active card may animate with video; the other remains on its static poster frame. Simplest mobile performance budget, less visual symmetry.
-- **B — Two loops:** Both Active cards may animate at the same time if they have approved media. Fixed two-stream design, easier visual symmetry but heavier resource requirements.
-- **C — Adaptive tier:** Allow up to two idle loops on measured/supported high-capability devices, automatically degrade to one loop or fully static presentation on constrained/mobile-web devices. Provide an explicit reduce-motion/static override. No game-state dependence on tier.
-- **D — Manual quality setting only:** Players configure 0, 1 or 2 loops themselves; no automatic runtime adaptation. Predictable configuration but manual burden.
+### G7 — Priority when the manual setting is 1 video (OPEN)
 
-**ARTIST + ARCH recommendation (NOT ACCEPTED):** C, with a hard cap of two loops and measured quality gates on the actual Godot web/mobile runtime; do not assume hardware/codec support before testing. The approved G5 sequencer continues to work identically in all presentation tiers.
+**Question:** When the player configures exactly one simultaneous idle loop, which Active card gets that single animated slot?
+
+- **A — Player's card:** Always prioritize the local player's own Active card; opponent stays on a static poster. If that card has no eligible video, the single slot remains unused unless a later rule explicitly allows fallback priority.
+- **B — Current turn owner:** Animate the Active card of whichever player has the turn; switch the slot between sides when turn ownership changes.
+- **C — Focused card:** Animate the currently selected/inspected Active card; when none is selected, prioritize the player's own card.
+- **D — Player-selected side:** Include a second preference choosing self vs opponent (possibly adjustable mid-duel), with static fallback if no eligible loop.
+
+**ARTIST + ARCH recommendation (NOT ACCEPTED):** A is predictable, accessible, inexpensive and avoids decoders switching sides every turn. If the user prefers dynamic attention cues, B is also feasible. No selection has been made for G7.
 
 ## References
 
@@ -145,4 +159,4 @@ This decision does not override MM-02 rules. Further gates: accepted media categ
 
 ## Verification
 
-Documentation-only. G1–G5 were explicitly selected provisionally and documented; G6 and later grilling gates remain open. This does not establish implemented media playback or engine behavior. The binary import is still pending. No claim of image upload, accepted meme characters, battle-feature completion, or runtime-test result is made.
+Documentation-only. G1–G6 were explicitly selected provisionally and documented; G7 and later grilling gates remain open. This does not establish implemented media playback or engine behavior. The binary import is still pending. No claim of image upload, accepted meme characters, battle-feature completion, or runtime-test result is made.

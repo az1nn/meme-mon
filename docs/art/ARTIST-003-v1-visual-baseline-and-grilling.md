@@ -1,6 +1,6 @@
 # ARTIST-003 — V1 visual baseline and battle-character grilling
 
-**Status:** VISUAL BASELINE APPROVED; G1 CARD-FIRST + G2 HYBRID + G3 IMAGE/VIDEO + G4 IDLE-ONLY VIDEO + G5 HYBRID SEQUENCER + G6 MANUAL 0/1/2 VIDEO + G7 TURN-OWNER PRIORITY PROVISIONALLY SELECTED; G8 OPEN  
+**Status:** VISUAL BASELINE APPROVED; G1 CARD-FIRST + G2 HYBRID + G3 IMAGE/VIDEO + G4 IDLE-ONLY VIDEO + G5 HYBRID SEQUENCER + G6 MANUAL 0/1/2 VIDEO + G7 TURN-OWNER PRIORITY + G8 DEFAULT ZERO VIDEO PROVISIONALLY SELECTED; G9 OPEN  
 **Date:** 2026-10-08  
 **Scope:** Mememom; Godot-only runtime; documentation/art-direction decision record.
 
@@ -19,6 +19,7 @@
 | Visual event synchronization | G5 — PROVISIONAL: C / HYBRID EVENT SEQUENCER | Critical combat beats are presented in canonical event order; lightweight idle loops and ambient UI can continue asynchronously. Visual playback never mutates or blocks deterministic game rules. |
 | Idle-loop resource allocation | G6 — PROVISIONAL: D / MANUAL 0–2 | Player sets a maximum of 0, 1 or 2 simultaneous Active-card idle clips; no automatic quality-tier switching. Visual failure remains nonblocking and uses a static fallback. |
 | One-slot video priority | G7 — PROVISIONAL: B / TURN OWNER | When set to 1, the current turn owner's Active card gets the optional idle-video slot, switching on authoritative turn change, with static fallback. |
+| Initial idle-video preference | G8 — PROVISIONAL: A / ZERO VIDEOS | New profiles initialize with zero idle-video loops; the player can explicitly enable one or two via the manual setting. Shared Godot attack/hit/KO VFX remain available. |
 
 ## Original generated reference asset
 
@@ -135,7 +136,7 @@ This decision does not override MM-02 rules. Further gates: accepted media categ
 - **2 loops:** Both Active cards may play optional idle loops where the source media is valid and the runtime supports playback.
 - **Manual control:** No automatic capability-based quality tier switching or silent changes to the user's selected 0/1/2 setting. A playback failure, unsupported format, user-enabled reduced motion or missing media must gracefully display a static image without altering stored user preference, match logic or replay.
 - **Runtime constraints:** Hard cap of two active video instances; cleanly start/stop/unload clips as Active identities change. Prevent queued cards or offscreen items from spawning idle-video decoders. Avoid blocking the ordered G5 event queue while media is loading/decoding.
-- **Persistence and compatibility to spec:** Decide default, local preference versioning, cross-platform decode support, pause/resume behavior, testing budget and exact poster fallback during implementation planning. Verify on Godot desktop/web/mobile before marking this feature complete.
+- **Persistence and compatibility to spec:** G8 provisionally fixes the unset-profile default at **0 videos**. Local preference schema/versioning, cross-platform decode support, pause/resume behavior, testing budget and exact poster fallback remain implementation decisions. Verify on Godot desktop/web/mobile before marking this feature complete.
 - **Preserved approvals:** G1 D Card-first; G2 D Hybrid animation templates + selected custom VFX; G3 C still image + GIF/video as import sources; G4 A video idle-only; G5 C hybrid sequencer.
 
 ### G7 — Current turn video priority (2026-10-08)
@@ -150,16 +151,27 @@ This decision does not override MM-02 rules. Further gates: accepted media categ
 - **Accessibility / performance:** Preserve static fallback and reduced-motion overrides. No automatic quality-tier selection or automatic rewriting of the user's 0/1/2 setting.
 - **Preserved decisions:** G1 D Card-first; G2 D Hybrid; G3 C still image + animated video inputs; G4 A idle video only; G5 C hybrid event sequencer; G6 D manually selected 0/1/2 concurrent loops.
 
-### G8 — Initial idle-video preference (OPEN)
+### G8 — Default idle-video count (2026-10-08)
 
-**Question:** Which idle-video count should the game use for a player who has not yet chosen a manual setting?
+- **Answer:** A — 0 idle videos by default.
+- **State:** PROVISIONAL / explicitly selected by user during grilling; not yet an implemented settings screen or video decoder.
+- **First run / unset profile:** Initialize the graphics preference to **0 concurrent idle-video loops**. Both Active cards present approved still/poster images, without requiring a first-launch prompt or a playback capability check.
+- **Manual opt-in:** Players may explicitly choose **1** or **2** loops in settings per G6. For **1**, G7 still assigns priority to the current turn owner's Active card; for **2**, both Active cards are eligible if they have valid media. The choice persists using a future versioned preference contract; an unset profile is not equivalent to an explicit prior choice.
+- **Animation semantics:** Disabling **idle video** does **not** disable standard event-driven Godot attack/hit/KO animations from G2/G5. Reduced-motion accessibility must be handled separately and can suppress motion as required.
+- **No auto override:** Do not automatically change a saved 0/1/2 preference based on device heuristics. Failed media falls back to static without altering the selected setting or competitive events.
+- **Implementation gates:** Specify schema/storage location, default migration behavior, full Godot Web/mobile decode fallback and player-facing labels before claiming feature completion.
+- **Preserved decisions:** G1 D Card-first; G2 D Hybrid animations; G3 C image/video import; G4 A idle-video-only; G5 C hybrid event sequencing; G6 D manual 0/1/2 control; G7 B one-slot priority follows turn owner.
 
-- **A — 0 by default:** Launch in fully static idle-card mode; the player may enable 1 or 2 videos in settings.
-- **B — 1 by default:** Begin with exactly one permitted idle video for the current turn owner (G7), with a static fallback where playback is unavailable; users can manually select 0 or 2.
-- **C — 2 by default:** Start with both Active cards eligible to animate, subject to media support; users can manually select 0 or 1.
-- **D — First-launch selection:** Ask the player once to choose 0, 1 or 2 before the first duel, then persist their choice. Provide a clear, accessible 0-video option.
+### G9 — Initial meme-asset sourcing policy (OPEN)
 
-**ARTIST + ARCH recommendation (NOT ACCEPTED):** B minimizes onboarding friction while presenting the game's animated identity. Keep the chosen setting fully manual afterward; do not infer device capabilities or silently change the value. Exact persistence schema and initialization gate are implementation concerns.
+**Question:** Which sources of meme imagery should populate the curated, playable V1 starter catalog? This is separate from private Forge/Sandbox uploads and never waives rights, personality or trademark checks.
+
+- **A — Verified public-domain / CC0 only:** Starter catalog contains solely media with defensible public-domain status or valid CC0 from an authorized rights holder; no first-party original cards in the initial official pack.
+- **B — Public-domain / CC0 + original Mememom illustrations:** Mix verified reusable historical/public-domain meme material and first-party original creations designed for a trademark-distinct visual identity. Do not assume meme popularity establishes rights.
+- **C — Curated licensed third-party material too:** Include A/B sources plus explicitly licensed third-party meme imagery under documented distribution, adaptation and commercial-use permissions; higher review burden.
+- **D — No public starter meme pack initially:** Ship only neutral internal playable fixture art while collecting source-cleared suggestions through a private Sandbox; introduce a curated public pack after MM-07 governance gates.
+
+**ARTIST + LORE + ARCH recommendation (NOT ACCEPTED):** B provides a recognizable yet legally reviewable, original V1 identity without demanding external licenses for every card. In all options, require source URL/creator/rightsholder, license/evidence and trademark/likeness checks; **no unverified community uploads become public Canon**. Existing MM-06 private Forge and MM-07 provenance/moderation ordering remain binding.
 
 ## References
 
@@ -172,4 +184,4 @@ This decision does not override MM-02 rules. Further gates: accepted media categ
 
 ## Verification
 
-Documentation-only. G1–G7 were explicitly selected provisionally and documented; G8 and later grilling gates remain open. This does not establish implemented media playback or engine behavior. The binary import is still pending. No claim of image upload, accepted meme characters, battle-feature completion, or runtime-test result is made.
+Documentation-only. G1–G8 were explicitly selected provisionally and documented; G9 and later grilling gates remain open. This does not establish implemented media playback or engine behavior. The binary import is still pending. No claim of image upload, accepted meme characters, battle-feature completion, or runtime-test result is made.

@@ -33,6 +33,8 @@ func _ready() -> void:
 		var existing: Dictionary = store.load_profile(PROFILE_PATH)
 		if existing["ok"]:
 			existing = model.import_profile(existing["profile"])
+			if existing["ok"] and not model.selected_deck_id.is_empty():
+				active_deck_id = model.selected_deck_id
 		if not existing["ok"]:
 			initial_message = "Profile blocked: %s (no data overwritten)" % existing["code"]
 	else:

@@ -8,7 +8,10 @@ func load_profile(path: String) -> Dictionary:
 	if not FileAccess.file_exists(path):
 		return {"ok": false, "code": "FILE_NOT_FOUND"}
 	var content := FileAccess.get_file_as_string(path)
-	var parsed = JSON.parse_string(content)
+	var parser = JSON.new()
+	if parser.parse(content) != OK:
+		return {"ok": false, "code": "SCHEMA_INVALID"}
+	var parsed = parser.data
 	if typeof(parsed) != TYPE_DICTIONARY:
 		return {"ok": false, "code": "SCHEMA_INVALID"}
 	var profile: Dictionary = parsed

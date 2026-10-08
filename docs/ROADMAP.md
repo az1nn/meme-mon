@@ -8,8 +8,8 @@ The roadmap is ordered by dependency. SIGA should advance one verified unit at a
 | MM-02 | Alpha Duel Rules | DONE | Complete deterministic Alpha 0.1 rules contract |
 | MM-03 | Card Schema & Balance Budget | DONE | Versioned card/deck/event schemas and legal power budget |
 | MM-04 | Godot Duel Vertical Slice | DONE | Local duel with 20 test cards and deterministic bot |
-| MM-05 | Deckbuilder & Collection | NEXT | 30-card validation, filtering, save/load |
-| MM-06 | Meme Forge / Godot | PLANNED | Upload/crop/name/type/generated stats/private preview in Godot |
+| MM-05 | Deckbuilder & Collection | DONE | 30-card validation, filtering, save/load |
+| MM-06 | Meme Forge / Godot | NEXT | Upload/crop/name/type/generated stats/private preview in Godot |
 | MM-07 | UGC Provenance & Moderation | PLANNED | Rights metadata, reports and moderation state machine |
 | MM-08 | Canon & Set Versioning | PLANNED | Immutable editions and format legality |
 | MM-09 | Online Match Protocol | PLANNED | Authoritative intent/event protocol, reconnect and replay |
@@ -45,6 +45,8 @@ Do not pull MM-06 forward merely because the Forge is visually attractive. The F
 
 ## Current dependency edge
 
-MM-04 proves the Alpha 0.1 contract as an executable Godot game slice: fail-closed contract ingestion, deterministic intent/event resolution, replayable RNG, legal data cards, trigger waves, bot-vs-bot termination, a local presentation scene and hardened headless CI.
+MM-05 builds on the Alpha 0.1 Godot duel. Deck legality is a domain contract, with correct card_id/edition_id references, format validation, deterministic search, local ownership and versioned saved decks. The native Godot collection/deckbuilder screen can select a legal saved deck for a local duel without moving rules into UI code.
 
-MM-05 must now build deck construction and collection persistence on top of that proven duel boundary without moving rules truth into presentation code.
+MM-05 was validated against Godot 4.7.2 by 194 MM-04 regression checks and 94 new MM-05 checks with 0 failures, plus import/parser and both scene smoke gates (code HEAD 0876e331; final PR documentation-head CI remains required).
+
+MM-06 is the next dependency unit: add a Godot-only meme Forge that produces private Sandbox previews using constrained MM-03 budgets, without skipping MM-07 rights/provenance and moderation gates.

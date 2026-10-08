@@ -80,13 +80,22 @@ godot --headless --path . --script res://tests/run_tests.gd
 
 ## Current workstream
 
-MM-04 — Godot Duel Vertical Slice is complete and verified. Next: MM-05 — Deckbuilder & Collection.
+MM-05 — Deckbuilder & Collection is implemented and headless-verified. Next: MM-06 — Meme Forge / Godot.
+
+MM-05 adds:
+- DeckDefinition alpha-0.1 validation: exactly 30 cards, minimum 8 Mememom, maximum 2 copies per card ID across editions, maximum 2 Headliners, and format/version/owned-edition checks.
+- A local collection with stable search/filters, editable named decks, selection and persistence in `user://mememom/profile.json`.
+- A native Godot collection screen accessible from the duel via **Collection / Deckbuilder**. Choose **Play selected deck** to persist/validate a legal deck for the local duel.
+- Explicit rejection of corrupt or unsupported local profiles. Alpha fixture cards remain local test content, not Canon.
+- Headless regression suite `tests/run_mm05_tests.gd`, required alongside the original MM-04 suite.
 
 See:
 - `docs/specs/MM-01-product-foundation.md`
 - `docs/specs/MM-02-alpha-duel-rules.md`
 - `docs/specs/MM-03-card-schema-balance-budget.md`
 - `docs/specs/MM-04-godot-duel-vertical-slice.md`
+- `docs/specs/MM-05-deckbuilder-collection.md`
+- `docs/reports/MM-05-verification.md`
 - `contracts/schemas/`
 - `contracts/fixtures/`
 - `docs/ROADMAP.md`

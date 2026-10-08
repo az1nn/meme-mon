@@ -1,6 +1,6 @@
 # ARTIST-003 — V1 visual baseline and battle-character grilling
 
-**Status:** VISUAL BASELINE APPROVED; G1 CARD-FIRST + G2 HYBRID + G3 IMAGE/VIDEO PROVISIONALLY SELECTED; G4 OPEN  
+**Status:** VISUAL BASELINE APPROVED; G1 CARD-FIRST + G2 HYBRID + G3 IMAGE/VIDEO + G4 IDLE-ONLY VIDEO PROVISIONALLY SELECTED; G5 OPEN  
 **Date:** 2026-10-08  
 **Scope:** Mememom; Godot-only runtime; documentation/art-direction decision record.
 
@@ -15,6 +15,7 @@
 | Battle character representation | G1 — PROVISIONAL: D / CARD-FIRST | Animated illustrated cards are the on-screen combatants. No 3D character models required in V1. This is not a final engine specification. |
 | Card animation architecture | G2 — PROVISIONAL: D / HYBRID | Reusable modular animations are the default; special cards may have curated unique visual animations. No arbitrary gameplay code embedded in card assets. |
 | Accepted animation media | G3 — PROVISIONAL: C / STILL + VIDEO | Still art plus curated GIF/video sources through validated conversion/optimization before Godot runtime use, always with still-frame fallback. |
+| Runtime video use | G4 — PROVISIONAL: A / IDLE LOOP ONLY | Optional looping animation within the currently Active card; attack, hit, KO and special-action effects use Godot's shared animation/VFX system, not event-specific video clips. |
 
 ## Original generated reference asset
 
@@ -95,20 +96,31 @@ This decision does not override MM-02 rules. Further gates: accepted media categ
 - **State:** PROVISIONAL / selected by user during grilling; not yet a frozen media specification or a claim of implemented support.
 - **Accepted source-media direction:** PNG/WebP illustrations and curated GIF/video uploads, subject to source validation, provenance, applicable usage rights and publishing/moderation gates.
 - **Import/packaging boundary:** Input GIFs and video files must be normalized/transcoded during a controlled import/build step into explicitly supported and tested Godot presentation resources. No assumption that every GIF, codec or container plays natively in Godot; no unreviewed runtime codec dependencies, network video streaming or arbitrary media execution in V1.
-- **Runtime boundary:** Presentation-only media is selected/playback-controlled by Godot after authoritative ordered `MatchEvent` events. It must not affect logical action resolution, random outcomes, hitpoints, Trend, Hype, timing of legality checks or replay determinism.
+- **Runtime boundary:** Presentation-only media is started/stopped by Godot as the authoritative ordered `MatchEvent` stream changes Active card/state. G4 provisionally restricts videos to optional Active-card idle loops, not attack/KO event clips. It must not affect logical action resolution, random outcomes, hitpoints, Trend, Hype, timing of legality checks or replay determinism.
 - **Failure/accessibility behavior:** A still-card fallback must remain available for unsupported, unavailable, corrupted or disallowed motion content, and for reduced-motion settings. Engine state must not wait on successful media decoding.
-- **Not yet determined:** Specific output codec/runtime resource type, source limits, resolutions, loop handling, preloading, performance budgets, audio policy, clip lengths or exact battle playback triggers; decide through later gates and verify mobile/web export compatibility before implementation acceptance.
+- **Not yet determined:** Specific output codec/runtime resource type, source limits, resolutions, idle-loop timing, preloading, performance budgets, audio policy, clip lengths or exact event-to-VFX orchestration; decide through later gates and verify mobile/web export compatibility before implementation acceptance.
 
-### G4 — Where do animated videos appear in combat? (OPEN)
+### G4 — Idle card playback (2026-10-08)
 
-**Question:** How should video clips be used within the Card-first combat presentation? (This determines orchestration and performance expectations, not gameplay rules.)
+- **Answer:** A — Idle card animation only.
+- **State:** PROVISIONAL / selected by user during grilling. Not a claim of video-runtime support or implemented battle animations.
+- **Behavior:** The currently Active card can display an optional lightweight looping clip **inside the card frame** while active. Inactive/queued cards do not require simultaneous loop playback. Static media and reduced-motion fallback remain mandatory.
+- **Attack/hit/KO behavior:** Reusable Godot tweens, sprites, particles, shaders, HUD feedback and event-driven effects convey combat actions. No event-specific attack, damage or KO videos are required/authorized by this provisional V1 selection.
+- **Coexistence with G2 Hybrid:** Curated special cards can have distinct **Godot-authored motions/VFX/presets** or unique idle loops, without requiring attack-event video clips; a custom effect does not modify deterministic gameplay rules.
+- **Coexistence with G3 Still + Video:** GIF/video inputs remain allowable sources for optional idle loops after validation and compatible conversion; no assumption of direct native GIF or arbitrary codec playback in Godot 4.x.
+- **Authority:** Active card identity and combat events derive from domain state and ordered `MatchEvent` emissions; the presentation independently runs/stops optional idle video and transient VFX. Decoding, animation duration, looping and visual errors must never block rule resolution.
+- **Open engineering details:** Loop codec/texture path, initial poster frames, playback budgets, mobile/web compatibility, effect preset mapping, sound, reduced motion and transition handling.
 
-- **A — Idle card animation only:** an optional looping video lives inside an Active card; attacks/KO use common Godot motion and effects.
-- **B — Event clips only:** the Active card is normally a still image; short clips play only on events such as entrance, ability, attack, hit or KO.
-- **C — Hybrid contextual playback:** lightweight idle loops are optional, and short event-specific clips may play on impactful actions. Godot coordinates these with engine VFX; static fallback/reduced motion always works.
-- **D — Full cinematic sequences:** individual card assets may prescribe longer screen-dominating video sequences during battle; requires stronger timeline, budget and pacing governance.
+### G5 — Visual event synchronization (OPEN)
 
-**ARTIST + ARCH recommendation (NOT ACCEPTED):** C, with carefully bounded playback budgets and short skippable actions; visual playback never blocks or rewrites the deterministic rules.
+**Question:** How should Godot sequence attacks, hits, KO and transitions relative to the deterministic `MatchEvent` stream, given that optional card video only loops at idle?
+
+- **A — Fully sequential:** Every visual effect queues strictly after the previous effect and the game waits for that sequence before allowing more visual inputs; straightforward but can feel slow.
+- **B — Fully asynchronous:** Every event launches independent effects immediately; responsive but may visually overlap, reorder or obscure cause and effect.
+- **C — Hybrid event sequencer:** Keep critical attack → damage → KO/replacement visual beats in authoritative event order, while lightweight idle loops/HUD ambience remain asynchronous; bound durations, allow fast-forward/reduced-motion and immediately catch up when animation is unavailable. Logic does not wait for decoding/playback.
+- **D — Player-paced timeline:** Combat pauses presentation between major effects until the player advances or confirms each beat; more deliberate but increases friction.
+
+**ARTIST + ARCH recommendation (NOT ACCEPTED):** C — ordered visual causality with responsive, nonblocking presentation and resilient replay-friendly mapping. Exact timing budgets and input policies are subsequent gates.
 
 ## References
 
@@ -121,4 +133,4 @@ This decision does not override MM-02 rules. Further gates: accepted media categ
 
 ## Verification
 
-Documentation-only. G1, G2 and G3 were explicitly selected provisionally and documented; G4 and later grilling gates remain open. The binary import is still pending. No claim of image upload, accepted meme characters, battle-feature completion, or runtime-test result is made.
+Documentation-only. G1–G4 were explicitly selected provisionally and documented; G5 and later grilling gates remain open. This does not establish implemented media playback or engine behavior. The binary import is still pending. No claim of image upload, accepted meme characters, battle-feature completion, or runtime-test result is made.

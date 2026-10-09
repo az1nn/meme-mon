@@ -244,3 +244,7 @@ This decision does not override MM-02 rules. Further gates: accepted media categ
 ## Verification
 
 Documentation-only. The latest 2026-10-09 cartoon-first battle artwork has explicit visual approval, independently from the older structural reference. G1–G10 were selected provisionally and documented; any later grilling gates remain to be specified. Neither approved reference PNG binary is yet committed. This does not establish implemented media playback or engine behavior. No claim of image upload, accepted meme characters, battle-feature completion, or runtime-test result is made.
+
+## Screen-system ARTIST V1 approval — 2026-10-09 (follow-up)
+
+After rejecting off-style derivative preview exports, the owner explicitly **APPROVED** a newly rendered high-detail **V1 screen-concept contact sheet**. The versioned approval, exact source image hash and scope boundaries are recorded in [ARTIST-004](ARTIST-004-v1-screen-system-approved.md). This approval covers the **visual language and screen composition reference**, not each character, logo, added product feature or Godot runtime behavior. The existing approved tropical-rooftop battle scene remains a higher-detail visual reference for duel production; G1–G9 preserved and **G10 OPEN**. Original ARTIST-003 source binaries and new ARTIST-004 binary still need separately verified repository import.

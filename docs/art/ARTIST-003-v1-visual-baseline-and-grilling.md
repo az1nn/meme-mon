@@ -1,6 +1,6 @@
 # ARTIST-003 — V1 visual baseline and battle-character grilling
 
-**Status:** CARTOON-FIRST BATTLE MOCKUP APPROVED 2026-10-09; G1–G9 PRESERVED; G10 OPEN; IMAGE BINARY IMPORT PENDING  
+**Status:** CARTOON-FIRST BATTLE MOCKUP APPROVED 2026-10-09; G1–G10 PRESERVED; G11 NOT YET SPECIFIED; IMAGE BINARY IMPORT PENDING  
 **Date:** 2026-10-08  
 **Scope:** Mememom; Godot-only runtime; documentation/art-direction decision record.
 
@@ -219,7 +219,7 @@ This decision does not override MM-02 rules. Further gates: accepted media categ
 - **Preserved decisions:** G1 D Card-first; G2 D hybrid motion/VFX; G3 C images + imported GIF/video sources; G4 A idle-only video; G5 C event-sequenced critical effects; G6 D manual 0/1/2 loops; G7 B turn-owner priority for one loop; G8 A default zero videos.
 - **Implementation boundary:** Documentation/ARTIST direction only. MM-06 (Forge), MM-07 (provenance/moderation) and MM-08 (Canon/editions) preserve their separate dependency gates.
 
-### G10 — Provenance collection timing in the private Forge (OPEN)
+### G10 — Provenance collection timing in the private Forge (2026-10-09; PROVISIONAL D)
 
 **Question:** At which stage should the private Meme Forge request source and usage-rights information for an imported meme? A user creating private artwork should not accidentally publish it.
 
@@ -228,7 +228,9 @@ This decision does not override MM-02 rules. Further gates: accepted media categ
 - **C — Only at Canon approval:** No provenance input in private Forge or candidate submission; reviewers obtain complete evidence later before Canon publication. Easiest early flow but generates moderation rework.
 - **D — Progressive capture:** At local import request lightweight origin/rights indication (including 'unknown'; still allowed **privately**); detailed source, permissions, evidence and screening become mandatory **before** any candidate enters the future official public review pipeline. Unknown/unverified entries can never be promoted automatically.
 
-**ARTIST + DESIGN + ARCH recommendation (NOT ACCEPTED):** D — fast private creativity, early provenance hints, and a firm fail-closed legal gate before public review or Canon. This does not authorize a public submission service in MM-06; workflow gating remains MM-07/MM-08 scope.
+**Selected by product owner (PROVISIONAL):** D — fast private creativity, early provenance hints, and a firm fail-closed legal gate before public review or Canon. This does not authorize a public submission service in MM-06; workflow gating remains MM-07/MM-08 scope.
+
+**G10 decision record:** D — progressive provenance capture. On private local import, request a lightweight origin/rights indication, including 'unknown' without blocking private use. Before any future public review submission, require source, creator/rightsholder, license/permission evidence and applicable trademark/likeness screening; fail closed on missing or uncertain rights. This decision does not create a public submission endpoint, upload user media, or override MM-07/MM-08. G1–G9 remain unchanged. No implementation authorization is inferred.
 
 ## References
 
@@ -241,4 +243,4 @@ This decision does not override MM-02 rules. Further gates: accepted media categ
 
 ## Verification
 
-Documentation-only. The latest 2026-10-09 cartoon-first battle artwork has explicit visual approval, independently from the older structural reference. G1–G9 were selected provisionally and documented; G10 and later grilling gates remain open. Neither approved reference PNG binary is yet committed. This does not establish implemented media playback or engine behavior. No claim of image upload, accepted meme characters, battle-feature completion, or runtime-test result is made.
+Documentation-only. The latest 2026-10-09 cartoon-first battle artwork has explicit visual approval, independently from the older structural reference. G1–G10 were selected provisionally and documented; any later grilling gates remain to be specified. Neither approved reference PNG binary is yet committed. This does not establish implemented media playback or engine behavior. No claim of image upload, accepted meme characters, battle-feature completion, or runtime-test result is made.

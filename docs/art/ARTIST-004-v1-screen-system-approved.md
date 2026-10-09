@@ -30,7 +30,7 @@ The owner explicitly responded **"Aprovado"** after ARTIST regenerated the **wid
 - **No final logo/wordmark, symbols or branding approved.** The mockup lettering is illustration only. Do not use protected franchise trade dress, familiar capsule-shaped brand objects or collectible-game visual signatures.
 - **Not product authorization:** figures and decorative items in the board, such as currency/rewards, shops, rankings, login, event navigation, quests, inventory items, progression, etc., do not change the V1 feature scope. No online requirement or economy is implied.
 - **Not evidence of Godot runtime:** no scene implementation, touch/keyboard interaction, performance, exported browser playback, video codecs, responsive clipping or accessible contrast is accepted without tests and exact-HEAD screenshots.
-- **Not a new G10 answer:** preserve ARTIST-003 grilling G1 D, G2 D, G3 C, G4 A, G5 C, G6 D, G7 B, G8 A, G9 D, and **G10 OPEN**.
+- **Grilling preserved:** ARTIST-003 G1 D, G2 D, G3 C, G4 A, G5 C, G6 D, G7 B, G8 A, G9 D, **G10 D (progressive provenance capture, user-selected 2026-10-09; PROVISIONAL)**. G10 was resolved independently of the ARTIST-004 concept approval. Private local import allows an 'unknown' rights indication; any future public review demands full rights evidence before submission. This screen approval does not authorize public upload, publication, production characters or a finalized brand.
 - V1 stays **Godot Web local/offline-after-load or session-memory gameplay**, no required login/remote server/online catalog. Public meme Canon still follows MM-07/MM-08.
 
 ## Next ARTIST production and verification queue

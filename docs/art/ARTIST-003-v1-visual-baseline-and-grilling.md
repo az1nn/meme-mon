@@ -1,6 +1,6 @@
 # ARTIST-003 — V1 visual baseline and battle-character grilling
 
-**Status:** VISUAL BASELINE APPROVED; G1–G8 PRESERVED; G9 PUBLIC STARTER PACK DEFERRED / PRIVATE SANDBOX PROVISIONALLY SELECTED; G10 OPEN  
+**Status:** CARTOON-FIRST BATTLE MOCKUP APPROVED 2026-10-09; G1–G9 PRESERVED; G10 OPEN; IMAGE BINARY IMPORT PENDING  
 **Date:** 2026-10-08  
 **Scope:** Mememom; Godot-only runtime; documentation/art-direction decision record.
 
@@ -10,6 +10,7 @@
 | --- | --- | --- |
 | Mobile-first menus, card layout, visual hierarchy, color and navigation | APPROVED V1 | The recent ARTIST contact sheet is the approved structural/style reference. Navigation should be hidden in an accessible hamburger menu; no fixed menu rail on phones. |
 | Battle environment/composition and broad visual quality | APPROVED V1 BASELINE | Presentation layout only, not a rule-system replacement. |
+| Cartoon refinement / graffiti restraint | APPROVED 2026-10-09 | Current visual baseline: polished cartoon shapes, cleaner colorful stage, restrained graffiti accents. Approval covers visual reference, not final character rights or implemented UI. |
 | Characters, specific memes and creature identities appearing in the mockup | NOT APPROVED | Concept placeholders only; independently select legally usable and recognizably original combatants. |
 | Mockup logo and any franchise-resembling branding | REJECTED AS FINAL BRANDING | Create a distinct Mememom wordmark, emblem, iconography and battle vocabulary; never reproduce Pokémon/Digimon/Pokémon Center trade dress or familiar proprietary symbols. |
 | Battle character representation | G1 — PROVISIONAL: D / CARD-FIRST | Animated illustrated cards are the on-screen combatants. No 3D character models required in V1. This is not a final engine specification. |
@@ -21,6 +22,36 @@
 | One-slot video priority | G7 — PROVISIONAL: B / TURN OWNER | When set to 1, the current turn owner's Active card gets the optional idle-video slot, switching on authoritative turn change, with static fallback. |
 | Initial idle-video preference | G8 — PROVISIONAL: A / ZERO VIDEOS | New profiles initialize with zero idle-video loops; the player can explicitly enable one or two via the manual setting. Shared Godot attack/hit/KO VFX remain available. |
 | Starter meme catalog policy | G9 — PROVISIONAL: D / PRIVATE FIRST | No public meme starter pack at first. Use neutral, internally controlled playtest fixtures and private Forge/Sandbox; curate a public catalog only after MM-07 rights and moderation gates. |
+
+## Approved cartoon refinement — 2026-10-09
+
+**Human gate:** APPROVED — latest cartoon-first MemeMon battle mockup after explicitly rejecting the prior over-graffiti version.
+
+**Approval scope:** visual art direction, composition reference, cartoon polish and overall battle-screen readability. This replaces the graffiti-heavy **rendering direction** with a cleaner cartoon emphasis; it does **not** revoke the prior approved mobile-first information architecture or the G1–G9 gameplay/presentation decisions.
+
+### Visual contract for future ARTIST work
+
+- **Primary look:** polished playful **2D cartoon**, strong clear outlines, warm rounded volumes, readable expressions, intentional highlights and bright but controlled palette. Game UI feels premium, approachable and friendly for children/teens.
+- **Graffiti is accent, not the visual foundation:** at most sparing paint splashes/stickers/brush accents for brand character. Avoid wall-to-wall tags, busy textures, high-noise backgrounds and gratuitous street-art ornament.
+- **Stage environment:** simplified colorful urban rooftop / tropical Rio-inspired setting in painterly cartoon form; reserve uncluttered negative space around the Active cards and interaction controls. Environment should not overpower the combatants.
+- **Cards:** high-contrast readable silhouettes, expressive art, restrained frames, meaningful color distinctions and stable readability over backgrounds. Preserve G1 D Card-first.
+- **Controls:** large touch targets, unmistakable states and concise Portuguese labels. Player navigation is **hamburger-menu driven on mobile**; the approved wide mockup is a conceptual battle composition, not permission to ship a fixed visible navigation rail on phone.
+- **Runtime:** Godot-only V1 browser-local / in-memory. Idle-card video is optional, OFF by default (G8 A); common Godot attack/hit/KO effects follow the G5 C hybrid sequencer. Do not imply the image depicts implemented interactions.
+- **Originality and asset rights:** Characters/names, specific meme likenesses, iconography and the provisional logo in the illustration are still **concept art**, not independent content-licensing, trademark clearance, final mascot acceptance or permission for a public V1 meme catalog. G9 D private-first and MM-07/MM-08 gates remain binding.
+
+### Exact approved visual reference
+
+- **Source:** latest MemeMon cartoon revision generated and explicitly approved in the conversation on **2026-10-09** (following user feedback "exagerou no graffiti, vamos para mais cartoon").
+- **Source PNG filename:** `batalha_mememon_no_terraço_tropical.png`.
+- **Image size:** **1672 × 941** pixels; RGB PNG.
+- **Source SHA-256:** `6a7bebaf11705e8b42614813faf04169a121b6a9c640055824c9f8feea44c2b3`.
+- **Target repository file:** `docs/art/references/ARTIST-003-v2-cartoon-battle-approved.png`.
+- **Binary import state: PENDING.** The exact image exists in the conversation attachment, but has **not** been committed to the GitHub branch. Avoid implying it is already versioned or replacing source bytes with unverified substitutes.
+- **Older references:** Keep the initial approved structural/style contact sheet provenance below for audit; the newer approved cartoon variant **supersedes graffiti-heavy rendering** as the current artistic direction without automatically settling brand/character rights.
+
+### Next ARTIST verification
+
+A final battle implementation must be reviewed on **actual mobile portrait viewport and responsive web**, not just the 1672×941 landscape composition, and must respect Godot performance, accessible hit targets, reduced-motion settings and the private-only V1 meme catalog. No runtime/art implementation is approved by recording this art gate.
 
 ## Original generated reference asset
 
@@ -210,4 +241,4 @@ This decision does not override MM-02 rules. Further gates: accepted media categ
 
 ## Verification
 
-Documentation-only. G1–G9 were explicitly selected provisionally and documented; G10 and later grilling gates remain open. This does not establish implemented media playback or engine behavior. The binary import is still pending. No claim of image upload, accepted meme characters, battle-feature completion, or runtime-test result is made.
+Documentation-only. The latest 2026-10-09 cartoon-first battle artwork has explicit visual approval, independently from the older structural reference. G1–G9 were selected provisionally and documented; G10 and later grilling gates remain open. Neither approved reference PNG binary is yet committed. This does not establish implemented media playback or engine behavior. No claim of image upload, accepted meme characters, battle-feature completion, or runtime-test result is made.

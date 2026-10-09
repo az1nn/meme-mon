@@ -25,7 +25,7 @@ The roadmap is ordered by dependency. SIGA should advance one verified unit at a
 - **Feature deferrals:** no mandatory login, online PvP, ranking, cloud sync, remote media upload, public UGC submission or public starter meme catalog for V1. Public rights/moderation/Canon workflows remain separate post-local-play dependencies.
 - **Build/CI gate to add:** verify the Godot Web export can finish a bundled local duel while disconnected after initial asset load; verify in-memory play when storage is unavailable; no silent remote upload.
 - **Infrastructure:** INFRA-01 hosts a static web artifact on Cloudflare/Vercel when configured. These platforms do not become gameplay backends.
-- **ARTIST:** G1–G9 decisions live in ARTIST-003; the offline clarification does not answer open G10.
+- **ARTIST:** G1–G10 decisions live in ARTIST-003. G10 D (provisional) requires lightweight origin/rights indication at private import (including 'unknown') and verified provenance **before** any future public review submission. No upload/publication is authorized in MM-06. The separately approved ARTIST-004 screen concept is a visual baseline only; its source PNG is not yet committed.
 
 ## Milestone A — Rules are a game
 

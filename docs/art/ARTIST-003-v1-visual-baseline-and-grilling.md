@@ -22,6 +22,7 @@
 | One-slot video priority | G7 — PROVISIONAL: B / TURN OWNER | When set to 1, the current turn owner's Active card gets the optional idle-video slot, switching on authoritative turn change, with static fallback. |
 | Initial idle-video preference | G8 — PROVISIONAL: A / ZERO VIDEOS | New profiles initialize with zero idle-video loops; the player can explicitly enable one or two via the manual setting. Shared Godot attack/hit/KO VFX remain available. |
 | Starter meme catalog policy | G9 — PROVISIONAL: D / PRIVATE FIRST | No public meme starter pack at first. Use neutral, internally controlled playtest fixtures and private Forge/Sandbox; curate a public catalog only after MM-07 rights and moderation gates. |
+| Private Forge provenance | G10 — PROVISIONAL: D / PROGRESSIVE | On private import ask for lightweight origin/rights (unknown accepted for local-only use); before any future public review require complete verified rights evidence. No upload/publication implied. |
 
 ## Approved cartoon refinement — 2026-10-09
 
@@ -73,7 +74,7 @@ A final battle implementation must be reviewed on **actual mobile portrait viewp
 - **Asset behavior:** Required rules, fixtures, posters and presentation templates belong in the packaged client; user-imported local media remains local by default. Video idle loops are optional per G3/G4/G6/G8 and must not require remote playback or delay the duel.
 - **Roadmap alignment:** MM-06 implements a private local Forge; MM-07/MM-08 public rights review and Canon publication remain future gates; MM-09 online match protocol is not needed for V1 offline play. INFRA-01 Cloudflare/Vercel is optional delivery infrastructure, not an authoritative game server.
 - **Testable future gates:** Godot Web can start and complete a local duel against the bundled bot with service endpoints unavailable; rule/event replay remains deterministic; absence of storage does not prevent a match; local media never uploads silently; browser compatibility is measured and reported before claiming completion.
-- **Authority:** `docs/decisions/ADR-0002-browser-local-first-v1.md` records this product direction alongside the existing Godot-only and deterministic-domain constitution. This ARTIST record does not modify G1–G9 or answer G10.
+- **Authority:** `docs/decisions/ADR-0002-browser-local-first-v1.md` records this product direction alongside the existing Godot-only and deterministic-domain constitution. This offline V1 constraint does not modify G1–G9 or supersede the separately selected G10 D.
 
 ## Originality gate
 

@@ -2,7 +2,7 @@
 
 **Repositório:** az1nn/meme-mon  
 **Data do gate T01:** 2026-10-10 (Brasil)  
-**Estado:** INVENTORY ACTIVE; T01 CONCEPT_APPROVED; T02 COMPOSITION_APPROVED_1x1; T03 NEXT  
+**Estado:** INVENTORY ACTIVE; T01 CONCEPT_APPROVED; T02 COMPOSITION_APPROVED_1x1; T03 CONCEPT_APPROVED_WITH_IMPLEMENTATION_CONSTRAINTS; T04 NEXT  
 **Total:** 74 itens/famílias planejadas, **não** 74 imagens independentes nem 74 features autorizadas. Reusar componentes por padrão.
 
 ## Autoridade e fronteiras
@@ -33,6 +33,17 @@
 - **Repositório:** referência binária PNG **PENDING IMPORT**, proposta `docs/art/references/ARTIST-005-T02-hamburger-1x1-approved.png`. O ledger com hash verificado **não comprova importação binária**.
 - **Próxima validação visual:** `T03` Duelo Desktop/Web responsivo, reutilizando os mesmos componentes e mantendo hambúrguer oculto por padrão.
 
+## Gate específico T03 — visual desktop aprovado
+
+- **Data da aprovação:** 2026-10-10 (Brasil); resposta humana exata: `Aprovado` após geração individual do preview T03.
+- **Arte fonte:** `wide_colorful_cartoon_game_ui_concept_desktop_web.png` (1536 × 1024 px, PNG RGB; 2,515,561 bytes).
+- **SHA-256 dos bytes originais:** `0053bc3108f17c927b4a7025324bc8990941f7ad27502a61c4c55b5b6c276e31`.
+- **Estado:** `CONCEPT_APPROVED_WITH_IMPLEMENTATION_CONSTRAINTS`. Aceita a linguagem estética e distribuição de espaço desktop/web — cores, acabamento cartoon de personagens/cartas, cenografia urbana/tropical, composição horizontal e botões táteis.
+- **Desvios ilustrativos NÃO normativos:** o preview inclui **sidebar global fixa** (contraria ARTIST-003/ART-002: hamburger-only, drawer oculto inicialmente), **combatentes externos às cartas** (G1 D: card-first), avatar/logo ainda não aprovados, **moedas, gemas, níveis, rede/social, eventos/ranking e ações específicas** fora do contrato V1. **A aprovação da imagem não altera essas decisões nem autoriza mecânicas**. Preservar a estética e aplicar contrato de T01/T02 + spec Alpha 0.1 em cenas Godot.
+- **Sem finalização de implementação:** screenshot Godot, touch/mouse/teclado, responsividade, match-state/event binding, performance e acessibilidade continuam gates separados de SCENE/ARCH/INSPECTOR/SIGA; não inferir runtime PASS.
+- **Importação binária no GitHub:** `PENDING`, destino sugerido `docs/art/references/ARTIST-005-T03-desktop-duel-approved.png`. Guardar bytes originais e verificar hash antes de declarar importação concluída.
+- **Próximo item ARTIST:** `T04 — Coleção`, conceito individual preservando ARTIST-004/005 e UI voltada aos dados da coleção MM-05. Ainda precisa de aprovação individual.
+
 ## Fila completa (um por vez)
 
 ### T — Telas V1
@@ -41,8 +52,8 @@
 |---|---|---|---|
 | T01 | Duelo mobile card-first | P0 | CONCEPT_APPROVED |
 | T02 | Menu hambúrguer aberto (mobile) | P0 | COMPOSITION_APPROVED_1x1 |
-| T03 | Duelo desktop/web responsivo | P1 | NEXT |
-| T04 | Coleção | P1 | PENDING |
+| T03 | Duelo desktop/web responsivo | P1 | CONCEPT_APPROVED_WITH_IMPLEMENTATION_CONSTRAINTS |
+| T04 | Coleção | P1 | NEXT |
 | T05 | Deckbuilder | P1 | PENDING |
 | T06 | Detalhes da carta | P1 | PENDING |
 | T07 | Meme Forge privado | P2 | PENDING_MM06 |
@@ -160,6 +171,6 @@
 
 ## Próxima unidade
 
-**T03 — Duelo Desktop/Web responsivo:** gerar preview unitário seguindo T01/T02, preservar card-first, menu hambúrguer oculto por padrão, sem navegação fixa. **T02** já tem proporção/composição 1:1 aprovadas; rotas e runtime permanecem gates separados.
+**T04 — Coleção:** gerar preview unitário e legível mobile-first respeitando cards/art T01–T03, MM-05 e ARTIST-004. Somente funcionalidades locais implementadas. **T03** tem estilo/composição desktop aprovados, mas o drawer hamburger-only e o card-first continuam obrigatórios no runtime; não reproduzir a sidebar permanente nem personagens fora das cartas como autorização de produto.
 
-**Fase seguinte (sem geração automática):** validar T03 individualmente e seguir a fila; quando extrair assets unitários, priorizar base reutilizável B01/C01 antes de variantes de personagens, respeitando o pedido explícito do usuário.
+**Fase seguinte (sem geração automática):** validar T04 individualmente e seguir a fila; quando extrair assets unitários, priorizar base reutilizável B01/C01 antes de variantes de personagens, respeitando o pedido explícito do usuário.

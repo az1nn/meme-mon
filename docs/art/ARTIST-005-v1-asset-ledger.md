@@ -2,7 +2,7 @@
 
 **Repositório:** az1nn/meme-mon  
 **Data do gate T01:** 2026-10-10 (Brasil)  
-**Estado:** INVENTORY ACTIVE; T01 CONCEPT_APPROVED; T02 NEXT  
+**Estado:** INVENTORY ACTIVE; T01 CONCEPT_APPROVED; T02 COMPOSITION_APPROVED_1x1; T03 NEXT  
 **Total:** 74 itens/famílias planejadas, **não** 74 imagens independentes nem 74 features autorizadas. Reusar componentes por padrão.
 
 ## Autoridade e fronteiras
@@ -22,6 +22,17 @@
 - **Pendências objetivas:** sem aprovação individual de P01/P06, sem marca final, sem confirmação de mecânicas sugeridas por labels ilustrativas, sem teste de toque/responsividade, sem screenshot real do Godot; validação ART/SCENE/ARCH/INSPECTOR ainda separada.
 - **Importação binária no GitHub:** PENDING — não tratar SHA registrado como prova de arquivo anexado. Caminho sugerido quando for importado: `docs/art/references/ARTIST-005-T01-mobile-duel-approved.png`. Antes de marcar importação completa, verificar SHA exato da referência.
 
+## Gate específico T02 — proporção e composição aprovadas
+
+- **Arte fonte:** `MEMEMOM_ARTIST_T02_MENU_1x1_CORRIGIDO.png`, RGB PNG, **1254 × 1254 pixels**, ratio **1:1**.
+- **SHA-256 da imagem:** `8c24fd7ee5925782b9395e93ff53c8f15a9e3b86b9dcdd9c9d5ab4c5574466f5` (bytes locais verificados 2026-10-10; 763366 bytes).
+- **Gate humano:** `Correto` em resposta direta à pergunta `Essa proporção e composição estão corretas agora?` → **proporção e composição aprovadas**, sem extrapolar aprovação para rotas, economia, mascotes ou funcionalidades retratadas.
+- **Escopo aceito:** quadrado 1:1; única composição com o menu aberto sobre a arena do duelo; geometria/proporções sem painéis verticais comprimidos; linguagem cartoon T01/ARTIST-004 preservada.
+- **Correção preservada:** versões anteriores 1:1 com duas telas comprimidas lado a lado permanecem rejeitadas, não promover como novos baselines.
+- **Gates ainda abertos:** selecionar no drawer **apenas Duelo e Coleção como rotas ativas**; outros itens ilustrativos (`Eventos`, `Ranking`, `Sair`, estatísticas, tutorial, moedas, níveis etc.) não são autorização de features. Validar dismissal por X/tap fora/back/Escape, foco acessível, Godot mobile/web screenshots em HEAD exato, contraste e touch. T02 não aprova personagens nem identidade de marca.
+- **Repositório:** referência binária PNG **PENDING IMPORT**, proposta `docs/art/references/ARTIST-005-T02-hamburger-1x1-approved.png`. O ledger com hash verificado **não comprova importação binária**.
+- **Próxima validação visual:** `T03` Duelo Desktop/Web responsivo, reutilizando os mesmos componentes e mantendo hambúrguer oculto por padrão.
+
 ## Fila completa (um por vez)
 
 ### T — Telas V1
@@ -29,8 +40,8 @@
 | ID | Asset / contrato | Prioridade | Estado |
 |---|---|---|---|
 | T01 | Duelo mobile card-first | P0 | CONCEPT_APPROVED |
-| T02 | Menu hambúrguer aberto (mobile) | P0 | NEXT |
-| T03 | Duelo desktop/web responsivo | P1 | PENDING |
+| T02 | Menu hambúrguer aberto (mobile) | P0 | COMPOSITION_APPROVED_1x1 |
+| T03 | Duelo desktop/web responsivo | P1 | NEXT |
 | T04 | Coleção | P1 | PENDING |
 | T05 | Deckbuilder | P1 | PENDING |
 | T06 | Detalhes da carta | P1 | PENDING |
@@ -149,6 +160,6 @@
 
 ## Próxima unidade
 
-**T02 — Menu hambúrguer aberto (mobile):** desenhar overlay acessível sobre a T01 preservada, com apenas as rotas realmente implementadas (Duelo, Coleção). Outras rotas devem ser ausentes ou claramente indisponíveis até que tenham escopo e implementação. Fechar por X, toque externo e back/Escape; sem barra inferior ou sidebar fixa.
+**T03 — Duelo Desktop/Web responsivo:** gerar preview unitário seguindo T01/T02, preservar card-first, menu hambúrguer oculto por padrão, sem navegação fixa. **T02** já tem proporção/composição 1:1 aprovadas; rotas e runtime permanecem gates separados.
 
-**Fase seguinte (sem geração automática):** após human gate T02, avançar T03 e prosseguir pela fila; na produção individual de ilustrações, começar pela base reutilizável B01/C01 antes de variações de personagens, respeitando o pedido explícito do usuário.
+**Fase seguinte (sem geração automática):** validar T03 individualmente e seguir a fila; quando extrair assets unitários, priorizar base reutilizável B01/C01 antes de variantes de personagens, respeitando o pedido explícito do usuário.

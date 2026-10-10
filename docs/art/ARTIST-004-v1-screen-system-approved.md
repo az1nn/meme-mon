@@ -48,3 +48,7 @@ The owner explicitly responded **"Aprovado"** after ARTIST regenerated the **wid
 **CLASSIFY:** ADVANCE for isolated `T01` ART production.  
 **VERIFY:** current board image was explicitly human-approved as a *concept*; PNG GitHub import and Godot runtime remain unverified.  
 **HANDOFF:** SIGA/SCENE/ARCH preserve own gates/ownership; do not merge a draft with absent required binary evidence or claim build verification.
+
+## T01 individual human gate — 2026-10-10
+
+The owner explicitly replied **“Aprovado”** after viewing the standalone **T01 mobile duel** concept (`duelo_tropical_de_cartas_no_rio.png`; RGB 941×1672; SHA-256 `79d2e9717022820aea46ae2cf052f11a880e90bf0e132293a65275aeebaa51c2`). This is **T01 CONCEPT_APPROVED**, not a new logo/individual-character approval or Godot runtime acceptance. The visual inventory and production gate are tracked by [ARTIST-005](ARTIST-005-v1-asset-ledger.md). Original PNG still needs separate GitHub binary import/checksum evidence. **Next:** T02 mobile hamburger drawer concept; preserve G1–G10 including G10 D provisional, existing Godot MM-06 dependencies, and no invented mechanics from the illustration.

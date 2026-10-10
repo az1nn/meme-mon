@@ -31,7 +31,7 @@ The roadmap is ordered by dependency. SIGA should advance one verified unit at a
 
 - **ARTIST-003:** cartoon-first / tropical rooftop art direction APPROVED; G1–G10 decisions preserved (G10 D provisional); illustrated card-first battle; browser-local/in-memory V1.
 - **ARTIST-004:** screen-system contact sheet CONCEPT_APPROVED; original reference PNG import remains pending.
-- **ARTIST-005:** [asset production/validation ledger](art/ARTIST-005-v1-asset-ledger.md) created with 74 proposed reusable asset/component entries, explicit individual human gates, rights and runtime verification boundaries. **T01 mobile duel CONCEPT_APPROVED** (source SHA recorded, PNG GitHub import pending); **T02 hamburger drawer NEXT**.
+- **ARTIST-005:** [asset production/validation ledger](art/ARTIST-005-v1-asset-ledger.md) created with 74 proposed reusable asset/component entries, explicit individual human gates, rights and runtime verification boundaries. **T01 mobile duel CONCEPT_APPROVED** (source SHA recorded, PNG GitHub import pending); **T02 menu overlay 1:1 COMPOSITION_APPROVED** (1254×1254 PNG, exact SHA256 in ledger; original GitHub binary import pending); **T03 desktop/web duel NEXT**. T02 action/route semantics and runtime remain pending independent gates.
 - **Gate rule:** concept acceptance is not automatic character/branding approval, actual Godot scene screenshot, feature implementation or release signoff. Later assets advance one-by-one without changing MM-06 → MM-07 → MM-08 product dependencies.
 
 ## Milestone A — Rules are a game

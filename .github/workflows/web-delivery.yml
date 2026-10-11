@@ -42,6 +42,17 @@ on:
         default: none
         type: choice
         options: [none, cloudflare, vercel, both]
+      vercel_target:
+        description: "Vercel target for vercel/both (preview is safe default)"
+        required: true
+        default: preview
+        type: choice
+        options: [preview, production]
+      confirm_vercel_production:
+        description: "Confirm production Vercel deployment (master branch only)"
+        required: false
+        default: false
+        type: boolean
 
 permissions:
   contents: read
@@ -191,5 +202,53 @@ jobs:
           node tools/prepare_vercel_output.mjs
           mkdir -p .vercel
           node -e 'require("fs").writeFileSync(".vercel/project.json",JSON.stringify({orgId:process.env.VERCEL_ORG_ID,projectId:process.env.VERCEL_PROJECT_ID}))'
-      - name: Deploy prebuilt static output, no remote build
-        run: npx --yes vercel@latest deploy --prebuilt --prod --yes --token="$VERCEL_TOKEN"
+      - name: Deploy prebuilt output (preview by default)
+        id: deploy
+        shell: bash
+        env:
+          VERCEL_TARGET: ${{ inputs.vercel_target }}
+          CONFIRM_VERCEL_PRODUCTION: ${{ inputs.confirm_vercel_production }}
+        run: |
+          set -euo pipefail
+          args=(--prebuilt --yes)
+          case "$VERCEL_TARGET" in
+            preview)
+              echo "Deploying isolated Vercel preview; no production alias"
+              ;;
+            production)
+              if [[ "$GITHUB_REF" != "refs/heads/master" || "$CONFIRM_VERCEL_PRODUCTION" != "true" ]]; then
+                echo "::error::Vercel production requires master and explicit confirm_vercel_production=true"
+                exit 1
+              fi
+              args+=(--prod)
+              ;;
+            *)
+              echo "::error::Invalid Vercel target: $VERCEL_TARGET"
+              exit 1
+              ;;
+          esac
+          deploy_url="$(npx --yes vercel@latest deploy "${args[@]}" --token="$VERCEL_TOKEN")"
+          if [[ ! "$deploy_url" =~ ^https://[A-Za-z0-9.-]+[.]vercel[.]app$ ]]; then
+            echo "::error::Vercel CLI did not return a valid deployment URL"
+            exit 1
+          fi
+          echo "url=$deploy_url" >> "$GITHUB_OUTPUT"
+          {
+            echo "### Vercel $VERCEL_TARGET deployment"
+            echo "- URL: $deploy_url"
+            echo "- Source: \`$GITHUB_SHA\`"
+            echo "- Runtime HTTP verification follows; deployment alone is not browser acceptance."
+          } >> "$GITHUB_STEP_SUMMARY"
+      - name: Verify deployed version and WASM response
+        shell: bash
+        env:
+          DEPLOY_URL: ${{ steps.deploy.outputs.url }}
+        run: |
+          set -euo pipefail
+          # Vercel CLI curl supports protected previews via deployment protection bypass.
+          npx --yes vercel@latest curl "$DEPLOY_URL/version.json" --yes --token="$VERCEL_TOKEN" -- -fsS > deployed-version.json
+          node -e 'const fs=require("node:fs"); const v=JSON.parse(fs.readFileSync("deployed-version.json","utf8")); if(v.source_commit!==process.env.GITHUB_SHA){console.error("Deployed source_commit does not match tested HEAD"); process.exit(1);}'
+          npx --yes vercel@latest curl "$DEPLOY_URL/index.wasm" --yes --token="$VERCEL_TOKEN" -- -fsSI > wasm-headers.txt
+          grep -Eiq '^content-type:[[:space:]]*application/wasm([;[:space:]]|$)' wasm-headers.txt || { echo "::error::Invalid WebAssembly Content-Type"; exit 1; }
+          npx --yes vercel@latest curl "$DEPLOY_URL/index.html" --yes --token="$VERCEL_TOKEN" -- -fsSI > /dev/null
+          echo "Deployed version.json matches exact-head SHA; index.html and WASM headers respond correctly" >> "$GITHUB_STEP_SUMMARY"

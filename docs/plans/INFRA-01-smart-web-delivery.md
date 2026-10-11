@@ -20,9 +20,12 @@ Validate metadata, compress wasm, 25 MiB gates, version.json
               |       |- raw wasm excluded
               |       |- br/gzip negotiated at /index.wasm
               |
-              +--> Vercel Build Output API v3 (manual backup only)
+              +--> Vercel Build Output API v3 (manual only)
                       |- raw wasm copied as static
-                      |- prebuilt deploy; Git auto deploy disabled
+                      |- prebuilt PREVIEW by default (unique URL; no alias)
+                      |- PRODUCTION only on master + explicit confirmation
+                      |- verify remote SHA, index.html and WASM Content-Type
+                      |- Git auto deploy disabled
 ```
 
 ## Build ownership and intelligent triggers
@@ -38,11 +41,13 @@ Validate metadata, compress wasm, 25 MiB gates, version.json
 
 Set Cloudflare Secrets CLOUDFLARE_API_TOKEN/CLOUDFLARE_ACCOUNT_ID. For automated master publish, additionally set repository Variable CLOUDFLARE_AUTO_DEPLOY=true. The Worker name defaults to `mememom` and can be changed only through a dedicated reviewed change.
 
-For Vercel, create/link a project (Framework: Other), set secrets VERCEL_TOKEN, VERCEL_ORG_ID and VERCEL_PROJECT_ID; keep native Git deployments disabled. Trigger the workflow's `publish=vercel` input only for an intentional backup deployment.
+For Vercel, create/link a project (Framework: Other), set secrets VERCEL_TOKEN, VERCEL_ORG_ID and VERCEL_PROJECT_ID; keep native Git deployments disabled. From GitHub Actions → **Godot Web artifact and controlled delivery** → **Run workflow** (on `master`), use `publish=vercel` and leave `vercel_target=preview` (default) to receive an isolated Preview URL in the job summary. To publish Production, explicitly choose `vercel_target=production` **and** `confirm_vercel_production=true` on `master`. Credentials/account setup are not inferred from CI-only runs. No PR push triggers Vercel deploy.
 
 ## Verification
 
 1. Inspect YAML, JSON and JS syntax.
 2. Run exact-head Godot tests, export, metadata check, compression and packaging in CI.
 3. Check no publication on PR.
-4. Enable only credentials/destination needed, confirm deployed `/version.json` SHA, `/index.wasm` response headers and browser game loop before any production alias/domain change.
+4. Manual Preview deployment publishes a unique URL into GitHub Actions summary; `vercel curl` validates deployed `/version.json` against exact checkout HEAD, `/index.html` and WASM `Content-Type: application/wasm`. This supports protected previews via Vercel's CLI authorization.
+5. Verify mobile portrait/landscape touch, navigation, deckbuilder and duel **in browser** as a distinct human gate; CI HEADLESS PASS is insufficient.
+6. Production requires deliberate target and confirmation on master. Never use `--prod` for default Preview deployment.

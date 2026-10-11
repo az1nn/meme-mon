@@ -18,6 +18,9 @@ Deliver the existing Mememom Godot client to web hosting via one reproducible, t
 - R8: Cloudflare production auto-deploy is **off** until repository variable CLOUDFLARE_AUTO_DEPLOY=true is explicitly set. Manual dispatch also requires credentials. No unauthenticated deployment.
 - R9: Never copy game assets, business rules, lore, or product decisions from growing-rio.
 - R10: Concurrent PR validation must not silently publish; separate deploy jobs require a verified build job and platform credentials.
+- R11: A manual Vercel deployment defaults to an isolated **preview** (`vercel deploy --prebuilt` without `--prod`); no PR/push may publish Vercel automatically.
+- R12: Production Vercel requires both explicit `vercel_target=production` and `confirm_vercel_production=true` on `master` (no implicit promotion).
+- R13: Successful Vercel deploys must expose the URL in the GitHub Actions summary, verify the remote `version.json.source_commit` matches the tested exact-head SHA, and check HTML and WASM HTTP response/MIME; separate browser/touch acceptance remains required.
 
 ## Acceptance
 
@@ -28,6 +31,8 @@ Deliver the existing Mememom Godot client to web hosting via one reproducible, t
 5. Cloudflare /index.wasm negotiates br or gzip; unsupported clients receive a clear 406 rather than broken binary content.
 6. Vercel Build Output API v3 includes raw wasm and an explicit WASM MIME type.
 7. Site runtime browser validation (navigation, screen sizes, accessibility, network response, correct version.json) is a separate release gate; headless export alone is not visual acceptance.
+8. A manually requested Vercel deploy with default inputs uses Preview, never Production; an unconfirmed production selection or non-master source fails closed.
+9. On deployment, record the Vercel URL and check the served exact-head manifest, HTML availability and WebAssembly Content-Type, including protected previews when provider permits.
 
 ## Non-goals
 

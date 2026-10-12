@@ -168,7 +168,7 @@
 
 | ID | Asset / contrato | Prioridade | Estado |
 |---|---|---|---|
-| C01 | Moldura base comum | P0 | NEXT_PREVIEW |
+| C01 | Moldura base comum | P0 | PREVIEW_V1_GENERATED / HUMAN_GATE_PENDING |
 | C02 | Moldura rara | P1 | PENDING |
 | C03 | Moldura épica | P1 | PENDING |
 | C04 | Moldura lendária | P1 | PENDING |
@@ -279,6 +279,16 @@
 - **Rastreabilidade:** filename, dimensões, bytes originais e SHA-256 do preview aprovado **não foram recuperados nesta reconciliação**. **Não substituir** por imagem semelhante nem registrar binário como importado sem os bytes originais e hash verificado. Estado `PNG_PROVENANCE_PENDING`.
 - **Validação técnica pendente:** encaixe real em T01 retrato e T03 paisagem, importação Godot, screenshots exatos, responsividade e INSPECTOR. `RUNTIME_NOT_VERIFIED`.
 - **Próximo gate:** `C01` — uma moldura vertical comum reutilizável para cartas, sem arte de personagem, logotipo, elementos de franquias ou raridade especial. Áreas separadas para nome, tipo canônico, ilustração, custo Trend, dados pertinentes ao kind e efeitos, com legibilidade em mobile; aprovação humana individual antes de C05.
+
+## Gate C01 — candidato visual V1 gerado, aguardando decisão humana
+
+- **Estado:** `PREVIEW_V1_GENERATED / HUMAN_GATE_PENDING` (não aprovado e não importado no GitHub).
+- **Preview individual:** `mememon_C01_moldura_base_preview.png`; imagem **1200 × 1600 px**, PNG, SHA-256 `979f0804d7e3a1ed829a8d7a1fefd8a1a1065e8cb47fdae77f62638db49cd03f`.
+- **Fonte vetorial editável:** `mememon_C01_moldura_base_preview.svg`; SHA-256 `1a732f13e46588ca2577a44860542ffeee485d335880bac55e489f59dd47c6e3`.
+- **Artefatos:** gerados e disponibilizados como anexos na conversa ARTIST em 2026-10-12 (Brasil); **não estão versionados no GitHub**. Não assumir que link `sandbox` constitui upload no repositório.
+- **Escopo:** moldura isolada, sem mascote ou marca; reserva áreas de nome, tipo, ilustração, Trend, dados/efeitos; campos variam conforme `kind` e schemas MM-03. Não pressupõe custo, ataque, HP ou novas regras.
+- **Controle de qualidade:** duas pranchas gerais geradas nesta mesma sessão desviaram do brief e ficam `REJECTED_OUT_OF_SCOPE` — não reutilizá-las como aprovação ou referencia. O candidato válido é somente o arquivo `C01` acima.
+- **Gate aberto:** aprovação/rejeição/ajustes do usuário, depois asset final e validação SCENE/ARCH/INSPECTOR no Godot com capturas exatas. `RUNTIME_NOT_VERIFIED`.
 
 ## Próxima unidade
 

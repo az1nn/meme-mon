@@ -2,7 +2,7 @@
 
 **Repositório:** az1nn/meme-mon  
 **Data do gate T01:** 2026-10-10 (Brasil)  
-**Estado:** INVENTORY ACTIVE; T01 CONCEPT_APPROVED; T02 COMPOSITION_APPROVED_1x1; T03 CONCEPT_APPROVED_WITH_IMPLEMENTATION_CONSTRAINTS; T04 CONCEPT_APPROVED_WITH_IMPLEMENTATION_CONSTRAINTS; T05 CONCEPT_APPROVED_WITH_IMPLEMENTATION_CONSTRAINTS; T06 CONCEPT_APPROVED_WITH_IMPLEMENTATION_CONSTRAINTS; T07 CONCEPT_APPROVED_MM06_GATED; T08 CONCEPT_APPROVED_WITH_IMPLEMENTATION_CONSTRAINTS; T09 CONCEPT_APPROVED_WITH_IMPLEMENTATION_CONSTRAINTS; T10 NEXT  
+**Estado:** T01–T10 ART CONCEPT REVIEW COMPLETE (individual visual/composition acceptances, technical constraints retained); reusable asset phase ACTIVE; B01 NEXT  
 **Total:** 74 itens/famílias planejadas, **não** 74 imagens independentes nem 74 features autorizadas. Reusar componentes por padrão.
 
 ## Autoridade e fronteiras
@@ -133,6 +133,20 @@
 - **Importação do PNG no GitHub:** `PENDING_IMPORT`; path sugerido `docs/art/references/ARTIST-005-T09-match-result-approved.png`. Apenas marcar importado mediante verificação de bytes originais e hash exato.
 - **Próximo gate:** `T10 — Estados vazios / erros / modo local` com um único preview visual, incluindo coleção vazia, deck inválido, mídia indisponível com fallback, storage indisponível com uso em memória, aviso de dados voláteis e ações recuperáveis. Mensagens amigáveis e sem recursos remotos inventados.
 
+## Gate específico T10 — Estados vazios, erros e modo local aprovado
+
+- **Decisão humana:** `Aprovado` em **2026-10-12 (Brasil)** após solicitação de ajuste para maior fidelidade ao cartoon vibrante ARTIST-003/004 e T01–T09. O **preview revisado 2×2** é o aprovado; o primeiro T10 em revisão e as duas tentativas de Home geradas fora do escopo **não** são referências canônicas.
+- **Imagem fonte exata:** `wide_colorful_cartoon_game_ui_composite_illustrati.png`, **1536 × 1024 px, PNG RGB, 2.577.849 bytes**.
+- **SHA-256 verificado no arquivo original:** `b547d9ed3ea906715582d574e35e58a8ab2b94889d3f8c14e51bdb15518d850f`.
+- **Estado:** `CONCEPT_APPROVED_WITH_IMPLEMENTATION_CONSTRAINTS`; aprovado como **linguagem visual e composição de biblioteca de estados**, não como resultado de teste Godot, implementação de armazenamento ou promessa funcional.
+- **Superfícies ilustradas aceitas:** ① deck vazio, ② coleção vazia, ③ erro ao carregar dados locais, ④ modo local. Quatro cartões quadrantes com UI cartoon escura legível, ornamentos tropicais urbanos, ilustrações expressivas e botões de recuperação proeminentes. A composição de contato 2×2 é **uma prancha para revisão**, não quatro telas que precisam ser desenhadas lado a lado no runtime.
+- **Contratos de comportamento:** mostrar coleção/deck vazio **somente quando o estado real estiver vazio**, sem contrariar fixtures locais do MM-05; `DeckValidator` fornece causas reais de deck inválido, não confundir vazio com corrupção. Mídia/vídeo indisponível usa **poster estático** sem bloquear jogo (G4–G8); estado de arquivo/storage `user://` indisponível deve admitir fallback **em memória volátil**, com aviso explícito de que alterações **não persistem após recarregar/fechar**. Um perfil corrompido/versão desconhecida não pode ser sobrescrito automaticamente (MM-05).
+- **Correções obrigatórias na implementação:** a mensagem ilustrativa `Coleção salva no dispositivo` é válida **somente após save local comprovado**, e não em sessão volátil; `Modo Local` não é sinônimo de offline cold start — o carregamento inicial do web app pode exigir rede. `Não foi possível carregar os dados locais` não garante que reiniciar seja recuperação segura: preservar arquivo existente e oferecer ação não destrutiva. `Criar Carta` só leva ao MM-06 privado quando implementado; nem todos os usuários terão 0 cartas por padrão.
+- **Fora do escopo V1:** tokens, níveis, perfil remoto, chat/amigos, ranking, eventos, economia, identidades e wordmark desenhadas são **visuais ilustrativos**, não features aprovadas ou autorização de marca. O hambúrguer global deve permanecer oculto por padrão em mobile e desktop — as barras adicionais visíveis na prancha não substituem esse contrato.
+- **Cobertura parcial:** a prancha **não exibe explicitamente** o estado de *deck inválido* nem *fallback por mídia indisponível*; ambos continuam contratos visuais a verificar/reusar na implementação. Aprovação do T10 **não** os marca `RUNTIME_PASS`.
+- **Status de engenharia:** `RUNTIME_NOT_VERIFIED`, `RIGHTS_NOT_APPROVED`, `BINARY_IMPORT_PENDING`. Caminho PNG proposto: `docs/art/references/ARTIST-005-T10-empty-errors-local-approved.png`; verificar SHA-256 original no GitHub antes de declarar importado.
+- **Handoff após a décima tela:** inventário `T01–T10` conceitualmente aceito **com os limites individuais mantidos**; nenhum screenshot de Godot/CI foi comprovado por estes previews. **Próximo asset individual ARTIST: `B01` — fundo do duelo, terraço urbano tropical cartoon**, em arte limpa **sem HUD, cartas, personagens ou branding**, separável/reutilizável e com área negativa preservada para as duas cartas Active. Após gate B01, avançar `C01` moldura base.
+
 ## Fila completa (um por vez)
 
 ### T — Telas V1
@@ -148,7 +162,7 @@
 | T07 | Meme Forge privado | P2 | CONCEPT_APPROVED_MM06_GATED |
 | T08 | Configurações e acessibilidade | P2 | CONCEPT_APPROVED_WITH_IMPLEMENTATION_CONSTRAINTS |
 | T09 | Resultado da partida | P2 | CONCEPT_APPROVED_WITH_IMPLEMENTATION_CONSTRAINTS |
-| T10 | Estados vazios/erros/armazenamento local | P2 | NEXT |
+| T10 | Estados vazios/erros/armazenamento local | P2 | CONCEPT_APPROVED_WITH_IMPLEMENTATION_CONSTRAINTS |
 
 ### C — Cartas
 
@@ -222,7 +236,7 @@
 
 | ID | Asset / contrato | Prioridade | Estado |
 |---|---|---|---|
-| B01 | Arena de duelo — terraço tropical cartoon | P0 | PENDING |
+| B01 | Arena de duelo — terraço tropical cartoon | P0 | NEXT |
 | B02 | Fundo para entry/home (opcional) | P1 | PENDING |
 | B03 | Fundo coleção genérico reaproveitável | P1 | PENDING |
 | B04 | Fundo deckbuilder (preferir B03 reaproveitado) | P1 | PENDING |
@@ -260,6 +274,6 @@
 
 ## Próxima unidade
 
-**T10 — Estados vazios, erros e armazenamento local:** produzir um único preview individual coerente com T01–T09, exibindo componentes reutilizáveis de estado vazio, falha de carregamento de mídia e fallback estático, erro de deck inválido, armazenamento Godot user:// indisponível/corrompido com modo volátil em memória, e aviso claro de perda de dados após recarga. Sem dependência de conexão/login, sincronização em nuvem ou promessa de salvar quando armazenamento está indisponível. Navegação global apenas pelo hambúrguer; não inserir sidebar fixa. **T09** tem aceite visual condicionado ao contrato MM-02.
+**B01 — Fundo de duelo, terraço urbano tropical cartoon:** produzir **um único asset isolado** da arena aprovada em ARTIST-003/004 e T01–T10, **sem HUD, menus, cartas, personagens, ícones, logotipo ou texto**. Preservar profundidade e área limpa para Active cards; ter arquitetura Rio-inspired, tropical, cores controladas, pintura urbana como detalhe. Testar encaixe no T01 vertical e T03 horizontal sem deformar a arte; obter human gate explícito antes de congelar e de gerar C01. Cada componente deve ter preview baixável individual.
 
-**Fase seguinte (sem geração automática):** validar T10 individualmente e seguir para assets reutilizáveis; quando extrair assets unitários, priorizar base reutilizável B01/C01 antes de variantes de personagens, respeitando o pedido explícito do usuário.
+**Fase seguinte:** T01–T10 concluídos **apenas como conceitos visuais**; produzir/validar individualmente os assets de base B01 → C01 → C05 → UI/HUD → ilustrações, preservando referência/arte originais, sem declarar implementação Godot antes dos gates SCENE/ARCH/INSPECTOR.

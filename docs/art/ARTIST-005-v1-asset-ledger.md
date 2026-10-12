@@ -2,7 +2,7 @@
 
 **Repositório:** az1nn/meme-mon  
 **Data do gate T01:** 2026-10-10 (Brasil)  
-**Estado:** INVENTORY ACTIVE; T01 CONCEPT_APPROVED; T02 COMPOSITION_APPROVED_1x1; T03 CONCEPT_APPROVED_WITH_IMPLEMENTATION_CONSTRAINTS; T04 CONCEPT_APPROVED_WITH_IMPLEMENTATION_CONSTRAINTS; T05 CONCEPT_APPROVED_WITH_IMPLEMENTATION_CONSTRAINTS; T06 NEXT  
+**Estado:** INVENTORY ACTIVE; T01 CONCEPT_APPROVED; T02 COMPOSITION_APPROVED_1x1; T03 CONCEPT_APPROVED_WITH_IMPLEMENTATION_CONSTRAINTS; T04 CONCEPT_APPROVED_WITH_IMPLEMENTATION_CONSTRAINTS; T05 CONCEPT_APPROVED_WITH_IMPLEMENTATION_CONSTRAINTS; T06 CONCEPT_APPROVED_WITH_IMPLEMENTATION_CONSTRAINTS; T07 NEXT_CONCEPT_ONLY_MM06_GATE  
 **Total:** 74 itens/famílias planejadas, **não** 74 imagens independentes nem 74 features autorizadas. Reusar componentes por padrão.
 
 ## Autoridade e fronteiras
@@ -73,6 +73,21 @@
 - **Binário no GitHub:** `PENDING_IMPORT`, caminho proposto `docs/art/references/ARTIST-005-T05-deckbuilder-approved.png`. Não marcar `IMPORTED` antes de upload e confirmação do SHA256.
 - **Próxima unidade ARTIST:** `T06 — Detalhe da carta`: composição individual reutilizando C01–C12 e T01–T05, informações derivadas do schema MM-03; stats de combate somente para `Mememom`, sem botão de evolução ou mecânica não autorizada. Aprovação visual humana independente.
 
+## Gate específico T06 — detalhe da carta aprovado
+
+- **Decisão humana:** `Aprovado` após a geração individual do preview de Detalhe da Carta na sessão ARTIST, **2026-10-12 (Brasil)**.
+- **Fonte original:** `a_bright_colorful_cartoon_game_ui_screen_in_the_s.png`, **PNG RGB 1536 × 1024**, **2.118.045 bytes**.
+- **SHA-256 verificado:** `5ca939c0a25e393b0c52a6962751f477f94c60bb57f69b38a92dd16b34b55cdf`.
+- **Estado:** `CONCEPT_APPROVED_WITH_IMPLEMENTATION_CONSTRAINTS`. Aceite da composição visual e acabamento — carta ilustrada ampliada como protagonista, detalhes textuais agrupados, badges legíveis, navegação entre cartas e ações destacadas. Não confirma direitos, identidade de personagem, novos mecanismos nem screenshot Godot.
+- **Fonte técnica obrigatória:** `docs/specs/MM-03-card-schema-balance-budget.md`, contratos em `contracts/schemas/`, `MM-05`, ARTIST-003/004. Exibir somente atributos do `CardDefinition` por `kind`; `Mememom` pode mostrar HP e ataque baseline com custo, e `Reaction`/`Format` têm próprios campos de efeito. Usar `type` canônico `classic | reaction | brainrot | surreal | wholesome`, `tier` canônico, `trend_cost`, identificadores e efeitos realmente disponíveis. Não inferir `defesa`, `velocidade`, `altura`, `peso`, `nível`, `evolução` ou `habilidades` a partir do mockup.
+- **Correções de produto obrigatórias:** ícone/etiqueta `Elétrico`, `Lv.`, botão `Evoluir`, árvores de evolução, perfil/moedas/gemas, data de aquisição inventada, atributos fantasia e campos de edição exibidos apenas como decoração, sem autorização. A UI deve omitir/desabilitar funcionalidades que não existem. `Adicionar ao Deck` só pode operar para cartas possuídas, com edição/quantidade válida e passagem pelo `DeckValidator`.
+- **Limites do deck:** texto ilustrativo `Colecionado 3 cópias` não é necessariamente inválido como **quantidade possuída na coleção**; o contrato MM-05 limita **a 2 a quantidade selecionada por `card_id` no deck**, mesmo através de edições, sem afetar necessariamente a posse local.
+- **Navegação canônica:** menu global sempre via **hambúrguer**, fechado por padrão em mobile e desktop. A sidebar permanente no conceito não altera ARTIST-003/ART-002.
+- **Direitos e autoria:** Bicotech e outros mascotes, a wordmark ilustrada e os detalhes de arte são placeholders; aprovação da tela não aprova personagens individuais, branding ou catálogo público. `G9 D` e `G10 D` provisórios preservados.
+- **Implementação/exact-head:** `NOT_VERIFIED` — sem teste de runtime, inspeção visual Godot, contraste e responsividade, prova de interações, import de PNG nem aprovação de direitos.
+- **Importação binária GitHub:** `PENDING_IMPORT`, destino sugerido `docs/art/references/ARTIST-005-T06-card-detail-approved.png`; validar SHA-256 dos bytes reais antes de concluir importação.
+- **Próximo gate visual:** `T07 — Meme Forge privado`, **CONCEPT ONLY** sujeito a MM-06. Upload/seleção de imagem **local**, edição de corte, nome, tipo canônico, prévia Sandbox, aviso de proveniência leve (inclusive `unknown`), sem publicação/rede/Canon, com aprovação visual humana individual.
+
 ## Fila completa (um por vez)
 
 ### T — Telas V1
@@ -84,8 +99,8 @@
 | T03 | Duelo desktop/web responsivo | P1 | CONCEPT_APPROVED_WITH_IMPLEMENTATION_CONSTRAINTS |
 | T04 | Coleção | P1 | CONCEPT_APPROVED_WITH_IMPLEMENTATION_CONSTRAINTS |
 | T05 | Deckbuilder | P1 | CONCEPT_APPROVED_WITH_IMPLEMENTATION_CONSTRAINTS |
-| T06 | Detalhes da carta | P1 | NEXT |
-| T07 | Meme Forge privado | P2 | PENDING_MM06 |
+| T06 | Detalhes da carta | P1 | CONCEPT_APPROVED_WITH_IMPLEMENTATION_CONSTRAINTS |
+| T07 | Meme Forge privado | P2 | NEXT_CONCEPT_ONLY_MM06_GATE |
 | T08 | Configurações e acessibilidade | P2 | PENDING |
 | T09 | Resultado da partida | P2 | PENDING |
 | T10 | Estados vazios/erros/armazenamento local | P2 | PENDING |
@@ -200,6 +215,6 @@
 
 ## Próxima unidade
 
-**T06 — Detalhes da carta:** produzir um único preview individual no cartoon V1 seguindo T01–T05, com arte da carta como protagonista, nome, tipo canônico e campos do MM-03; HP/ataque somente para Mememom. Sem evolução, economia, níveis ou funções não autorizadas. T05 está CONCEPT_APPROVED_WITH_IMPLEMENTATION_CONSTRAINTS; implementar o limite de duas cópias e navegação hambúrguer independentemente do desenho ilustrativo.
+**T07 — Meme Forge privado (conceito apenas, MM-06 NEXT):** gerar um único preview individual no estilo T01–T06 aprovado, com importação/recorte de imagem local, nome/tipo canônico, informação simples de origem/direitos (inclusive desconhecida), stats propostos pelo sistema e visualização Sandbox privada. Sem upload remoto, publicação, evolução, moedas, conta/registro ou catálogo público. Respeitar G9 D, G10 D, critérios MM-03/MM-06 e hambúrguer global oculto por padrão. **T06** tem aceite de arte, não aceite de suas mecânicas ilustrativas.
 
-**Fase seguinte (sem geração automática):** validar T06 individualmente e seguir a fila; quando extrair assets unitários, priorizar base reutilizável B01/C01 antes de variantes de personagens, respeitando o pedido explícito do usuário.
+**Fase seguinte (sem geração automática):** validar T07 individualmente e seguir a fila; quando extrair assets unitários, priorizar base reutilizável B01/C01 antes de variantes de personagens, respeitando o pedido explícito do usuário.

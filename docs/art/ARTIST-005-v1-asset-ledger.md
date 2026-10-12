@@ -2,7 +2,7 @@
 
 **Repositório:** az1nn/meme-mon  
 **Data do gate T01:** 2026-10-10 (Brasil)  
-**Estado:** INVENTORY ACTIVE; T01 CONCEPT_APPROVED; T02 COMPOSITION_APPROVED_1x1; T03 CONCEPT_APPROVED_WITH_IMPLEMENTATION_CONSTRAINTS; T04 CONCEPT_APPROVED_WITH_IMPLEMENTATION_CONSTRAINTS; T05 CONCEPT_APPROVED_WITH_IMPLEMENTATION_CONSTRAINTS; T06 CONCEPT_APPROVED_WITH_IMPLEMENTATION_CONSTRAINTS; T07 NEXT_CONCEPT_ONLY_MM06_GATE  
+**Estado:** INVENTORY ACTIVE; T01 CONCEPT_APPROVED; T02 COMPOSITION_APPROVED_1x1; T03 CONCEPT_APPROVED_WITH_IMPLEMENTATION_CONSTRAINTS; T04 CONCEPT_APPROVED_WITH_IMPLEMENTATION_CONSTRAINTS; T05 CONCEPT_APPROVED_WITH_IMPLEMENTATION_CONSTRAINTS; T06 CONCEPT_APPROVED_WITH_IMPLEMENTATION_CONSTRAINTS; T07 CONCEPT_APPROVED_MM06_GATED; T08 NEXT  
 **Total:** 74 itens/famílias planejadas, **não** 74 imagens independentes nem 74 features autorizadas. Reusar componentes por padrão.
 
 ## Autoridade e fronteiras
@@ -88,6 +88,20 @@
 - **Importação binária GitHub:** `PENDING_IMPORT`, destino sugerido `docs/art/references/ARTIST-005-T06-card-detail-approved.png`; validar SHA-256 dos bytes reais antes de concluir importação.
 - **Próximo gate visual:** `T07 — Meme Forge privado`, **CONCEPT ONLY** sujeito a MM-06. Upload/seleção de imagem **local**, edição de corte, nome, tipo canônico, prévia Sandbox, aviso de proveniência leve (inclusive `unknown`), sem publicação/rede/Canon, com aprovação visual humana individual.
 
+## Gate específico T07 — Meme Forge privado aprovado
+
+- **Decisão humana:** `Aprovado` em 2026-10-12 (Brasil), em resposta direta ao preview individual T07. A aprovação se restringe ao **art concept e hierarquia visual**; não autoriza a entrega funcional do MM-06 nem altera contrato de produto.
+- **PNG de origem:** `a_vibrant_colorful_cartoon_game_ui_screenshot_in.png` — **1536 × 1024 px, RGB PNG**, **2.152.368 bytes**.
+- **SHA-256 original verificado:** `cf45dcfb2a2b635d6263efe21bc79798f511c4418845a59c0cb1aca6f5415652`.
+- **Estado:** `CONCEPT_APPROVED_MM06_GATED`. Visual aceito: editor de imagem com recorte, formulário simples, indicação de proveniência/privacidade, cartão ilustrado como preview, ações grandes, estética cartoon vibrante com acentos urbanos e composição desktop amigável.
+- **Contrato técnico obrigatório:** MM-03, MM-05, MM-06 (ainda `NEXT` no roadmap), ARTIST-003/004. O Forge é **privado e local**; selecionar arquivos locais (upload aqui significa *file picker local*), cortar imagem, nomear, escolher **kind** `mememom | reaction | format` e **type** `classic | reaction | brainrot | surreal | wholesome`, e gerar stats/efeitos somente pelos limites e schemas MM-03, sem permitir código arbitrário. Não construir endpoint público, upload de mídia para servidor, login ou publicação.
+- **Proveniência G10 D provisória:** perguntar no uso privado a origem/possíveis direitos e permitir explicitamente `desconhecida` sem impedir o Sandbox local. A frase fixa `Criada por você (G10 D)` no mockup **não comprova autoria/licença**: a UI precisa coletar declaração em vez de inferi-la. Se um futuro fluxo de publicação for autorizado, exigir evidências completas de direitos antes de qualquer submissão/revisão (MM-07/MM-08), fail-closed.
+- **Desvios ilustrativos não autorizados:** filtros `Fogo/Água/Planta/Elétrico/Psíquico/Noturno/Normal` não são tipos canônicos; substituir pelos tipos reais. Avatar, wordmark, moedas/gemas, níveis, perfil online, notificações, eventos e ranking são apenas desenho. Menu lateral global **fixo** no preview não altera a regra: hambúrguer fechado por padrão no mobile **e** desktop. `Adicionar ao Deck` só deve ficar disponível quando a carta/edição local for válida e legal pelo domínio, considerando ownership e limite de 2 cópias por card_id; não prometer automaticamente card criado como competitivo/Canon.
+- **Visual não autoriza elementos individuais:** cachorro, nomes, formatos ilustrativos da carta, marca e memes têm gates separados de originalidade/licenças/arte; G9 D privado primeiro continua valendo.
+- **Gates ainda abertos:** validação de JSON/schema, recorte e importação Godot em navegador, armazenamento user:// com fallback volátil, funcionamento sem backend, acessibilidade e responsividade, comparativo LENTE/INSPECTOR no HEAD exato. `RUNTIME_NOT_VERIFIED`.
+- **PNG no GitHub:** `PENDING_IMPORT`; caminho proposto `docs/art/references/ARTIST-005-T07-private-forge-approved.png`; antes de declarar importação, conferir bytes originais e SHA-256.
+- **Próxima unidade ARTIST:** `T08 — Configurações e acessibilidade`, preview independente com seletor de 0/1/2 vídeos idle (0 inicial), movimento reduzido, fallback de imagem estática, som e controle de apresentação apenas onde suportados, mantendo navegação via hambúrguer e sem dependência online. A aprovação do preview não confirma implementação de configurações.
+
 ## Fila completa (um por vez)
 
 ### T — Telas V1
@@ -100,8 +114,8 @@
 | T04 | Coleção | P1 | CONCEPT_APPROVED_WITH_IMPLEMENTATION_CONSTRAINTS |
 | T05 | Deckbuilder | P1 | CONCEPT_APPROVED_WITH_IMPLEMENTATION_CONSTRAINTS |
 | T06 | Detalhes da carta | P1 | CONCEPT_APPROVED_WITH_IMPLEMENTATION_CONSTRAINTS |
-| T07 | Meme Forge privado | P2 | NEXT_CONCEPT_ONLY_MM06_GATE |
-| T08 | Configurações e acessibilidade | P2 | PENDING |
+| T07 | Meme Forge privado | P2 | CONCEPT_APPROVED_MM06_GATED |
+| T08 | Configurações e acessibilidade | P2 | NEXT |
 | T09 | Resultado da partida | P2 | PENDING |
 | T10 | Estados vazios/erros/armazenamento local | P2 | PENDING |
 
@@ -215,6 +229,6 @@
 
 ## Próxima unidade
 
-**T07 — Meme Forge privado (conceito apenas, MM-06 NEXT):** gerar um único preview individual no estilo T01–T06 aprovado, com importação/recorte de imagem local, nome/tipo canônico, informação simples de origem/direitos (inclusive desconhecida), stats propostos pelo sistema e visualização Sandbox privada. Sem upload remoto, publicação, evolução, moedas, conta/registro ou catálogo público. Respeitar G9 D, G10 D, critérios MM-03/MM-06 e hambúrguer global oculto por padrão. **T06** tem aceite de arte, não aceite de suas mecânicas ilustrativas.
+**T08 — Configurações e acessibilidade:** gerar preview individual de configuração local (independente de conta/rede), no cartoon V1; preservar menu global hambúrguer oculto por padrão, controle manual de 0/1/2 vídeos idle Active (0 por padrão, G6–G8), política de preferência para dono do turno quando 1, fallback estático, movimento reduzido, som acessível e legibilidade. Não inventar sliders/persistência/serviços como funcionalidades entregues sem spec/runtime. **T07** está CONCEPT_APPROVED_MM06_GATED; MM-06 permanece sujeito a implementação/testes de domínio e navegador.
 
-**Fase seguinte (sem geração automática):** validar T07 individualmente e seguir a fila; quando extrair assets unitários, priorizar base reutilizável B01/C01 antes de variantes de personagens, respeitando o pedido explícito do usuário.
+**Fase seguinte (sem geração automática):** validar T08 individualmente e seguir a fila; quando extrair assets unitários, priorizar base reutilizável B01/C01 antes de variantes de personagens, respeitando o pedido explícito do usuário.

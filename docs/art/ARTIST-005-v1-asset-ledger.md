@@ -2,7 +2,7 @@
 
 **Repositório:** az1nn/meme-mon  
 **Data do gate T01:** 2026-10-10 (Brasil)  
-**Estado:** T01–T10 ART CONCEPT REVIEW COMPLETE (individual visual/composition acceptances, technical constraints retained); reusable asset phase ACTIVE; B01 CONCEPT_APPROVED / SOURCE_REFERENCE_PENDING; C01 NEXT_PREVIEW  
+**Estado:** T01–T10 concept approved; B01 concept approved (source pending); C01 concept approved (binary pending); C05 NEXT_PREVIEW  
 **Total:** 74 itens/famílias planejadas, **não** 74 imagens independentes nem 74 features autorizadas. Reusar componentes por padrão.
 
 ## Autoridade e fronteiras
@@ -168,11 +168,11 @@
 
 | ID | Asset / contrato | Prioridade | Estado |
 |---|---|---|---|
-| C01 | Moldura base comum | P0 | PREVIEW_V1_GENERATED / HUMAN_GATE_PENDING |
+| C01 | Moldura base comum | P0 | CONCEPT_APPROVED / BINARY_IMPORT_PENDING |
 | C02 | Moldura rara | P1 | PENDING |
 | C03 | Moldura épica | P1 | PENDING |
 | C04 | Moldura lendária | P1 | PENDING |
-| C05 | Verso de carta original | P0 | PENDING |
+| C05 | Verso de carta original | P0 | NEXT_PREVIEW |
 | C06 | Template Active (duelo) | P0 | PENDING |
 | C07 | Template Hand (duelo) | P0 | PENDING |
 | C08 | Template miniatura de coleção | P1 | PENDING |
@@ -290,9 +290,17 @@
 - **Controle de qualidade:** duas pranchas gerais geradas nesta mesma sessão desviaram do brief e ficam `REJECTED_OUT_OF_SCOPE` — não reutilizá-las como aprovação ou referencia. O candidato válido é somente o arquivo `C01` acima.
 - **Gate aberto:** aprovação/rejeição/ajustes do usuário, depois asset final e validação SCENE/ARCH/INSPECTOR no Godot com capturas exatas. `RUNTIME_NOT_VERIFIED`.
 
+## Aprovação C01 — 2026-10-12
+
+- **Decisão humana:** `ARTIST MemeMon — APPROVE C01`, explícita após apresentação do preview individual.
+- **Estado:** `CONCEPT_APPROVED`; apenas moldura base, não personagens, marca, mecânicas, integração Godot ou direitos de terceiros.
+- **Proveniência:** preservar PNG/SVG e hashes já registrados acima. Binários ainda não verificados no GitHub; `BINARY_IMPORT_PENDING`.
+- **Concorrência:** manter o mesmo PR #13 em draft; nenhum novo workstream ou merge.
+- **Próximo gate:** C05, aprovação individual obrigatória.
+
 ## Próxima unidade
 
-**C01 — Moldura base comum:** gerar um único preview isolado de template/cartão 2D cartoon polido, com contornos definidos, cantos arredondados, profundidade e cores controladas. Usar placeholders neutros sem personagens, marca final, valores de gameplay inventados ou ornamentos de TCG licenciados. Reservar hierarquia para ilustração grande, cabeçalho/nome, tipo, custo Trend e texto de efeito; atributos de combate somente onde kind permitir. Prever escalonamento hand/Active/coleção e impressão de leitura no mobile, sem tratar preview como implementação. Gate humano `APPROVE / ADJUST / REJECT`.
+**C05 — Verso original da carta:** gerar um único preview isolado vertical, compatível com C01, cartoon polido e identidade original, sem personagem, logotipo provisório, símbolos de franquias ou mecânicas inventadas. Aguardar human gate antes de congelar.
 
 
 **Fase seguinte:** T01–T10 concluídos **apenas como conceitos visuais**; produzir/validar individualmente os assets de base B01 → C01 → C05 → UI/HUD → ilustrações, preservando referência/arte originais, sem declarar implementação Godot antes dos gates SCENE/ARCH/INSPECTOR.

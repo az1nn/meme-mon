@@ -2,7 +2,7 @@
 
 **Repositório:** az1nn/meme-mon  
 **Data do gate T01:** 2026-10-10 (Brasil)  
-**Estado:** INVENTORY ACTIVE; T01 CONCEPT_APPROVED; T02 COMPOSITION_APPROVED_1x1; T03 CONCEPT_APPROVED_WITH_IMPLEMENTATION_CONSTRAINTS; T04 CONCEPT_APPROVED_WITH_IMPLEMENTATION_CONSTRAINTS; T05 CONCEPT_APPROVED_WITH_IMPLEMENTATION_CONSTRAINTS; T06 CONCEPT_APPROVED_WITH_IMPLEMENTATION_CONSTRAINTS; T07 CONCEPT_APPROVED_MM06_GATED; T08 NEXT  
+**Estado:** INVENTORY ACTIVE; T01 CONCEPT_APPROVED; T02 COMPOSITION_APPROVED_1x1; T03 CONCEPT_APPROVED_WITH_IMPLEMENTATION_CONSTRAINTS; T04 CONCEPT_APPROVED_WITH_IMPLEMENTATION_CONSTRAINTS; T05 CONCEPT_APPROVED_WITH_IMPLEMENTATION_CONSTRAINTS; T06 CONCEPT_APPROVED_WITH_IMPLEMENTATION_CONSTRAINTS; T07 CONCEPT_APPROVED_MM06_GATED; T08 CONCEPT_APPROVED_WITH_IMPLEMENTATION_CONSTRAINTS; T09 NEXT  
 **Total:** 74 itens/famílias planejadas, **não** 74 imagens independentes nem 74 features autorizadas. Reusar componentes por padrão.
 
 ## Autoridade e fronteiras
@@ -102,6 +102,22 @@
 - **PNG no GitHub:** `PENDING_IMPORT`; caminho proposto `docs/art/references/ARTIST-005-T07-private-forge-approved.png`; antes de declarar importação, conferir bytes originais e SHA-256.
 - **Próxima unidade ARTIST:** `T08 — Configurações e acessibilidade`, preview independente com seletor de 0/1/2 vídeos idle (0 inicial), movimento reduzido, fallback de imagem estática, som e controle de apresentação apenas onde suportados, mantendo navegação via hambúrguer e sem dependência online. A aprovação do preview não confirma implementação de configurações.
 
+## Gate específico T08 — Configurações e Acessibilidade aprovado
+
+- **Decisão humana:** `Aprovado` após apresentação do preview T08 individual em 2026-10-12 (Brasil). Aceite **somente do conceito visual**, não de runtime, permissões de marca ou implementação automática de funcionalidades.
+- **Imagem original:** `a_vibrant_colorful_cartoon_game_ui_settings_screen.png` — **1536 × 1024 px**, RGB PNG, **2.009.891 bytes**.
+- **SHA-256 verificado dos bytes originais:** `4601bcdcecfc22672f68411a5f91cc855ad718ff399273996d71c81287ea6888`.
+- **Estado:** `CONCEPT_APPROVED_WITH_IMPLEMENTATION_CONSTRAINTS`.
+- **Direção aceita:** painéis navy com contornos cartoon consistentes com T01–T07, destaque azul do controle ativo, opções agrupadas, prévia visual da carta/idle e textos legíveis. A composição serve como referência, inclusive para adaptação responsiva; o layout desenhado não comprova suporte real no Godot.
+- **Contrato G6 D / G7 B / G8 A (provisório, obrigatório ao seguir esta direção):** escolha **manual 0/1/2** para número máximo simultâneo de vídeos idle **dentro de cartas Active**, **0 como preferência inicial**; 1 dá preferência à carta Active do **dono do turno**; 2 permite até dois loops Active. Não implementar vídeos em fundo, cartas da mão ou efeitos de ataque/KO sob a etiqueta `idle`. Não trocar automaticamente a preferência 0/1/2 conforme capacidade.
+- **Acessibilidade e resiliência:** movimento reduzido desabilita/degrada animações decorativas adequadamente e prefere apresentação estática, sem bloquear a lógica; se mídia não existir ou falhar, exibir poster/fallback estático. Manter estado de preferência do usuário e continuidade do duelo determinístico independentemente de codec, render ou mídia. Testar contrastes, toque, teclado e breakpoints em runtime quando houver implementação.
+- **Elementos adicionais não aprovados como escopo:** seletor de idioma, tema automático, tema claro/escuro, presets de contraste, tamanho da UI, legendas, FPS/qualidade gráfica, seleção livre da imagem fallback, dica de controles, toggles de efeitos, moeda/gemas, avatar, nível, eventos/ranking e sincronização remota são **opções ilustrativas**. Exibir como controles funcionais somente após contrato e testes de produto próprios.
+- **Correção de navegação:** o PNG mostra **sidebar global fixa**, contrariando ARTIST-003/ART-002. Preservar o estilo, mas usar **hambúrguer oculto por padrão em desktop e mobile**, sem rail fixa.
+- **Identidade/direitos:** wordmark, personagens e imagens de cartas usados no mockup continuam provisórios. Este aceite não aprova marca ou personagens individualmente.
+- **Runtime/evidência:** `NOT_VERIFIED`. Sem testes Godot, playback de vídeo, controles reais, compatibilidade browser, contraste, desempenho ou comparação visual em HEAD exato.
+- **Importação binária do PNG:** `PENDING_IMPORT`; caminho recomendado `docs/art/references/ARTIST-005-T08-settings-accessibility-approved.png`. Verificar bytes originais e SHA-256 antes de marcar importação concluída.
+- **Próximo item ARTIST:** `T09 — Resultado da Partida`: visual de vitória, derrota e empate apenas se previsto no contrato de regras, com desfecho derivado do estado/evento real do duelo; sem XP, moeda, loot, evolução, ranking ou recompensas não especificadas; manter gameplay browser-local e navegação hambúrguer.
+
 ## Fila completa (um por vez)
 
 ### T — Telas V1
@@ -115,8 +131,8 @@
 | T05 | Deckbuilder | P1 | CONCEPT_APPROVED_WITH_IMPLEMENTATION_CONSTRAINTS |
 | T06 | Detalhes da carta | P1 | CONCEPT_APPROVED_WITH_IMPLEMENTATION_CONSTRAINTS |
 | T07 | Meme Forge privado | P2 | CONCEPT_APPROVED_MM06_GATED |
-| T08 | Configurações e acessibilidade | P2 | NEXT |
-| T09 | Resultado da partida | P2 | PENDING |
+| T08 | Configurações e acessibilidade | P2 | CONCEPT_APPROVED_WITH_IMPLEMENTATION_CONSTRAINTS |
+| T09 | Resultado da partida | P2 | NEXT |
 | T10 | Estados vazios/erros/armazenamento local | P2 | PENDING |
 
 ### C — Cartas
@@ -229,6 +245,6 @@
 
 ## Próxima unidade
 
-**T08 — Configurações e acessibilidade:** gerar preview individual de configuração local (independente de conta/rede), no cartoon V1; preservar menu global hambúrguer oculto por padrão, controle manual de 0/1/2 vídeos idle Active (0 por padrão, G6–G8), política de preferência para dono do turno quando 1, fallback estático, movimento reduzido, som acessível e legibilidade. Não inventar sliders/persistência/serviços como funcionalidades entregues sem spec/runtime. **T07** está CONCEPT_APPROVED_MM06_GATED; MM-06 permanece sujeito a implementação/testes de domínio e navegador.
+**T09 — Resultado da partida:** gerar preview individual de resultado visual no cartoon V1 seguindo T01–T08; apresentar vencedor/derrotado e estados finais só com dados/evidências de MatchState/MatchEvents, e ações locais autorizadas (novo duelo, voltar). Sem moedas, XP, loot, ranking, evolução, publicidade, login ou recompensas não especificadas. Menu hambúrguer fechado por padrão, nenhuma sidebar fixa. **T08** é CONCEPT_APPROVED_WITH_IMPLEMENTATION_CONSTRAINTS e não prova recursos de vídeo/áudio/controles funcionando.
 
-**Fase seguinte (sem geração automática):** validar T08 individualmente e seguir a fila; quando extrair assets unitários, priorizar base reutilizável B01/C01 antes de variantes de personagens, respeitando o pedido explícito do usuário.
+**Fase seguinte (sem geração automática):** validar T09 individualmente e seguir a fila; quando extrair assets unitários, priorizar base reutilizável B01/C01 antes de variantes de personagens, respeitando o pedido explícito do usuário.

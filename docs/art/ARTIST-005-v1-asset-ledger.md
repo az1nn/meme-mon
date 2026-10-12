@@ -2,7 +2,7 @@
 
 **Repositório:** az1nn/meme-mon  
 **Data do gate T01:** 2026-10-10 (Brasil)  
-**Estado:** INVENTORY ACTIVE; T01 CONCEPT_APPROVED; T02 COMPOSITION_APPROVED_1x1; T03 CONCEPT_APPROVED_WITH_IMPLEMENTATION_CONSTRAINTS; T04 CONCEPT_APPROVED_WITH_IMPLEMENTATION_CONSTRAINTS; T05 NEXT  
+**Estado:** INVENTORY ACTIVE; T01 CONCEPT_APPROVED; T02 COMPOSITION_APPROVED_1x1; T03 CONCEPT_APPROVED_WITH_IMPLEMENTATION_CONSTRAINTS; T04 CONCEPT_APPROVED_WITH_IMPLEMENTATION_CONSTRAINTS; T05 CONCEPT_APPROVED_WITH_IMPLEMENTATION_CONSTRAINTS; T06 NEXT  
 **Total:** 74 itens/famílias planejadas, **não** 74 imagens independentes nem 74 features autorizadas. Reusar componentes por padrão.
 
 ## Autoridade e fronteiras
@@ -58,6 +58,21 @@
 - **Importação binária:** `PENDING`; caminho sugerido `docs/art/references/ARTIST-005-T04-collection-approved.png`. Comparar o hash dos bytes originais antes de declarar importação concluída.
 - **Próximo gate ARTIST:** `T05 — Deckbuilder`, preview individual com deck de 30 cartas, quantidade possuída, validação determinística MM-05, estados de deck legal/ilegal e seleção/salvamento locais; nenhuma mecânica inventada.
 
+## Gate específico T05 — conceito Deckbuilder aprovado
+
+- **Decisão humana:** `Aprovado` (2026-10-12, Brasil), em resposta direta ao preview individual T05. **Escopo: ART CONCEPT**, não autorização para alterar mecânicas.
+- **Imagem fonte:** `wide_colorful_cartoon_ui_game_interface_in_a_lands.png`, PNG RGB, **1536 × 1024 px**, **2.238.807 bytes**.
+- **SHA-256 exato do PNG gerado:** `db54d0411814275fc9fc0925b44697b9a5e54b9d1074328f348a9a7d623c8632`.
+- **Estado:** `CONCEPT_APPROVED_WITH_IMPLEMENTATION_CONSTRAINTS`.
+- **Arte aprovada:** estética de card-based cartoon V1, cartões com silhuetas expressivas e bordas de cores distintas, contraste entre painel do deck e coleção disponível, tabs de decks locais, resumo visual, busca/filtragem e ações de salvar/testar visualmente distinguíveis.
+- **Correção crítica de regras (MM-05 / Alpha 0.1):** alguns cards aparecem `x3` no mockup; **não permitidos** na V1. O limite é **2 cópias por `card_id`, incluindo múltiplas edições**, independentemente de quantidade possuída. Exatamente **30** entradas, no mínimo **8 Mememom** e no máximo **2 Headliners**. O selo `Deck válido` ilustrado **não comprova legalidade** de uma composição x3 nem validação real. Exibir resultados do `DeckValidator` autoritativo, inclusive erros `DECK_COPY_LIMIT`, `DECK_SIZE_INVALID`, `DECK_MIN_MEMEMOM`, `DECK_HEADLINER_LIMIT` e `CARD_NOT_OWNED`.
+- **Correção de tipos:** os filtros exemplificativos `Fogo, Água, Planta, Elétrico, Psíquico, Noturno, Normal` **não substituem** `Classic`, `Reaction`, `Brainrot`, `Surreal`, `Wholesome`; distinguir `kind` (Mememom/Reaction/Format), `type` e `tier` reais conforme MM-03/MM-05.
+- **Correção de navegação:** o preview contém sidebar fixa; no Godot mobile/desktop, **global hamburger-only**, sem navegação global permanentemente aberta. Manter layout desktop responsivo, fechamento e acessibilidade.
+- **Elementos NÃO autorizados:** avatar, wordmark ilustrativa, moeda, gemas, nível/XP, notificações sociais, eventos/ranking, pacotes, novos efeitos ou personagens como Canon. `Novo Deck`/abas e `Testar Deck` só podem executar fluxos locais efetivamente implementados, sem recursos remotos.
+- **Runtime:** `NOT_VERIFIED`; nenhum build, funcionamento de controles, armazenamento local, responsividade, teste em Godot ou revisão de direitos inferido a partir da imagem.
+- **Binário no GitHub:** `PENDING_IMPORT`, caminho proposto `docs/art/references/ARTIST-005-T05-deckbuilder-approved.png`. Não marcar `IMPORTED` antes de upload e confirmação do SHA256.
+- **Próxima unidade ARTIST:** `T06 — Detalhe da carta`: composição individual reutilizando C01–C12 e T01–T05, informações derivadas do schema MM-03; stats de combate somente para `Mememom`, sem botão de evolução ou mecânica não autorizada. Aprovação visual humana independente.
+
 ## Fila completa (um por vez)
 
 ### T — Telas V1
@@ -68,8 +83,8 @@
 | T02 | Menu hambúrguer aberto (mobile) | P0 | COMPOSITION_APPROVED_1x1 |
 | T03 | Duelo desktop/web responsivo | P1 | CONCEPT_APPROVED_WITH_IMPLEMENTATION_CONSTRAINTS |
 | T04 | Coleção | P1 | CONCEPT_APPROVED_WITH_IMPLEMENTATION_CONSTRAINTS |
-| T05 | Deckbuilder | P1 | NEXT |
-| T06 | Detalhes da carta | P1 | PENDING |
+| T05 | Deckbuilder | P1 | CONCEPT_APPROVED_WITH_IMPLEMENTATION_CONSTRAINTS |
+| T06 | Detalhes da carta | P1 | NEXT |
 | T07 | Meme Forge privado | P2 | PENDING_MM06 |
 | T08 | Configurações e acessibilidade | P2 | PENDING |
 | T09 | Resultado da partida | P2 | PENDING |
@@ -185,6 +200,6 @@
 
 ## Próxima unidade
 
-**T05 — Deckbuilder:** gerar apenas um preview individual no cartoon V1 seguindo T01–T04; apresentar busca/coleção, seleção de um deck local de 30 cartas, contagem/ownership, erros de validação MM-05, salvar/reabrir/selecionar deck e habilitar duelo somente se legal. Navegação global por hambúrguer no desktop/mobile, sem sidebar fixa, evolução, economia, login, ranking ou recursos não autorizados. **T04** já está aprovado como conceito visual, com estes limites de implementação obrigatórios.
+**T06 — Detalhes da carta:** produzir um único preview individual no cartoon V1 seguindo T01–T05, com arte da carta como protagonista, nome, tipo canônico e campos do MM-03; HP/ataque somente para Mememom. Sem evolução, economia, níveis ou funções não autorizadas. T05 está CONCEPT_APPROVED_WITH_IMPLEMENTATION_CONSTRAINTS; implementar o limite de duas cópias e navegação hambúrguer independentemente do desenho ilustrativo.
 
-**Fase seguinte (sem geração automática):** validar T05 individualmente e seguir a fila; quando extrair assets unitários, priorizar base reutilizável B01/C01 antes de variantes de personagens, respeitando o pedido explícito do usuário.
+**Fase seguinte (sem geração automática):** validar T06 individualmente e seguir a fila; quando extrair assets unitários, priorizar base reutilizável B01/C01 antes de variantes de personagens, respeitando o pedido explícito do usuário.

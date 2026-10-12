@@ -2,7 +2,7 @@
 
 **Repositório:** az1nn/meme-mon  
 **Data do gate T01:** 2026-10-10 (Brasil)  
-**Estado:** T01–T10 ART CONCEPT REVIEW COMPLETE (individual visual/composition acceptances, technical constraints retained); reusable asset phase ACTIVE; B01 NEXT  
+**Estado:** T01–T10 ART CONCEPT REVIEW COMPLETE (individual visual/composition acceptances, technical constraints retained); reusable asset phase ACTIVE; B01 CONCEPT_APPROVED / SOURCE_REFERENCE_PENDING; C01 NEXT_PREVIEW  
 **Total:** 74 itens/famílias planejadas, **não** 74 imagens independentes nem 74 features autorizadas. Reusar componentes por padrão.
 
 ## Autoridade e fronteiras
@@ -168,7 +168,7 @@
 
 | ID | Asset / contrato | Prioridade | Estado |
 |---|---|---|---|
-| C01 | Moldura base comum | P0 | PENDING |
+| C01 | Moldura base comum | P0 | NEXT_PREVIEW |
 | C02 | Moldura rara | P1 | PENDING |
 | C03 | Moldura épica | P1 | PENDING |
 | C04 | Moldura lendária | P1 | PENDING |
@@ -236,7 +236,7 @@
 
 | ID | Asset / contrato | Prioridade | Estado |
 |---|---|---|---|
-| B01 | Arena de duelo — terraço tropical cartoon | P0 | NEXT |
+| B01 | Arena de duelo — terraço tropical cartoon | P0 | CONCEPT_APPROVED / PNG_PROVENANCE_PENDING |
 | B02 | Fundo para entry/home (opcional) | P1 | PENDING |
 | B03 | Fundo coleção genérico reaproveitável | P1 | PENDING |
 | B04 | Fundo deckbuilder (preferir B03 reaproveitado) | P1 | PENDING |
@@ -272,8 +272,17 @@
 5. **IMPLEMENT / VERIFY:** somente com escopo autorizado. SCENE integra Godot, ARCH verifica contratos, INSPECTOR compara evidências do runtime exato com o conceito; SIGA controla concorrência, testes, CI e handoff.
 6. **REPORT:** sempre explicitar `CONCEPT_APPROVED` versus `RUNTIME_VERIFIED` e imagens binárias `IMPORTED` versus `PENDING`.
 
+## Gate B01 — cenário isolado aprovado; proveniência ainda pendente
+
+- **Decisão humana:** o proprietário confirmou `B01 aprovado; seguir para o próximo asset` em 2026-10-12 (Brasil), após o preview individual do fundo do duelo.
+- **Escopo:** aprovação do conceito isolado de cenário tropical urbano cartoon, conforme ARTIST-003/004; não autoriza personagens, marca, HUD, mecânicas ou integração ao Godot.
+- **Rastreabilidade:** filename, dimensões, bytes originais e SHA-256 do preview aprovado **não foram recuperados nesta reconciliação**. **Não substituir** por imagem semelhante nem registrar binário como importado sem os bytes originais e hash verificado. Estado `PNG_PROVENANCE_PENDING`.
+- **Validação técnica pendente:** encaixe real em T01 retrato e T03 paisagem, importação Godot, screenshots exatos, responsividade e INSPECTOR. `RUNTIME_NOT_VERIFIED`.
+- **Próximo gate:** `C01` — uma moldura vertical comum reutilizável para cartas, sem arte de personagem, logotipo, elementos de franquias ou raridade especial. Áreas separadas para nome, tipo canônico, ilustração, custo Trend, dados pertinentes ao kind e efeitos, com legibilidade em mobile; aprovação humana individual antes de C05.
+
 ## Próxima unidade
 
-**B01 — Fundo de duelo, terraço urbano tropical cartoon:** produzir **um único asset isolado** da arena aprovada em ARTIST-003/004 e T01–T10, **sem HUD, menus, cartas, personagens, ícones, logotipo ou texto**. Preservar profundidade e área limpa para Active cards; ter arquitetura Rio-inspired, tropical, cores controladas, pintura urbana como detalhe. Testar encaixe no T01 vertical e T03 horizontal sem deformar a arte; obter human gate explícito antes de congelar e de gerar C01. Cada componente deve ter preview baixável individual.
+**C01 — Moldura base comum:** gerar um único preview isolado de template/cartão 2D cartoon polido, com contornos definidos, cantos arredondados, profundidade e cores controladas. Usar placeholders neutros sem personagens, marca final, valores de gameplay inventados ou ornamentos de TCG licenciados. Reservar hierarquia para ilustração grande, cabeçalho/nome, tipo, custo Trend e texto de efeito; atributos de combate somente onde kind permitir. Prever escalonamento hand/Active/coleção e impressão de leitura no mobile, sem tratar preview como implementação. Gate humano `APPROVE / ADJUST / REJECT`.
+
 
 **Fase seguinte:** T01–T10 concluídos **apenas como conceitos visuais**; produzir/validar individualmente os assets de base B01 → C01 → C05 → UI/HUD → ilustrações, preservando referência/arte originais, sem declarar implementação Godot antes dos gates SCENE/ARCH/INSPECTOR.

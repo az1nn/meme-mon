@@ -2,7 +2,7 @@
 
 **Repositório:** az1nn/meme-mon  
 **Data do gate T01:** 2026-10-10 (Brasil)  
-**Estado:** INVENTORY ACTIVE; T01 CONCEPT_APPROVED; T02 COMPOSITION_APPROVED_1x1; T03 CONCEPT_APPROVED_WITH_IMPLEMENTATION_CONSTRAINTS; T04 NEXT  
+**Estado:** INVENTORY ACTIVE; T01 CONCEPT_APPROVED; T02 COMPOSITION_APPROVED_1x1; T03 CONCEPT_APPROVED_WITH_IMPLEMENTATION_CONSTRAINTS; T04 CONCEPT_APPROVED_WITH_IMPLEMENTATION_CONSTRAINTS; T05 NEXT  
 **Total:** 74 itens/famílias planejadas, **não** 74 imagens independentes nem 74 features autorizadas. Reusar componentes por padrão.
 
 ## Autoridade e fronteiras
@@ -44,6 +44,20 @@
 - **Importação binária no GitHub:** `PENDING`, destino sugerido `docs/art/references/ARTIST-005-T03-desktop-duel-approved.png`. Guardar bytes originais e verificar hash antes de declarar importação concluída.
 - **Próximo item ARTIST:** `T04 — Coleção`, conceito individual preservando ARTIST-004/005 e UI voltada aos dados da coleção MM-05. Ainda precisa de aprovação individual.
 
+## Gate específico T04 — conceito Coleção aprovado
+
+- **Decisão humana:** `Aprovado` (2026-10-12, Brasil) após apresentação individual do preview T04.
+- **Arquivo de origem:** `a_vibrant_colorful_cartoon_game_ui_screenshot_of.png`, PNG RGB, **1536 × 1024 px**.
+- **SHA-256 exato:** `0494059bbd3e22692f6c9c9e30c1d00666d440e1926535818ae10f812d11f828` (arquivo original gerado na sessão).
+- **Estado:** `CONCEPT_APPROVED_WITH_IMPLEMENTATION_CONSTRAINTS` — aprovação **do art concept** da Coleção, não do comportamento de gameplay nem dos nomes ou ilustrações particulares dos memes.
+- **Direção aprovada:** grid colorido e responsivo de cartas ilustradas, estados de seleção legíveis, painel contextual de detalhes, campos de busca/filtros, contraste entre ilustrações e painéis, cartoon vibrante com contornos fortes e cenário urbano/tropical mais discreto.
+- **Implementação vinculante (MM-05):** somente cartas/edições válidas e quantidade realmente possuída; busca por nome/ID; filtros por **kind, type e tier do schema**, sem substituir os tipos canônicos `Classic`, `Reaction`, `Brainrot`, `Surreal` e `Wholesome` por categorias ilustrativas (Fogo/Água/Planta etc.). Permitir inserir/remover cartas em draft conforme ownership e `DeckValidator`; não recalcular legitimidade na UI.
+- **Correções obrigatórias ao implementar:** no preview há **sidebar global fixa** apesar do contrato ART-002 hamburger-only para mobile **e desktop**; usar trigger hambúrguer e drawer fechado por padrão. `Evoluir`, valores de moeda/gema, níveis/XP, "adquirido em", ranking/eventos, mecânicas e dados de cartas fictícios são decoração conceitual **não autorizada**. Remover/ocultar ações não suportadas, preservando a identidade visual.
+- **Gate de personagens/marca:** as identidades e personagens individuais, a logo usada no conceito e eventuais elementos de marcas de terceiros **não** recebem aprovação separada de arte ou direitos. Sem public meme catalog (G9 D); G10 D captura progressiva de proveniência permanece provisória e inalterada.
+- **Runtime/CI:** `NOT_VERIFIED`. Implementação Godot, navegação responsiva, touch/keyboard, overflow, ligação a MM-05 e screenshots reais do runtime ainda necessitam validação de SCENE/ARCH/INSPECTOR/SIGA.
+- **Importação binária:** `PENDING`; caminho sugerido `docs/art/references/ARTIST-005-T04-collection-approved.png`. Comparar o hash dos bytes originais antes de declarar importação concluída.
+- **Próximo gate ARTIST:** `T05 — Deckbuilder`, preview individual com deck de 30 cartas, quantidade possuída, validação determinística MM-05, estados de deck legal/ilegal e seleção/salvamento locais; nenhuma mecânica inventada.
+
 ## Fila completa (um por vez)
 
 ### T — Telas V1
@@ -53,8 +67,8 @@
 | T01 | Duelo mobile card-first | P0 | CONCEPT_APPROVED |
 | T02 | Menu hambúrguer aberto (mobile) | P0 | COMPOSITION_APPROVED_1x1 |
 | T03 | Duelo desktop/web responsivo | P1 | CONCEPT_APPROVED_WITH_IMPLEMENTATION_CONSTRAINTS |
-| T04 | Coleção | P1 | NEXT |
-| T05 | Deckbuilder | P1 | PENDING |
+| T04 | Coleção | P1 | CONCEPT_APPROVED_WITH_IMPLEMENTATION_CONSTRAINTS |
+| T05 | Deckbuilder | P1 | NEXT |
 | T06 | Detalhes da carta | P1 | PENDING |
 | T07 | Meme Forge privado | P2 | PENDING_MM06 |
 | T08 | Configurações e acessibilidade | P2 | PENDING |
@@ -171,6 +185,6 @@
 
 ## Próxima unidade
 
-**T04 — Coleção:** gerar preview unitário e legível mobile-first respeitando cards/art T01–T03, MM-05 e ARTIST-004. Somente funcionalidades locais implementadas. **T03** tem estilo/composição desktop aprovados, mas o drawer hamburger-only e o card-first continuam obrigatórios no runtime; não reproduzir a sidebar permanente nem personagens fora das cartas como autorização de produto.
+**T05 — Deckbuilder:** gerar apenas um preview individual no cartoon V1 seguindo T01–T04; apresentar busca/coleção, seleção de um deck local de 30 cartas, contagem/ownership, erros de validação MM-05, salvar/reabrir/selecionar deck e habilitar duelo somente se legal. Navegação global por hambúrguer no desktop/mobile, sem sidebar fixa, evolução, economia, login, ranking ou recursos não autorizados. **T04** já está aprovado como conceito visual, com estes limites de implementação obrigatórios.
 
-**Fase seguinte (sem geração automática):** validar T04 individualmente e seguir a fila; quando extrair assets unitários, priorizar base reutilizável B01/C01 antes de variantes de personagens, respeitando o pedido explícito do usuário.
+**Fase seguinte (sem geração automática):** validar T05 individualmente e seguir a fila; quando extrair assets unitários, priorizar base reutilizável B01/C01 antes de variantes de personagens, respeitando o pedido explícito do usuário.

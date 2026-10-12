@@ -2,7 +2,7 @@
 
 **Repositório:** az1nn/meme-mon  
 **Data do gate T01:** 2026-10-10 (Brasil)  
-**Estado:** INVENTORY ACTIVE; T01 CONCEPT_APPROVED; T02 COMPOSITION_APPROVED_1x1; T03 CONCEPT_APPROVED_WITH_IMPLEMENTATION_CONSTRAINTS; T04 CONCEPT_APPROVED_WITH_IMPLEMENTATION_CONSTRAINTS; T05 CONCEPT_APPROVED_WITH_IMPLEMENTATION_CONSTRAINTS; T06 CONCEPT_APPROVED_WITH_IMPLEMENTATION_CONSTRAINTS; T07 CONCEPT_APPROVED_MM06_GATED; T08 CONCEPT_APPROVED_WITH_IMPLEMENTATION_CONSTRAINTS; T09 NEXT  
+**Estado:** INVENTORY ACTIVE; T01 CONCEPT_APPROVED; T02 COMPOSITION_APPROVED_1x1; T03 CONCEPT_APPROVED_WITH_IMPLEMENTATION_CONSTRAINTS; T04 CONCEPT_APPROVED_WITH_IMPLEMENTATION_CONSTRAINTS; T05 CONCEPT_APPROVED_WITH_IMPLEMENTATION_CONSTRAINTS; T06 CONCEPT_APPROVED_WITH_IMPLEMENTATION_CONSTRAINTS; T07 CONCEPT_APPROVED_MM06_GATED; T08 CONCEPT_APPROVED_WITH_IMPLEMENTATION_CONSTRAINTS; T09 CONCEPT_APPROVED_WITH_IMPLEMENTATION_CONSTRAINTS; T10 NEXT  
 **Total:** 74 itens/famílias planejadas, **não** 74 imagens independentes nem 74 features autorizadas. Reusar componentes por padrão.
 
 ## Autoridade e fronteiras
@@ -118,6 +118,21 @@
 - **Importação binária do PNG:** `PENDING_IMPORT`; caminho recomendado `docs/art/references/ARTIST-005-T08-settings-accessibility-approved.png`. Verificar bytes originais e SHA-256 antes de marcar importação concluída.
 - **Próximo item ARTIST:** `T09 — Resultado da Partida`: visual de vitória, derrota e empate apenas se previsto no contrato de regras, com desfecho derivado do estado/evento real do duelo; sem XP, moeda, loot, evolução, ranking ou recompensas não especificadas; manter gameplay browser-local e navegação hambúrguer.
 
+## Gate específico T09 — Resultado da Partida aprovado
+
+- **Decisão humana:** `Aprovado` explicitamente após duas gerações T09; a **segunda/última imagem exibida** é a referência aprovada (não presumir aprovação independente do primeiro candidato).
+- **Imagem canônica da aprovação visual:** `wide_colorful_game_ui_result_screen_in_a_cartoon_c.png` — PNG RGB, **1536 × 1024 px**, **2.352.809 bytes**.
+- **SHA-256 dos bytes originais verificados:** `cd42369e8889107b3f1f6ac994f040fc8ee672b8c531d439b4b16b572d43f7ab`.
+- **Estado:** `CONCEPT_APPROVED_WITH_IMPLEMENTATION_CONSTRAINTS`. Visual aceito: contraste de comemoração/derrota, composição horizontal dividida, cartas ilustradas, painel central de resultado, botões principais, cenário tropical urbano e visual cartoon coerente com T01–T08.
+- **MM-02 autoritativo:** um duelo local possui **um único resultado terminal**: vitória, derrota ou empate. A justaposição `VITÓRIA/DERROTA` nas metades da imagem é uma comparação de perspectivas, **não dois resultados independentes simultâneos**. Em runtime, mostrar o resultado exato do MatchState/MatchEvent, avaliando Hype (5), falha de compra obrigatória, falha de ocupação de Active, ou efeito explícito; empate é possível e precisa tratamento não inventado.
+- **Métricas e score:** números ilustrados `3 vs 1`, turnos/cartas/KO/dano/skills só devem ser apresentados quando calculáveis a partir do estado e do log de eventos efetivamente registrados. Não declarar armazenamento de replay ou analytics sem implementação/validação. Hype `5` é limiar de vitória e não um novo `placar da série`.
+- **Ações:** `Jogar Novamente`, `Voltar ao Deck`, `Voltar ao Início` devem navegar no cliente Godot sem autenticação ou backend. `Ver Replays Locais` no PNG **não autoriza** replays persistidos; ocultar ou desabilitar até existir contrato, armazenamento e testes. Sem moedas, XP, loot, ranking, evolução ou recompensas inventadas.
+- **Card-first/G1:** personagens destacados fora das cartas são ilustrações comemorativas de resultado apenas; não autorizam personagens 3D soltos nem substituem representações das cartas Active no duelo. Visual dos personagens, logo, ícones e direitos ainda possuem aprovações individuais separadas.
+- **Navegação:** hambúrguer global fechado por padrão em todas as viewports. Sem sidebar permanente. Runtime web/local/in-memory segue V1 offline-after-load; nenhuma dependência remota do ciclo de duelo.
+- **Evidência:** `RUNTIME_NOT_VERIFIED`; a imagem não é screenshot do Godot nem comprova navegação, replay, métricas, acessibilidade ou responsive breakpoints.
+- **Importação do PNG no GitHub:** `PENDING_IMPORT`; path sugerido `docs/art/references/ARTIST-005-T09-match-result-approved.png`. Apenas marcar importado mediante verificação de bytes originais e hash exato.
+- **Próximo gate:** `T10 — Estados vazios / erros / modo local` com um único preview visual, incluindo coleção vazia, deck inválido, mídia indisponível com fallback, storage indisponível com uso em memória, aviso de dados voláteis e ações recuperáveis. Mensagens amigáveis e sem recursos remotos inventados.
+
 ## Fila completa (um por vez)
 
 ### T — Telas V1
@@ -132,8 +147,8 @@
 | T06 | Detalhes da carta | P1 | CONCEPT_APPROVED_WITH_IMPLEMENTATION_CONSTRAINTS |
 | T07 | Meme Forge privado | P2 | CONCEPT_APPROVED_MM06_GATED |
 | T08 | Configurações e acessibilidade | P2 | CONCEPT_APPROVED_WITH_IMPLEMENTATION_CONSTRAINTS |
-| T09 | Resultado da partida | P2 | NEXT |
-| T10 | Estados vazios/erros/armazenamento local | P2 | PENDING |
+| T09 | Resultado da partida | P2 | CONCEPT_APPROVED_WITH_IMPLEMENTATION_CONSTRAINTS |
+| T10 | Estados vazios/erros/armazenamento local | P2 | NEXT |
 
 ### C — Cartas
 
@@ -245,6 +260,6 @@
 
 ## Próxima unidade
 
-**T09 — Resultado da partida:** gerar preview individual de resultado visual no cartoon V1 seguindo T01–T08; apresentar vencedor/derrotado e estados finais só com dados/evidências de MatchState/MatchEvents, e ações locais autorizadas (novo duelo, voltar). Sem moedas, XP, loot, ranking, evolução, publicidade, login ou recompensas não especificadas. Menu hambúrguer fechado por padrão, nenhuma sidebar fixa. **T08** é CONCEPT_APPROVED_WITH_IMPLEMENTATION_CONSTRAINTS e não prova recursos de vídeo/áudio/controles funcionando.
+**T10 — Estados vazios, erros e armazenamento local:** produzir um único preview individual coerente com T01–T09, exibindo componentes reutilizáveis de estado vazio, falha de carregamento de mídia e fallback estático, erro de deck inválido, armazenamento Godot user:// indisponível/corrompido com modo volátil em memória, e aviso claro de perda de dados após recarga. Sem dependência de conexão/login, sincronização em nuvem ou promessa de salvar quando armazenamento está indisponível. Navegação global apenas pelo hambúrguer; não inserir sidebar fixa. **T09** tem aceite visual condicionado ao contrato MM-02.
 
-**Fase seguinte (sem geração automática):** validar T09 individualmente e seguir a fila; quando extrair assets unitários, priorizar base reutilizável B01/C01 antes de variantes de personagens, respeitando o pedido explícito do usuário.
+**Fase seguinte (sem geração automática):** validar T10 individualmente e seguir para assets reutilizáveis; quando extrair assets unitários, priorizar base reutilizável B01/C01 antes de variantes de personagens, respeitando o pedido explícito do usuário.

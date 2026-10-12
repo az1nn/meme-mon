@@ -2,7 +2,7 @@
 
 **Repositório:** az1nn/meme-mon  
 **Data do gate T01:** 2026-10-10 (Brasil)  
-**Estado:** T01–T10 concept approved; B01 concept approved (source pending); C01 concept approved (binary pending); C05 NEXT_PREVIEW  
+**Estado:** T01–T10 concept approved; B01 concept approved (source pending); C01 concept approved (binary pending); C05 PREVIEW_V1_GENERATED / HUMAN_GATE_PENDING  
 **Total:** 74 itens/famílias planejadas, **não** 74 imagens independentes nem 74 features autorizadas. Reusar componentes por padrão.
 
 ## Autoridade e fronteiras
@@ -172,7 +172,7 @@
 | C02 | Moldura rara | P1 | PENDING |
 | C03 | Moldura épica | P1 | PENDING |
 | C04 | Moldura lendária | P1 | PENDING |
-| C05 | Verso de carta original | P0 | NEXT_PREVIEW |
+| C05 | Verso de carta original | P0 | PREVIEW_V1_GENERATED / HUMAN_GATE_PENDING |
 | C06 | Template Active (duelo) | P0 | PENDING |
 | C07 | Template Hand (duelo) | P0 | PENDING |
 | C08 | Template miniatura de coleção | P1 | PENDING |
@@ -297,6 +297,18 @@
 - **Proveniência:** preservar PNG/SVG e hashes já registrados acima. Binários ainda não verificados no GitHub; `BINARY_IMPORT_PENDING`.
 - **Concorrência:** manter o mesmo PR #13 em draft; nenhum novo workstream ou merge.
 - **Próximo gate:** C05, aprovação individual obrigatória.
+
+## Gate C05 — candidato de preview V1 gerado, aguardando revisão humana (2026-10-12)
+
+- **Estado:** `PREVIEW_V1_GENERATED / HUMAN_GATE_PENDING`; **não aprovado**, não integrado ao Godot nem importado no repositório.
+- **Asset:** verso vertical original de carta, candidato de conceito gerado nesta sessão SIGA a partir do contrato ARTIST-005, em **1200 × 1600 px** (mesma proporção 3:4 de C01); SVG editável e PNG RGBA com exterior transparente.
+- **PNG candidato:** `mememon_ARTIST-005_C05_card_back_CONCEPT_V1.png`; SHA-256 `1a5d03580aa79df93c33103895c017c980b6b284ec3e7b7809b8d84e3766a631`.
+- **SVG fonte:** `mememon_ARTIST-005_C05_card_back_CONCEPT_V1.svg`; SHA-256 `96087f3339af97b07e16fd3c28856e1d3653c1a60d274fcc4f54fbf9c812f836`.
+- **Proveniência:** arquivos locais de saída da sessão ChatGPT, **não versionados no GitHub**; os nomes/hashes são para identificação futura e só podem ser marcados `IMPORTED` depois da validação dos bytes realmente anexados.
+- **Brief preservado:** verso isolado, cartoon polido, sem mascote, sem nome/logo, sem raridade, sem símbolos de franquias e sem efeito de gameplay. Não substitui o C01 aprovado. Compatibilidade geométrica com C01 é intencional; **fidelidade artística exata a C01 não verificada** pois o arquivo aprovado C01 não está versionado.
+- **Saída descartada:** uma geração inicial de dashboard multirrepositório foi `REJECTED_OUT_OF_SCOPE`; não é asset do MemeMon, não integra baseline e não deve ser importada.
+- **VERIFY:** PNG local legível 1200 × 1600, SVG serializado e SHA-256 registrados; **sem testes Godot, screenshots runtime, validação de direitos ou aceite humano**. HEAD exato de CI anterior à presente alteração de docs foi verde; revalidar novo HEAD.
+- **Próximo gate:** apresentar este C05 ao proprietário: `APPROVE` / `ADJUST` / `REJECT`. Em aprovação, congelar source/binários verificados e só então planejar C06; em ajuste/rejeição, manter C01 intacto e não avançar.
 
 ## Próxima unidade
 

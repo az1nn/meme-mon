@@ -312,7 +312,7 @@
 
 ## Próxima unidade
 
-**C05 — Verso original da carta:** gerar um único preview isolado vertical, compatível com C01, cartoon polido e identidade original, sem personagem, logotipo provisório, símbolos de franquias ou mecânicas inventadas. Aguardar human gate antes de congelar.
+**C05 — Verso original da carta:** preview V1 já produzido e registrado como candidato. **Revisar o arquivo individual com o proprietário (APPROVE / ADJUST / REJECT)** antes de congelar ou importar; confirmar compatibilidade real com C01 aprovado quando seus bytes estiverem disponíveis. Não iniciar C06 antes de encerrar esse human gate.
 
 
 **Fase seguinte:** T01–T10 concluídos **apenas como conceitos visuais**; produzir/validar individualmente os assets de base B01 → C01 → C05 → UI/HUD → ilustrações, preservando referência/arte originais, sem declarar implementação Godot antes dos gates SCENE/ARCH/INSPECTOR.

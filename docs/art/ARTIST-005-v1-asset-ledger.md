@@ -2,7 +2,7 @@
 
 **Repositório:** az1nn/meme-mon  
 **Data do gate T01:** 2026-10-10 (Brasil)  
-**Estado:** T01–T10 concept approved; B01 concept approved (source pending); C01 concept approved (verified SVG versioned; PNG pending); C05 V1 REJECTED_BY_OWNER / C05 V2 ADJUST_REQUESTED / C05 V3 CONCEPT_APPROVED / PNG_IMPORT_PENDING  
+**Estado:** T01–T10 concept approved; B01 concept approved (source pending); C01 concept approved (verified SVG versioned; PNG pending); C05 V1 REJECTED_BY_OWNER / C05 V2 ADJUST_REQUESTED / C05 V3 CONCEPT_APPROVED / C05 V3.1 ADAPTATION_BOARD_APPROVED / ASSET_EXTRACTION_PENDING  
 **Total:** 74 itens/famílias planejadas, **não** 74 imagens independentes nem 74 features autorizadas. Reusar componentes por padrão.
 
 ## Autoridade e fronteiras
@@ -342,9 +342,22 @@
 - **Vedações:** não usar C05 V1 rejeitado, não converter V2 ajustado em aprovado, não promover medalhão de pata/coroa a marca/canon ou gameplay, não liberar C06 ou merge enquanto faltarem importação binária, comparativo e gates técnicos aplicáveis.
 - **Fonte no GitHub:** `PENDING`; a interface GitHub conectada nesta sessão permite escrita textual mas não recebeu upload de bytes PNG. Não marcar `IMPORTED` sem arquivo acessível no commit e hash revalidado.
 
+## Gate humano C05 V3.1 — adaptação conceitual C01 aprovada (2026-10-14, Brasil)
+
+**Decisão:** `HUMAN_APPROVED — ADAPTATION_BOARD_ONLY`. O proprietário respondeu "Aprovado" após a apresentação individual da prancha C05 V3.1, solicitada para adaptar a arte do verso à geometria da moldura C01. O gate reconhece a **proposta visual de enquadramento**, não um sprite técnico pronto, implementação Godot ou aceitação de direitos/marca.
+
+- **Referência aprovada:** `a_clean_high_quality_ui_graphic_design_presentati.png`, PNG RGB 1536 × 1024, 2.221.541 bytes.
+- **SHA-256 dos bytes originais da prancha:** `f10c47a3435a6b999930eeaa0afba31b9311b2931a1df9a4fa7010fdb7314fdd` (verificado sobre a imagem da sessão).
+- **Conteúdo da prancha:** versão isolada ampliada do verso C05 V3.1, comparação visual com o C05 V3, detalhes de bordas e esquemas ilustrativos de safe-area/bleed. Números, guias e legendas desenhados pela geração visual são **indicativos**, não dimensões homologadas do runtime; não reutilizá-los como contrato técnico sem medição.
+- **Fonte V3 preservada:** `a_vibrant_colorful_cartoon_illustration_style_tr.png` 1086 × 1448, hash `fe7b8664621e1c47b7ec878f47d41967d6cbe69b57516d1953ffc22c26e2507e`. Não editar nem substituir a fonte original aprovada.
+- **Baseline preservada:** C01 CONCEPT_APPROVED e seu SVG original versionado permanecem intactos; C05 V1 REJECTED_BY_OWNER, V2 ADJUST_REQUESTED, V3 CONCEPT_APPROVED; V3.1 ADAPTATION_BOARD_APPROVED. O aceite atual não revoga QA anterior nem altera as demais decisões ARTIST-003/004/005.
+- **Distinção essencial:** o PNG V3.1 é **uma prancha de apresentação RGB** que contém textos, comparativos e vários painéis. Não é um verso de carta individual com transparência. Nem a prancha nem o V3 original são sprites validados. Extrair/produzir arquivo técnico individual com safe-area, alpha e enquadramento sem perda de detalhes, e rastrear hash separado do original.
+- **Gates pendentes para implementação:** localizar/versionar bytes do PNG original da prancha, validar extração no frame real C01 (não apenas ratio do canvas); ART confere fidelidade, ARCH pipeline de textura/importação, SCENE integração e INSPECTOR capturas de runtime em Godot Web e responsividade; checar direitos/proveniência dos ícones se uso público. Human gate adicional somente se a arte extraída divergir significativamente da composição aprovada.
+- **Controle de publicação:** não importar a prancha como texture de jogo, não inserir C05 V1/V2, não criar nova branch/PR concorrente, não fazer merge nem liberar C06 automaticamente. Conservar PR #13 em draft até verificação técnica e exato-head CI.
+
 ## Próxima unidade
 
-**C05 V3 CONCEPT_APPROVED:** importação da fonte PNG original e validação C01-C05 por ART/SCENE/ARCH/INSPECTOR pendentes. C05 V1 rejeitado e V2 ajustado são históricos; C06 permanece sob gates técnicos.
+**C05 V3.1 ADAPTATION_BOARD_APPROVED / ASSET_EXTRACTION_PENDING:** preservar PNG original C05 V3 e C01; recuperar/versionar fonte da prancha V3.1 sem substituir o V3; extrair um verso técnico individual, conferir enquadramento/safe-area/alpha e SHA específico. Gates ART/ARCH/SCENE/INSPECTOR e CI exato-head obrigatórios antes da integração. PR #13 permanece draft; C06 não é liberado automaticamente.
 
 
 **Fase seguinte:** T01–T10 concluídos **apenas como conceitos visuais**; produzir/validar individualmente os assets de base B01 → C01 → C05 → UI/HUD → ilustrações, preservando referência/arte originais, sem declarar implementação Godot antes dos gates SCENE/ARCH/INSPECTOR.

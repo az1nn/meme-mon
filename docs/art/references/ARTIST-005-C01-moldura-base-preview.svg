@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1600" viewBox="0 0 1200 1600">
+<defs>
+ <linearGradient id="back" x2="1" y2="1"><stop stop-color="#14172C"/><stop offset=".55" stop-color="#0A1024"/><stop offset="1" stop-color="#151D38"/></linearGradient>
+ <radialGradient id="halo"><stop stop-color="#3A6DBB" stop-opacity=".43"/><stop offset="1" stop-color="#204068" stop-opacity="0"/></radialGradient>
+ <linearGradient id="edge" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#62F1EC"/><stop offset=".26" stop-color="#A1C5FF"/><stop offset=".60" stop-color="#6D8CDB"/><stop offset="1" stop-color="#F8AE5A"/></linearGradient>
+ <linearGradient id="card" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#27456F"/><stop offset=".22" stop-color="#152848"/><stop offset=".73" stop-color="#152038"/><stop offset="1" stop-color="#293A5B"/></linearGradient>
+ <linearGradient id="head" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#273D68"/><stop offset="1" stop-color="#141E36"/></linearGradient>
+ <linearGradient id="art" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#1B3554"/><stop offset=".5" stop-color="#102943"/><stop offset="1" stop-color="#192440"/></linearGradient>
+ <linearGradient id="effects" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#202E4D"/><stop offset="1" stop-color="#122039"/></linearGradient>
+ <linearGradient id="warm" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#FFE7A2"/><stop offset=".7" stop-color="#FFBE51"/><stop offset="1" stop-color="#F49054"/></linearGradient>
+ <pattern id="dots" width="32" height="32" patternUnits="userSpaceOnUse"><circle cx="3" cy="3" r="1.5" fill="#90BCF5" opacity=".17"/></pattern>
+ <pattern id="diags" width="30" height="30" patternUnits="userSpaceOnUse" patternTransform="rotate(38)"><path d="M0 0 L0 30" stroke="#78A1DB" stroke-opacity=".08" stroke-width="4"/></pattern>
+ </defs>
+<rect width="1200" height="1600" fill="url(#back)"/>
+<ellipse cx="600" cy="740" rx="580" ry="840" fill="url(#halo)"/>
+<rect x="92" y="88" width="7" height="56" rx="3.5" fill="#51E0E2"/>
+<text x="120" y="106" fill="#72E8E9" opacity="1" font-family="Inter, Noto Sans, DejaVu Sans, sans-serif" font-size="18" font-weight="800" text-anchor="start" letter-spacing="4">ARTIST / V1</text>
+<text x="120" y="155" fill="#F9FBFF" opacity="1" font-family="Inter, Noto Sans, DejaVu Sans, sans-serif" font-size="45" font-weight="850" text-anchor="start" letter-spacing="0.1">C01 — MOLDURA BASE</text>
+<text x="120" y="195" fill="#B3C8E4" opacity="1" font-family="Inter, Noto Sans, DejaVu Sans, sans-serif" font-size="23" font-weight="500" text-anchor="start">Template comum • card-first • cartoon polido</text>
+<path d="M97 222 H1105" stroke="#426081" stroke-width="2" opacity=".65"/>
+<rect x="244" y="268" width="738" height="1138" rx="66" fill="#020816" opacity=".55"/>
+<rect x="252" y="252" width="705" height="1126" rx="62" fill="#091328" stroke="#081023" stroke-width="15"/>
+<rect x="258" y="250" width="684" height="1122" rx="58" fill="url(#edge)" stroke="#051223" stroke-width="13"/>
+<rect x="272" y="264" width="656" height="1094" rx="49" fill="url(#card)" stroke="#090F23" stroke-width="8"/>
+<rect x="279" y="271" width="642" height="1080" rx="44" fill="none" stroke="#A5DFFE" stroke-opacity=".38" stroke-width="2.5"/>
+<path d="M305 302 Q305 292 321 292 H422 L408 305 H337 Q325 305 325 317 V332 L305 349 Z" fill="#64ECDA" opacity=".9"/>
+<path d="M896 299 H801 L816 312 H875 L889 327 Z" fill="#FFC86C" opacity=".95"/>
+<path d="M301 1278 V1313 Q301 1331 324 1331 H402" fill="none" stroke="#FEBA68" stroke-width="9" stroke-linecap="round"/>
+<path d="M901 1283 V1311 Q901 1335 879 1335 H811" fill="none" stroke="#5DDEED" stroke-width="9" stroke-linecap="round"/>
+<rect x="307" y="318" width="586" height="103" rx="24" fill="url(#head)" stroke="#020F27" stroke-width="8"/>
+<path d="M330 335 H700" stroke="#79CDE1" stroke-width="2.5" opacity=".35"/>
+<text x="337" y="364" fill="#F8FCFF" opacity="1" font-family="Inter, Noto Sans, DejaVu Sans, sans-serif" font-size="30" font-weight="800" text-anchor="start">NOME DA CARTA</text>
+<rect x="337" y="382" width="233" height="4" rx="2" fill="#718AAB" opacity=".48"/>
+<rect x="706" y="341" width="150" height="54" rx="22" fill="#0C223B" stroke="#55D8DF" stroke-width="4"/>
+<circle cx="736" cy="368" r="8" fill="#71EDE1"/>
+<text x="759" y="376" fill="#CFF9F2" opacity="1" font-family="Inter, Noto Sans, DejaVu Sans, sans-serif" font-size="22" font-weight="800" text-anchor="start" letter-spacing="1.1">TIPO</text>
+<rect x="310" y="444" width="580" height="560" rx="27" fill="#061426" stroke="#050E20" stroke-width="10"/>
+<rect x="320" y="454" width="560" height="540" rx="19" fill="url(#art)" stroke="#78DAE7" stroke-width="4"/>
+<rect x="324" y="457" width="553" height="532" rx="17" fill="url(#diags)"/>
+<rect x="324" y="457" width="553" height="532" rx="17" fill="url(#dots)"/>
+<path d="M338 481 L411 481 L338 553Z" fill="#4BD2E3" opacity=".12"/>
+<path d="M862 971 L790 971 L862 896Z" fill="#FFD168" opacity=".16"/>
+<path d="M337 918 V971 H392" fill="none" stroke="#64C9DC" stroke-width="4" opacity=".4"/>
+<path d="M861 528 V474 H809" fill="none" stroke="#64C9DC" stroke-width="4" opacity=".4"/>
+<rect x="516" y="640" width="168" height="139" rx="18" fill="none" stroke="#93B9DC" stroke-opacity=".24" stroke-width="5" stroke-dasharray="13 13"/>
+<path d="M554 741 L592 704 L621 726 L649 684" fill="none" stroke="#7DA3C8" stroke-width="6" opacity=".32" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="564" cy="679" r="13" fill="#7EAAC9" opacity=".30"/>
+<text x="600" y="829" fill="#A5C4DD" opacity="1" font-family="Inter, Noto Sans, DejaVu Sans, sans-serif" font-size="24" font-weight="800" text-anchor="middle" letter-spacing="0.8">ÁREA DE ILUSTRAÇÃO</text>
+<text x="600" y="863" fill="#738EB0" opacity="1" font-family="Inter, Noto Sans, DejaVu Sans, sans-serif" font-size="19" font-weight="500" text-anchor="middle">(imagem original separada)</text>
+<rect x="775" y="411" width="120" height="76" rx="24" fill="#0E1728" stroke="#071027" stroke-width="9"/>
+<rect x="779" y="414" width="112" height="68" rx="20" fill="url(#warm)" stroke="#F5F2C4" stroke-width="3"/>
+<text x="835" y="442" fill="#43301E" opacity="1" font-family="Inter, Noto Sans, DejaVu Sans, sans-serif" font-size="15" font-weight="850" text-anchor="middle" letter-spacing="0.9">TREND</text>
+<text x="835" y="469" fill="#43301E" opacity="1" font-family="Inter, Noto Sans, DejaVu Sans, sans-serif" font-size="30" font-weight="900" text-anchor="middle">—</text>
+<rect x="310" y="1023" width="580" height="263" rx="24" fill="url(#effects)" stroke="#060F20" stroke-width="9"/>
+<rect x="329" y="1040" width="240" height="37" rx="15" fill="#51DDE1"/>
+<text x="449" y="1066" fill="#07233A" opacity="1" font-family="Inter, Noto Sans, DejaVu Sans, sans-serif" font-size="20" font-weight="850" text-anchor="middle" letter-spacing="0.4">DADOS / EFEITOS</text>
+<rect x="340" y="1103" width="504" height="14" rx="7" fill="#63819E" opacity=".55"/>
+<rect x="340" y="1142" width="467" height="14" rx="7" fill="#63819E" opacity=".43"/>
+<rect x="340" y="1181" width="493" height="14" rx="7" fill="#63819E" opacity=".38"/>
+<rect x="340" y="1220" width="314" height="14" rx="7" fill="#63819E" opacity=".30"/>
+<rect x="319" y="1300" width="564" height="24" rx="11" fill="#0E1A30" stroke="#45678F" stroke-width="2"/>
+<rect x="331" y="1309" width="148" height="6" rx="3" fill="#5AD3D7" opacity=".7"/>
+<rect x="777" y="1309" width="93" height="6" rx="3" fill="#F2B267" opacity=".65"/>
+<path d="M100 1439 H1100" stroke="#3B5976" stroke-width="2" opacity=".9"/>
+<text x="100" y="1483" fill="#81E0E4" opacity="1" font-family="Inter, Noto Sans, DejaVu Sans, sans-serif" font-size="23" font-weight="800" text-anchor="start" letter-spacing="0.9">FRAME / SEM PERSONAGEM</text>
+<text x="100" y="1521" fill="#C9D5EB" opacity="1" font-family="Inter, Noto Sans, DejaVu Sans, sans-serif" font-size="21" font-weight="500" text-anchor="start">Campos de atributos dependem da classe da carta.</text>
+<text x="1100" y="1522" fill="#9CB0C8" opacity="1" font-family="Inter, Noto Sans, DejaVu Sans, sans-serif" font-size="19" font-weight="700" text-anchor="end" letter-spacing="1.1">V1 · PREVIEW</text>
+</svg>

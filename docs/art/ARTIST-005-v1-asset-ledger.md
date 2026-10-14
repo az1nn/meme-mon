@@ -2,7 +2,7 @@
 
 **Repositório:** az1nn/meme-mon  
 **Data do gate T01:** 2026-10-10 (Brasil)  
-**Estado:** T01–T10 concept approved; B01 concept approved (source pending); C01 concept approved (binary pending); C05 PREVIEW_V1_GENERATED / HUMAN_GATE_PENDING  
+**Estado:** T01–T10 concept approved; B01 concept approved (source pending); C01 concept approved (verified SVG versioned; PNG pending); C05 PREVIEW_V1_GENERATED / HUMAN_GATE_PENDING  
 **Total:** 74 itens/famílias planejadas, **não** 74 imagens independentes nem 74 features autorizadas. Reusar componentes por padrão.
 
 ## Autoridade e fronteiras
@@ -168,7 +168,7 @@
 
 | ID | Asset / contrato | Prioridade | Estado |
 |---|---|---|---|
-| C01 | Moldura base comum | P0 | CONCEPT_APPROVED / BINARY_IMPORT_PENDING |
+| C01 | Moldura base comum | P0 | CONCEPT_APPROVED / SVG_SOURCE_VERIFIED / PNG_IMPORT_PENDING |
 | C02 | Moldura rara | P1 | PENDING |
 | C03 | Moldura épica | P1 | PENDING |
 | C04 | Moldura lendária | P1 | PENDING |
@@ -285,7 +285,7 @@
 - **Estado:** `PREVIEW_V1_GENERATED / HUMAN_GATE_PENDING` (não aprovado e não importado no GitHub).
 - **Preview individual:** `mememon_C01_moldura_base_preview.png`; imagem **1200 × 1600 px**, PNG, SHA-256 `979f0804d7e3a1ed829a8d7a1fefd8a1a1065e8cb47fdae77f62638db49cd03f`.
 - **Fonte vetorial editável:** `mememon_C01_moldura_base_preview.svg`; SHA-256 `1a732f13e46588ca2577a44860542ffeee485d335880bac55e489f59dd47c6e3`.
-- **Artefatos:** gerados e disponibilizados como anexos na conversa ARTIST em 2026-10-12 (Brasil); **não estão versionados no GitHub**. Não assumir que link `sandbox` constitui upload no repositório.
+- **Artefatos:** gerados e disponibilizados como anexos na conversa ARTIST em 2026-10-12 (Brasil); **SVG fonte verificado no GitHub em 2026-10-14** como `docs/art/references/ARTIST-005-C01-moldura-base-preview.svg` (SHA-256 igual ao registrado); **PNG original continua não importado**. Não assumir que link `sandbox` constitui upload no repositório.
 - **Escopo:** moldura isolada, sem mascote ou marca; reserva áreas de nome, tipo, ilustração, Trend, dados/efeitos; campos variam conforme `kind` e schemas MM-03. Não pressupõe custo, ataque, HP ou novas regras.
 - **Controle de qualidade:** duas pranchas gerais geradas nesta mesma sessão desviaram do brief e ficam `REJECTED_OUT_OF_SCOPE` — não reutilizá-las como aprovação ou referencia. O candidato válido é somente o arquivo `C01` acima.
 - **Gate aberto:** aprovação/rejeição/ajustes do usuário, depois asset final e validação SCENE/ARCH/INSPECTOR no Godot com capturas exatas. `RUNTIME_NOT_VERIFIED`.
@@ -294,7 +294,7 @@
 
 - **Decisão humana:** `ARTIST MemeMon — APPROVE C01`, explícita após apresentação do preview individual.
 - **Estado:** `CONCEPT_APPROVED`; apenas moldura base, não personagens, marca, mecânicas, integração Godot ou direitos de terceiros.
-- **Proveniência:** preservar PNG/SVG e hashes já registrados acima. Binários ainda não verificados no GitHub; `BINARY_IMPORT_PENDING`.
+- **Proveniência:** preservar PNG/SVG e hashes já registrados acima. SVG fonte original recuperado da Biblioteca, hash SHA-256 conferido e importado em `docs/art/references/ARTIST-005-C01-moldura-base-preview.svg`; PNG original ainda `PNG_IMPORT_PENDING` e sem validação de bytes.
 - **Concorrência:** manter o mesmo PR #13 em draft; nenhum novo workstream ou merge.
 - **Próximo gate:** C05, aprovação individual obrigatória.
 
@@ -305,7 +305,7 @@
 - **PNG candidato:** `mememon_ARTIST-005_C05_card_back_CONCEPT_V1.png`; SHA-256 `1a5d03580aa79df93c33103895c017c980b6b284ec3e7b7809b8d84e3766a631`.
 - **SVG fonte:** `mememon_ARTIST-005_C05_card_back_CONCEPT_V1.svg`; SHA-256 `96087f3339af97b07e16fd3c28856e1d3653c1a60d274fcc4f54fbf9c812f836`.
 - **Proveniência:** arquivos locais de saída da sessão ChatGPT, **não versionados no GitHub**; os nomes/hashes são para identificação futura e só podem ser marcados `IMPORTED` depois da validação dos bytes realmente anexados.
-- **Brief preservado:** verso isolado, cartoon polido, sem mascote, sem nome/logo, sem raridade, sem símbolos de franquias e sem efeito de gameplay. Não substitui o C01 aprovado. Compatibilidade geométrica com C01 é intencional; **fidelidade artística exata a C01 não verificada** pois o arquivo aprovado C01 não está versionado.
+- **Brief preservado:** verso isolado, cartoon polido, sem mascote, sem nome/logo, sem raridade, sem símbolos de franquias e sem efeito de gameplay. Não substitui o C01 aprovado. Compatibilidade geométrica com C01 é intencional; **fidelidade artística exata a C01 não verificada** pois apenas o SVG fonte de C01 está versionado; o PNG original C01 e a comparação visual exata C01/C05 permanecem pendentes.
 - **Saída descartada:** uma geração inicial de dashboard multirrepositório foi `REJECTED_OUT_OF_SCOPE`; não é asset do MemeMon, não integra baseline e não deve ser importada.
 - **VERIFY:** PNG local legível 1200 × 1600, SVG serializado e SHA-256 registrados; **sem testes Godot, screenshots runtime, validação de direitos ou aceite humano**. HEAD exato de CI anterior à presente alteração de docs foi verde; revalidar novo HEAD.
 - **Próximo gate:** apresentar este C05 ao proprietário: `APPROVE` / `ADJUST` / `REJECT`. Em aprovação, congelar source/binários verificados e só então planejar C06; em ajuste/rejeição, manter C01 intacto e não avançar.

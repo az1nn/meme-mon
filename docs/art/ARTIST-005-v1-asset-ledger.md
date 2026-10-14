@@ -2,7 +2,7 @@
 
 **Repositório:** az1nn/meme-mon  
 **Data do gate T01:** 2026-10-10 (Brasil)  
-**Estado:** T01–T10 concept approved; B01 concept approved (source pending); C01 concept approved (verified SVG versioned; PNG pending); C05 PREVIEW_V1_GENERATED / HUMAN_GATE_PENDING  
+**Estado:** T01–T10 concept approved; B01 concept approved (source pending); C01 concept approved (verified SVG versioned; PNG pending); C05 V1 REJECTED_BY_OWNER / REDESIGN_NOT_STARTED  
 **Total:** 74 itens/famílias planejadas, **não** 74 imagens independentes nem 74 features autorizadas. Reusar componentes por padrão.
 
 ## Autoridade e fronteiras
@@ -172,7 +172,7 @@
 | C02 | Moldura rara | P1 | PENDING |
 | C03 | Moldura épica | P1 | PENDING |
 | C04 | Moldura lendária | P1 | PENDING |
-| C05 | Verso de carta original | P0 | PREVIEW_V1_GENERATED / HUMAN_GATE_PENDING |
+| C05 | Verso de carta original | P0 | V1_REJECTED_BY_OWNER / NEW_CONCEPT_REQUIRED |
 | C06 | Template Active (duelo) | P0 | PENDING |
 | C07 | Template Hand (duelo) | P0 | PENDING |
 | C08 | Template miniatura de coleção | P1 | PENDING |
@@ -280,7 +280,7 @@
 - **Validação técnica pendente:** encaixe real em T01 retrato e T03 paisagem, importação Godot, screenshots exatos, responsividade e INSPECTOR. `RUNTIME_NOT_VERIFIED`.
 - **Próximo gate:** `C01` — uma moldura vertical comum reutilizável para cartas, sem arte de personagem, logotipo, elementos de franquias ou raridade especial. Áreas separadas para nome, tipo canônico, ilustração, custo Trend, dados pertinentes ao kind e efeitos, com legibilidade em mobile; aprovação humana individual antes de C05.
 
-## Gate C01 — candidato visual V1 gerado, aguardando decisão humana
+## Histórico do gate C01 — candidato V1 (aprovado em 2026-10-12; aceite reiterado em 2026-10-14)
 
 - **Estado:** `PREVIEW_V1_GENERATED / HUMAN_GATE_PENDING` (não aprovado e não importado no GitHub).
 - **Preview individual:** `mememon_C01_moldura_base_preview.png`; imagem **1200 × 1600 px**, PNG, SHA-256 `979f0804d7e3a1ed829a8d7a1fefd8a1a1065e8cb47fdae77f62638db49cd03f`.
@@ -288,7 +288,7 @@
 - **Artefatos:** gerados e disponibilizados como anexos na conversa ARTIST em 2026-10-12 (Brasil); **SVG fonte verificado no GitHub em 2026-10-14** como `docs/art/references/ARTIST-005-C01-moldura-base-preview.svg` (SHA-256 igual ao registrado); **PNG original continua não importado**. Não assumir que link `sandbox` constitui upload no repositório.
 - **Escopo:** moldura isolada, sem mascote ou marca; reserva áreas de nome, tipo, ilustração, Trend, dados/efeitos; campos variam conforme `kind` e schemas MM-03. Não pressupõe custo, ataque, HP ou novas regras.
 - **Controle de qualidade:** duas pranchas gerais geradas nesta mesma sessão desviaram do brief e ficam `REJECTED_OUT_OF_SCOPE` — não reutilizá-las como aprovação ou referencia. O candidato válido é somente o arquivo `C01` acima.
-- **Gate aberto:** aprovação/rejeição/ajustes do usuário, depois asset final e validação SCENE/ARCH/INSPECTOR no Godot com capturas exatas. `RUNTIME_NOT_VERIFIED`.
+- **Gate histórico encerrado:** C01 foi aprovado em 2026-10-12 e reiterado em 2026-10-14. A aprovação é exclusivamente conceitual; conclusão técnica continua dependente de PNG original, integração e validação SCENE/ARCH/INSPECTOR. `RUNTIME_NOT_VERIFIED`.
 
 ## Aprovação C01 — 2026-10-12
 
@@ -296,11 +296,11 @@
 - **Estado:** `CONCEPT_APPROVED`; apenas moldura base, não personagens, marca, mecânicas, integração Godot ou direitos de terceiros.
 - **Proveniência:** preservar PNG/SVG e hashes já registrados acima. SVG fonte original recuperado da Biblioteca, hash SHA-256 conferido e importado em `docs/art/references/ARTIST-005-C01-moldura-base-preview.svg`; PNG original ainda `PNG_IMPORT_PENDING` e sem validação de bytes.
 - **Concorrência:** manter o mesmo PR #13 em draft; nenhum novo workstream ou merge.
-- **Próximo gate:** C05, aprovação individual obrigatória.
+- **Sequência:** o candidato C05 V1 subsequente foi explicitamente rejeitado em 2026-10-14; C01 permanece o baseline aprovado e não deve ser refeito em função dessa rejeição.
 
-## Gate C05 — candidato de preview V1 gerado, aguardando revisão humana (2026-10-12)
+## Histórico C05 — candidato de preview V1 (gerado 2026-10-12; rejeitado 2026-10-14)
 
-- **Estado:** `PREVIEW_V1_GENERATED / HUMAN_GATE_PENDING`; **não aprovado**, não integrado ao Godot nem importado no repositório.
+- **Estado histórico na geração:** `PREVIEW_V1_GENERATED / HUMAN_GATE_PENDING`. **Decisão posterior (2026-10-14): `REJECTED_BY_OWNER`**; não integrar, publicar nem reutilizar como arte aprovada.
 - **Asset:** verso vertical original de carta, candidato de conceito gerado nesta sessão SIGA a partir do contrato ARTIST-005, em **1200 × 1600 px** (mesma proporção 3:4 de C01); SVG editável e PNG RGBA com exterior transparente.
 - **PNG candidato:** `mememon_ARTIST-005_C05_card_back_CONCEPT_V1.png`; SHA-256 `1a5d03580aa79df93c33103895c017c980b6b284ec3e7b7809b8d84e3766a631`.
 - **SVG fonte:** `mememon_ARTIST-005_C05_card_back_CONCEPT_V1.svg`; SHA-256 `96087f3339af97b07e16fd3c28856e1d3653c1a60d274fcc4f54fbf9c812f836`.
@@ -308,11 +308,18 @@
 - **Brief preservado:** verso isolado, cartoon polido, sem mascote, sem nome/logo, sem raridade, sem símbolos de franquias e sem efeito de gameplay. Não substitui o C01 aprovado. Compatibilidade geométrica com C01 é intencional; **fidelidade artística exata a C01 não verificada** pois apenas o SVG fonte de C01 está versionado; o PNG original C01 e a comparação visual exata C01/C05 permanecem pendentes.
 - **Saída descartada:** uma geração inicial de dashboard multirrepositório foi `REJECTED_OUT_OF_SCOPE`; não é asset do MemeMon, não integra baseline e não deve ser importada.
 - **VERIFY:** PNG local legível 1200 × 1600, SVG serializado e SHA-256 registrados; **sem testes Godot, screenshots runtime, validação de direitos ou aceite humano**. HEAD exato de CI anterior à presente alteração de docs foi verde; revalidar novo HEAD.
-- **Próximo gate:** apresentar este C05 ao proprietário: `APPROVE` / `ADJUST` / `REJECT`. Em aprovação, congelar source/binários verificados e só então planejar C06; em ajuste/rejeição, manter C01 intacto e não avançar.
+- **Fechamento do gate:** o proprietário selecionou `REJECT` para este C05 V1 em 2026-10-14. Manter C01 intacto; não importar o C05 rejeitado nem avançar para C06. Qualquer novo verso C05 V2 exige novo candidato isolado e aceite humano independente.
+
+## Decisão humana C01 / C05 — 2026-10-14
+
+- **C01: `CONCEPT_APPROVED` (reiterado pelo proprietário).** Preservar o preview e a fonte SVG com hash verificado já versionada; PNG original ainda pendente de importação e teste Godot não executado.
+- **C05 V1: `REJECTED_BY_OWNER`.** Rejeição explícita do verso de carta apresentado para comparação ao C01. Arquivar nomes, hashes e razões de rastreabilidade; não promover arquivos PNG/SVG desse candidato ao baseline, build ou coleção de assets aprovados. Rejeição do candidato não implica reprovação de C01 nem de ARTIST-003/004 ou T01–T10/B01.
+- **Novo gate:** C05 V2 somente como proposta nova, mantendo o contrato e a linguagem C01 aprovados e submetendo preview independente ao proprietário. Nenhuma escolha estilística adicional, aprovação implícita ou criação automática de C06.
+- **Condições técnicas ainda abertas:** importação PNG com hash exato, fidelidade ART/SCENE/ARCH/INSPECTOR, screenshots reais Godot, responsividade e offline browser-local. PR #13 continua Draft.
 
 ## Próxima unidade
 
-**C05 — Verso original da carta:** preview V1 já produzido e registrado como candidato. **Revisar o arquivo individual com o proprietário (APPROVE / ADJUST / REJECT)** antes de congelar ou importar; confirmar compatibilidade real com C01 aprovado quando seus bytes estiverem disponíveis. Não iniciar C06 antes de encerrar esse human gate.
+**C05 — V2 ainda não iniciado:** preparar uma alternativa isolada apenas mediante próxima etapa ARTIST, baseada no C01 aprovado; requer novo `APPROVE/ADJUST/REJECT`. O candidato C05 V1 foi rejeitado e não deve ser importado. C06 continua bloqueado por gate C05 aprovado e prova técnica cabível.
 
 
 **Fase seguinte:** T01–T10 concluídos **apenas como conceitos visuais**; produzir/validar individualmente os assets de base B01 → C01 → C05 → UI/HUD → ilustrações, preservando referência/arte originais, sem declarar implementação Godot antes dos gates SCENE/ARCH/INSPECTOR.

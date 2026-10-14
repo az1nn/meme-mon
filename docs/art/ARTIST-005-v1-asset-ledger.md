@@ -2,7 +2,7 @@
 
 **Repositório:** az1nn/meme-mon  
 **Data do gate T01:** 2026-10-10 (Brasil)  
-**Estado:** T01–T10 concept approved; B01 concept approved (source pending); C01 concept approved (verified SVG versioned; PNG pending); C05 V1 REJECTED_BY_OWNER / REDESIGN_NOT_STARTED  
+**Estado:** T01–T10 concept approved; B01 concept approved (source pending); C01 concept approved (verified SVG versioned; PNG pending); C05 V1 REJECTED_BY_OWNER / C05 V2 ADJUST_REQUESTED / C05 V3 CONCEPT_APPROVED / PNG_IMPORT_PENDING  
 **Total:** 74 itens/famílias planejadas, **não** 74 imagens independentes nem 74 features autorizadas. Reusar componentes por padrão.
 
 ## Autoridade e fronteiras
@@ -317,9 +317,21 @@
 - **Novo gate:** C05 V2 somente como proposta nova, mantendo o contrato e a linguagem C01 aprovados e submetendo preview independente ao proprietário. Nenhuma escolha estilística adicional, aprovação implícita ou criação automática de C06.
 - **Condições técnicas ainda abertas:** importação PNG com hash exato, fidelidade ART/SCENE/ARCH/INSPECTOR, screenshots reais Godot, responsividade e offline browser-local. PR #13 continua Draft.
 
+## Aprovação C05 V3 — 2026-10-14 (Brasil)
+
+- **Gate humano:** o proprietário declarou "Aprovado" após visualização do C05 V3. Aceite **somente da arte conceitual**, sem aprovação de runtime, logotipo, mascote, direitos ou mecânicas.
+- **Revisão solicitada sobre V2:** maior fidelidade à moldura C01, centro mais elaborado, mais cartoon e menos geométrico. V2 ficou como ADJUST_REQUESTED, não aprovado.
+- **Preview original:** `a_vibrant_colorful_cartoon_illustration_style_tr.png` (saída desta sessão ARTIST), PNG RGB **1086 × 1448 px**, **2216257 bytes**, proporção 3:4.
+- **SHA-256 dos bytes originais aferido:** `fe7b8664621e1c47b7ec878f47d41967d6cbe69b57516d1953ffc22c26e2507e`.
+- **Descrição visual:** verso isolado com moldura navy/azul e dourado, centro ilustrado e acabamento cartoon vibrante. Medalhão de pata/coroa, adesivos e detalhes decorativos **não são aprovação de marca, sistema de raridade ou mascote**.
+- **Histórico e precedência:** C01 segue CONCEPT_APPROVED (SVG fonte original verificado no repositório, PNG ainda pendente); C05 V1 continua REJECTED_BY_OWNER; C05 V2 ADJUST_REQUESTED; C05 V3 CONCEPT_APPROVED.
+- **Estado binário:** `PNG_SOURCE_VERIFIED_LOCALLY / GITHUB_IMPORT_PENDING`. O PNG original não foi importado ao GitHub. Importação eventual deve conferir o SHA exato e não regravar bytes sem rastrear a transformação. Caminho futuro sugerido: `docs/art/references/ARTIST-005-C05-V3-card-back-approved.png`.
+- **Limitações técnicas:** fonte RGB opaca, fundo externo preto; recorte/transparência e comparação pixel/geometria/safe-area com C01 ainda pendentes, apesar da proporção 3:4 coincidir. Qualquer derivado exige rastreabilidade e novo check de fidelidade.
+- **Gates:** ART, SCENE, ARCH e INSPECTOR avaliam a integração Godot, acessibilidade e screenshot runtime real. Não integrar C05 V1/V2, não antecipar C06, não criar branch/PR duplicado; manter PR #13 em draft. Godot Web V1 local/in-memory e controles do domínio continuam invariantes.
+
 ## Próxima unidade
 
-**C05 — V2 ainda não iniciado:** preparar uma alternativa isolada apenas mediante próxima etapa ARTIST, baseada no C01 aprovado; requer novo `APPROVE/ADJUST/REJECT`. O candidato C05 V1 foi rejeitado e não deve ser importado. C06 continua bloqueado por gate C05 aprovado e prova técnica cabível.
+**C05 V3 CONCEPT_APPROVED:** importação da fonte PNG original e validação C01-C05 por ART/SCENE/ARCH/INSPECTOR pendentes. C05 V1 rejeitado e V2 ajustado são históricos; C06 permanece sob gates técnicos.
 
 
 **Fase seguinte:** T01–T10 concluídos **apenas como conceitos visuais**; produzir/validar individualmente os assets de base B01 → C01 → C05 → UI/HUD → ilustrações, preservando referência/arte originais, sem declarar implementação Godot antes dos gates SCENE/ARCH/INSPECTOR.

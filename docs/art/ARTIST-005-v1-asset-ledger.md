@@ -329,6 +329,19 @@
 - **Limitações técnicas:** fonte RGB opaca, fundo externo preto; recorte/transparência e comparação pixel/geometria/safe-area com C01 ainda pendentes, apesar da proporção 3:4 coincidir. Qualquer derivado exige rastreabilidade e novo check de fidelidade.
 - **Gates:** ART, SCENE, ARCH e INSPECTOR avaliam a integração Godot, acessibilidade e screenshot runtime real. Não integrar C05 V1/V2, não antecipar C06, não criar branch/PR duplicado; manter PR #13 em draft. Godot Web V1 local/in-memory e controles do domínio continuam invariantes.
 
+## QA geométrica C01 ↔ C05 V3 — 2026-10-14
+
+**Estado:** `ART_QA_GEOMETRY_REVIEWED / FIT_BLOCKED / ORIGINAL_PNG_NOT_VERSIONED / RUNTIME_NOT_VERIFIED`. Este exame não revoga o aceite humano do conceito C05 V3 e não constitui novo gate de aprovação artística.
+
+- **Arquivo original inspecionado:** `a_vibrant_colorful_cartoon_illustration_style_tr.png`; 1086 × 1448, RGB sem canal alpha; 2.216.257 bytes; SHA-256 `fe7b8664621e1c47b7ec878f47d41967d6cbe69b57516d1953ffc22c26e2507e` confirmado novamente nos bytes presentes da sessão.
+- **Referência C01 versionada:** `docs/art/references/ARTIST-005-C01-moldura-base-preview.svg`; canvas 1200 × 1600, frame de referência principal em `x=258,y=250,w=684,h=1122` (retângulo externo decorativo no concept sheet). Esta é uma medida de **composição de referência**, não um tamanho de textura Godot já homologado.
+- **Relação largura/altura:** a imagem C05 V3 inteira é 1086/1448 = **0,750**; o contorno de referência C01 é 684/1122 ≈ **0,610**. A diferença relativa de ≈ **23%** impede assumir que um corte central ou esticamento seja fiel à arte. A proporção 3:4 do canvas C01 não determina sozinha a proporção do componente de carta nele desenhado.
+- **Inspeção visual:** recorte central com proporção 0,610 elimina partes de moldura e decoração laterais. O original V3 possui margem preta opaca; não tratar exterior preto como transparência nem usar o preview RGB como sprite final sem isolamento/recorte controlado.
+- **Preview de diagnóstico:** produzido artefato local `mememon_C05_V3_QA_geom.png` para inspeção de enquadramento; é uma simulação técnica e não uma revisão artística aprovada. Não versionado no GitHub.
+- **Plano para integração:** preservar intacto o PNG fonte aprovado; produzir candidato derivado de integração com transparência, alinhamento de frame e safe area **sem cortar ornamentos ou distorcer proporções**, mantendo hash/identidade separada do original. Comparar C01 frontal e C05 traseiro em rotação 180°/flip e nos alvos de UI mobile/desktop; ART aprova fidelidade do derivado, ARCH aprova pipeline/texture handling, SCENE implementa e INSPECTOR verifica screenshots e interação reais.
+- **Vedações:** não usar C05 V1 rejeitado, não converter V2 ajustado em aprovado, não promover medalhão de pata/coroa a marca/canon ou gameplay, não liberar C06 ou merge enquanto faltarem importação binária, comparativo e gates técnicos aplicáveis.
+- **Fonte no GitHub:** `PENDING`; a interface GitHub conectada nesta sessão permite escrita textual mas não recebeu upload de bytes PNG. Não marcar `IMPORTED` sem arquivo acessível no commit e hash revalidado.
+
 ## Próxima unidade
 
 **C05 V3 CONCEPT_APPROVED:** importação da fonte PNG original e validação C01-C05 por ART/SCENE/ARCH/INSPECTOR pendentes. C05 V1 rejeitado e V2 ajustado são históricos; C06 permanece sob gates técnicos.

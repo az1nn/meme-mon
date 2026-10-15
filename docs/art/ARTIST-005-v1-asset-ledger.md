@@ -361,3 +361,13 @@
 
 
 **Fase seguinte:** T01–T10 concluídos **apenas como conceitos visuais**; produzir/validar individualmente os assets de base B01 → C01 → C05 → UI/HUD → ilustrações, preservando referência/arte originais, sem declarar implementação Godot antes dos gates SCENE/ARCH/INSPECTOR.
+
+
+## SIGA reconcile — C05 V3.1 (2026-10-15)
+
+- PR #13 remains DRAFT and unmerged; observed exact HEAD `6a327eb65a12c3e83ea7b70156ca836f7168de9e` before this documentation update.
+- Exact-head GitHub Actions workflow `Godot headless gates` returned completed/success. This is not sprite/runtime approval; new documentation HEAD requires fresh CI confirmation.
+- The PR changed-file inventory contains C01's approved SVG and documentation, but no original C05 V3/V3.1 PNG nor isolated production sprite. The V3 original and V3.1 approved presentation board must not be substituted or fabricated.
+- C05 V3.1 extraction is BLOCKED_SOURCE_BYTES: recover exact approved PNG bytes, verify SHA-256 `f10c47a3435a6b999930eeaa0afba31b9311b2931a1df9a4fa7010fdb7314fdd`; preserve V3 original SHA-256 `fe7b8664621e1c47b7ec878f47d41967d6cbe69b57516d1953ffc22c26e2507e` and C01 verified SVG. Then create separately hashed alpha-isolated card-back sprite, check C01 frame fit, safe-area, transparency and Godot screenshots.
+- Concurrency: reuse existing art/003 branch/PR only; no claim of exclusive lock or ownership is made without a verified atomic claim. Do not overwrite concurrent changes. Reconcile HEAD immediately before further writes.
+- ART, ARCH, SCENE, INSPECTOR gates remain open. Do not start C06, merge, or mark runtime verified.

@@ -25,6 +25,7 @@ export function transition(claims, cmd, clock = Date.now()) {
   if (!Number.isInteger(ttl) || ttl < 60 || ttl > MAX_TTL) fail('INVALID_TTL');
   if (action === 'acquire') {
     if (!validName(branch) || !validSha(head)) fail('INVALID_HEAD');
+    if (['master', 'main', 'siga-claims-v1'].includes(branch)) fail('PROTECTED_BRANCH');
     if (active) fail(expired ? 'RECOVERY_REQUIRED' : 'WATCH_OWNED');
     const token = randomUUID();
     copy[scope] = {

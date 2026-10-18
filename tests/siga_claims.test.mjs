@@ -94,3 +94,10 @@ test('unfenced external branch drift is rejected; stale advance cannot overwrite
   }, 3_000), { code: 'FEATURE_HEAD_CONFLICT_WATCH' });
   assert.equal(store.claims[base.scope].head_sha, SHA_A);
 });
+
+
+test('reserved master/main/coordinator refs cannot be claimed', () => {
+  for (const branch of ['master', 'main', 'siga-claims-v1']) {
+    assert.throws(() => transition({}, { ...base, branch }, 1_000), { code: 'PROTECTED_BRANCH' });
+  }
+});

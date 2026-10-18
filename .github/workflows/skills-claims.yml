@@ -1,0 +1,29 @@
+name: SKILLS-001 claim regression
+
+on:
+  pull_request:
+    paths:
+      - 'tools/siga_claims.mjs'
+      - 'tests/siga_claims.test.mjs'
+      - '.github/workflows/skills-claims.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  atomic-claims:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout exact PR head
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Static source syntax
+        run: node --check tools/siga_claims.mjs
+      - name: Deterministic concurrency regression
+        run: node --test tests/siga_claims.test.mjs

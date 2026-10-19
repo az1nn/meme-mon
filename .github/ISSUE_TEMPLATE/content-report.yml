@@ -1,0 +1,28 @@
+name: Private content/moderation report
+description: Do not use this public form for sensitive reports; use the private beta channel.
+title: "[Content]: "
+labels: ["question"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Do not post private data, exploit details, or unreviewed media here. Beta participants should use the private operator channel. For security vulnerabilities, follow SECURITY.md.
+  - type: input
+    id: submission_id
+    attributes:
+      label: Submission or edition ID
+      description: A stable MM-07/MM-08 identifier, never a local file path or arbitrary URL.
+  - type: dropdown
+    id: category
+    attributes:
+      label: Category
+      options:
+        - rights/provenance
+        - impersonation
+        - abusive/illegal content
+        - other
+  - type: textarea
+    id: public_context
+    attributes:
+      label: Non-sensitive context
+      description: Keep evidence and personal data out of public issues.

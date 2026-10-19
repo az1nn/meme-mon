@@ -30,7 +30,7 @@ func _run() -> void:
 	_check(shell.menu_panel != null, "drawer available")
 	_check(shell.find_child("Route_duel", true, false) != null, "duel route available")
 	_check(shell.find_child("Route_collection", true, false) != null, "collection route available")
-	_check(shell.find_child("Route_forge", true, false) == null, "unimplemented Forge route absent")
+	_check(shell.find_child("Route_forge", true, false) != null, "private Forge route available")
 	shell.open_menu()
 	_check(shell.is_menu_open(), "hamburger opens menu")
 	shell.close_menu()

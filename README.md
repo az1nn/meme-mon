@@ -2,6 +2,8 @@
 
 Open-source, community-driven meme TCG built with Godot.
 
+Código: [MIT](LICENSE). Contribuições: [DCO](CONTRIBUTING.md). Conteúdo de usuários e ativos de terceiros não são licenciados pelo código; veja a [política do beta fechado](docs/policies/closed-beta-operating-policy.md) e a [política de conteúdo e proveniência](docs/policies/content-provenance-policy.md).
+
 ## Product thesis
 
 Mememom is not a clone of Pokémon. It is an original digital card game where memes become collectible creatures through a player-facing Forge. Players choose identity and flavor; the game enforces legal power budgets, versioned rules, provenance and competitive legality.
@@ -80,7 +82,7 @@ godot --headless --path . --script res://tests/run_tests.gd
 
 ## Current workstream
 
-MM-05 — Deckbuilder & Collection is implemented and headless-verified. Next: MM-06 — Meme Forge / Godot.
+MM-05 e MM-06 estão implementados. MM-07/MM-08 possuem os modelos determinísticos de submissão, moderação, Canon e legalidade; MM-09 possui o núcleo autoritativo em memória com idempotência, reconexão e replay. A hospedagem WebSocket, os contatos públicos e a aceitação humana continuam gates operacionais antes de qualquer abertura pública.
 
 MM-05 adds:
 - DeckDefinition alpha-0.1 validation: exactly 30 cards, minimum 8 Mememom, maximum 2 copies per card ID across editions, maximum 2 Headliners, and format/version/owned-edition checks.
@@ -95,6 +97,7 @@ See:
 - `docs/specs/MM-03-card-schema-balance-budget.md`
 - `docs/specs/MM-04-godot-duel-vertical-slice.md`
 - `docs/specs/MM-05-deckbuilder-collection.md`
+- `docs/specs/MM-06-meme-forge.md` até `docs/specs/MM-10-open-source-governance.md`
 - `docs/reports/MM-05-verification.md`
 - `contracts/schemas/`
 - `contracts/fixtures/`
@@ -105,3 +108,17 @@ See:
 Godot 4.7.2 exports once in GitHub Actions; the same verified output is packaged for Cloudflare Workers Static Assets (primary) and a manually triggered Vercel Build Output API v3 deployment (backup). Neither provider is configured to rebuild game sources on each commit. See [delivery setup](docs/plans/INFRA-01-smart-web-delivery.md), [specification](docs/specs/INFRA-01-smart-web-delivery.md), and [workflow](.github/workflows/web-delivery.yml).
 
 Web delivery requires explicit provider credentials, and production publication is off by default. To verify locally with Godot and export templates installed: `bash tools/build_web.sh && node tools/prepare_web_artifact.mjs && node tools/prepare_vercel_output.mjs`.
+
+## PWA and Android packaging
+
+The Godot Web export is wrapped as an installable PWA and is the sole web payload consumed by the Capacitor Android wrapper; neither target adds a second game renderer.
+
+```bash
+# Build and validate the installable Web artifact.
+GODOT_BIN=/home/az1nn/.local/bin/godot npm run build:pwa
+
+# Copy that exact artifact into android/app/src/main/assets/public.
+npm run android:sync
+```
+
+Building an APK additionally needs a JDK and Android SDK with platform/build-tools 36 installed. After those prerequisites are available, run `npm run android:debug`. A signed release, physical/emulated-device test and human touch/accessibility acceptance remain required V1 release gates.

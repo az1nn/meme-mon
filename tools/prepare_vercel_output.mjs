@@ -6,7 +6,7 @@ const source = path.join(root, "web");
 const output = path.join(root, ".vercel", "output");
 const target = path.join(output, "static");
 
-for (const name of ["index.html", "index.js", "index.wasm", "index.pck", "version.json"]) {
+for (const name of ["index.html", "index.js", "index.wasm", "index.pck", "version.json", "manifest.webmanifest", "service-worker.js", "icons/mememom.svg"]) {
   if (!fs.existsSync(path.join(source, name))) throw new Error("Missing artifact: " + name);
 }
 fs.rmSync(output, { recursive: true, force: true });

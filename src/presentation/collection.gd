@@ -146,6 +146,8 @@ func _add_filter(parent: Container, options: Array) -> OptionButton:
 func _on_global_route(route: String) -> void:
 	if route == "duel":
 		_back()
+	elif route == "forge":
+		get_tree().change_scene_to_file("res://scenes/Forge.tscn")
 
 func _selected_option(control: OptionButton) -> String:
 	if control.selected <= 0:

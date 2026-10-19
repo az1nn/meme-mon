@@ -1,0 +1,11 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mememom.dev/schemas/online-1/intent-envelope.schema.json",
+  "title": "Mememom Authoritative Intent Envelope v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["protocol_version", "match_id", "idempotency_key", "intent"],
+  "properties": {
+    "protocol_version": {"const": "online-1"}, "match_id": {"type": "string", "minLength": 1}, "idempotency_key": {"type": "string", "minLength": 1, "maxLength": 120}, "intent": {"$ref": "player-intent.schema.json"}
+  }
+}

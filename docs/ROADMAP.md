@@ -2,6 +2,12 @@
 
 The roadmap is ordered by dependency. SIGA should advance one verified unit at a time.
 
+## V1 release goal
+
+V1 is the first public Mememom release in which a player can forge a private Sandbox card, build a legal deck, complete a reproducible duel, and move eligible community content through safe moderation into immutable Canon for authoritative online play. The detailed definition, non-goals and release gates are in [V1 — Community Card Game Release Goal](specs/V1-release-goal.md); its delivery sequence and task graph are in [the V1 plan](plans/V1-release-plan.md) and [V1 tasks](tasks/V1-release-tasks.md).
+
+The current architecture assessment and verified next gate are recorded in the [V1 architecture check-up](reports/V1-architecture-checkup-2026-10-18.md).
+
 | ID | Workstream | Status | Exit condition |
 |---|---|---|---|
 | MM-01 | Product Foundation | DONE | Identity, vocabulary, boundaries and non-goals versioned |
@@ -9,11 +15,11 @@ The roadmap is ordered by dependency. SIGA should advance one verified unit at a
 | MM-03 | Card Schema & Balance Budget | DONE | Versioned card/deck/event schemas and legal power budget |
 | MM-04 | Godot Duel Vertical Slice | DONE | Local duel with 20 test cards and deterministic bot |
 | MM-05 | Deckbuilder & Collection | DONE | 30-card validation, filtering, save/load |
-| MM-06 | Meme Forge / Godot | NEXT | Upload/crop/name/type/generated stats/private preview in Godot |
-| MM-07 | UGC Provenance & Moderation | PLANNED | Rights metadata, reports and moderation state machine |
-| MM-08 | Canon & Set Versioning | PLANNED | Immutable editions and format legality |
-| MM-09 | Online Match Protocol | PLANNED | Authoritative intent/event protocol, reconnect and replay |
-| MM-10 | Open Source Governance | PLANNED | Code/content licenses and contribution/card-review policy |
+| MM-06 | Meme Forge / Godot | IN REVIEW | Private Forge, constrained preview and local media work; human visual/touch acceptance remains |
+| MM-07 | UGC Provenance & Moderation | IN REVIEW | Versioned snapshots, reports and fail-closed moderation reference; human/privacy acceptance remains |
+| MM-08 | Canon & Set Versioning | IN REVIEW | Immutable editions, format legality and suspension reference; operator/public-content acceptance remains |
+| MM-09 | Online Match Protocol | IN REVIEW | Tested authority reference for intent/event, reconnect and replay; hosted WebSocket and Godot transport remain |
+| MM-10 | Open Source Governance | IN REVIEW | Closed-beta policies, DCO and accountability artifacts; public contact/asset-license gates remain |
 
 ## Milestone A — Rules are a game
 
@@ -49,7 +55,9 @@ MM-05 builds on the Alpha 0.1 Godot duel. Deck legality is a domain contract, wi
 
 MM-05 was validated against Godot 4.7.2 by 194 MM-04 regression checks and 94 new MM-05 checks with 0 failures, plus import/parser and both scene smoke gates (code HEAD 0876e331; final PR documentation-head CI passed at run 37782362544).
 
-MM-06 is the next dependency unit: add a Godot-only meme Forge that produces private Sandbox previews using constrained MM-03 budgets, without skipping MM-07 rights/provenance and moderation gates.
+MM-06 implementation is complete through automated domain, navigation, parser/import, scene-smoke and Web/PWA packaging gates. It remains **IN REVIEW** until human visual/touch acceptance confirms the Forge flow on supported targets. It produces private Sandbox previews using constrained MM-03 budgets without skipping MM-07 rights/provenance and moderation gates.
+
+MM-07/MM-08 now provide versioned submission snapshots, moderator audit transitions, Canon publication, format legality and additive suspension records in deterministic reference models. MM-09 exercises authenticated session ownership, canonical deck locking, idempotency, reconnect/event recovery and deterministic replay in a reference authority. These do **not** claim a hosted public WebSocket service, public UGC, or a completed human/operations gate.
 
 ## Parallel infrastructure lane — INFRA-01
 

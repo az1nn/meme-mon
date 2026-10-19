@@ -2,5 +2,8 @@
 .godot/
 web/
 .vercel/
+node_modules/
 *.log
+*.gd.uid
+*.import
 .DS_Store

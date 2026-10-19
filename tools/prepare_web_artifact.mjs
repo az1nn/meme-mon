@@ -5,6 +5,7 @@ import { execFileSync } from "node:child_process";
 
 const root = path.resolve(import.meta.dirname, "..");
 const dir = path.join(root, "web");
+const pwa = path.join(root, "pwa");
 const read = (name) => fs.readFileSync(path.join(dir, name));
 const sizeLimit = 25 * 1024 * 1024;
 for (const filename of ["index.html", "index.js", "index.pck", "index.wasm"]) {
@@ -13,7 +14,7 @@ for (const filename of ["index.html", "index.js", "index.pck", "index.wasm"]) {
   }
 }
 
-const html = read("index.html").toString("utf8");
+let html = read("index.html").toString("utf8");
 const fileSizes = html.match(/"fileSizes"\s*:\s*(\{[^}]*\})/s);
 if (!fileSizes) throw new Error("Godot index.html lacks fileSizes metadata");
 const declared = JSON.parse(fileSizes[1]);
@@ -67,4 +68,17 @@ const manifest = {
   index_pck_bytes: read("index.pck").length,
 };
 fs.writeFileSync(path.join(dir, "version.json"), JSON.stringify(manifest, null, 2) + "\n");
+
+fs.cpSync(pwa, dir, { recursive: true });
+const pwaHead = `  <meta name="theme-color" content="#7c3aed">\n  <link rel="manifest" href="manifest.webmanifest">\n  <link rel="icon" href="icons/mememom.svg" type="image/svg+xml">`;
+const pwaScript = `\n<script>if ("serviceWorker" in navigator) { window.addEventListener("load", () => navigator.serviceWorker.register("service-worker.js")); }</script>`;
+if (!html.includes("manifest.webmanifest")) {
+  if (!html.includes("</head>")) throw new Error("Godot index.html lacks a closing head tag");
+  html = html.replace("</head>", `${pwaHead}\n</head>`);
+}
+if (!html.includes("service-worker.js")) {
+  if (!html.includes("</body>")) throw new Error("Godot index.html lacks a closing body tag");
+  html = html.replace("</body>", `${pwaScript}\n</body>`);
+}
+fs.writeFileSync(path.join(dir, "index.html"), html);
 console.log("[mememom] Web artifact PASS", JSON.stringify(manifest));

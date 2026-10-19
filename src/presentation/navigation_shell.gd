@@ -132,8 +132,9 @@ func _build() -> void:
 	top.add_child(close_button)
 	_add_route(entries, "⚔  Duelo", "duel")
 	_add_route(entries, "▣  Coleção / Deckbuilder", "collection")
+	_add_route(entries, "✦  Meme Forge", "forge")
 	var note := Label.new()
-	note.text = "Forge e outros recursos chegam em futuras versões."
+	note.text = "Sandbox é privado e não é competitivo."
 	note.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	note.add_theme_color_override("font_color", CYAN)
 	entries.add_child(note)

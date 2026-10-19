@@ -14,6 +14,11 @@ on:
       - "tools/build_web.sh"
       - "tools/prepare_web_artifact.mjs"
       - "tools/prepare_vercel_output.mjs"
+      - "tools/check_pwa_artifact.mjs"
+      - "tools/write_godot_ignore.mjs"
+      - "pwa/**"
+      - "package.json"
+      - "package-lock.json"
       - "wrangler.jsonc"
       - "vercel.json"
       - ".github/workflows/web-delivery.yml"
@@ -31,6 +36,11 @@ on:
       - "tools/build_web.sh"
       - "tools/prepare_web_artifact.mjs"
       - "tools/prepare_vercel_output.mjs"
+      - "tools/check_pwa_artifact.mjs"
+      - "tools/write_godot_ignore.mjs"
+      - "pwa/**"
+      - "package.json"
+      - "package-lock.json"
       - "wrangler.jsonc"
       - "vercel.json"
       - ".github/workflows/web-delivery.yml"
@@ -116,9 +126,25 @@ jobs:
           "$GODOT_BIN" --headless --path . --script res://tests/run_mm05_tests.gd 2>&1 | tee mm05.log
           grep -q "MM-05 HEADLESS GATES PASS" mm05.log
           grep -Eq "MM-05 checks: [1-9][0-9]+, failures: 0" mm05.log
+          "$GODOT_BIN" --headless --path . --script res://tests/run_mm06_tests.gd 2>&1 | tee mm06.log
+          grep -q "MM-06 HEADLESS GATES PASS" mm06.log
+          grep -Eq "MM-06 checks: [1-9][0-9]*, failures: 0" mm06.log
+          "$GODOT_BIN" --headless --path . --script res://tests/run_mm07_mm08_tests.gd 2>&1 | tee mm07-mm08.log
+          grep -q "MM-07/MM-08 HEADLESS GATES PASS" mm07-mm08.log
+          grep -Eq "MM-07/MM-08 checks: [1-9][0-9]*, failures: 0" mm07-mm08.log
+          "$GODOT_BIN" --headless --path . --script res://tests/run_mm09_tests.gd 2>&1 | tee mm09.log
+          grep -q "MM-09 HEADLESS GATES PASS" mm09.log
+          grep -Eq "MM-09 checks: [1-9][0-9]*, failures: 0" mm09.log
+          PATH="$(dirname "$GODOT_BIN"):$PATH" bash tools/check_mm09_server.sh 2>&1 | tee mm09-server.log
+          grep -q "MM-09 WebSocket adapter parse/fail-closed/listen gate PASS" mm09-server.log
+          "$GODOT_BIN" --headless --path . --script res://tests/run_art002_tests.gd 2>&1 | tee art002.log
+          grep -q "ART-002 NAVIGATION GATES PASS" art002.log
+          "$GODOT_BIN" --headless --path . --script res://tests/run_art002_hud_tests.gd 2>&1 | tee art002-hud.log
+          grep -q "ART-002 HUD GATES PASS" art002-hud.log
           "$GODOT_BIN" --headless --path . --quit-after 2 2>&1 | tee smoke.log
           "$GODOT_BIN" --headless --path . res://scenes/Collection.tscn --quit-after 2 2>&1 | tee collection-smoke.log
-          ! grep -E "SCRIPT ERROR|Failed to load script|Compile Error|Parse Error|Invalid call|Invalid access" mm04.log mm05.log smoke.log collection-smoke.log
+          "$GODOT_BIN" --headless --path . res://scenes/Forge.tscn --quit-after 2 2>&1 | tee forge-smoke.log
+          ! grep -E "SCRIPT ERROR|Failed to load script|Compile Error|Parse Error|Invalid call|Invalid access" mm04.log mm05.log mm06.log mm07-mm08.log mm09.log mm09-server.log art002.log art002-hud.log smoke.log collection-smoke.log forge-smoke.log
 
       - name: Export once and enforce metadata and free-tier file limits
         shell: bash
@@ -126,6 +152,7 @@ jobs:
           set -euo pipefail
           bash tools/build_web.sh
           node tools/prepare_web_artifact.mjs
+          node tools/check_pwa_artifact.mjs
           node tools/prepare_vercel_output.mjs
           test -s .vercel/output/config.json
           test -s .vercel/output/static/index.wasm

@@ -1,0 +1,11 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mememom.dev/schemas/canon-1/canon-edition.schema.json",
+  "title": "Mememom Canon Edition v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["canon_version", "edition_id", "submission_id", "card_id", "schema_version", "rules_version", "content_digest", "provenance_snapshot", "card", "published_at"],
+  "properties": {
+    "canon_version": {"const": "canon-1"}, "edition_id": {"type": "string", "minLength": 1}, "submission_id": {"type": "string", "minLength": 1}, "card_id": {"type": "string", "minLength": 3}, "schema_version": {"const": "alpha-0.1"}, "rules_version": {"const": "alpha-0.1"}, "content_digest": {"type": "string", "pattern": "^[a-f0-9]{64}$"}, "provenance_snapshot": {"$ref": "submission.schema.json#/$defs/snapshot"}, "card": {"$ref": "card-definition.schema.json"}, "published_at": {"type": "string", "format": "date-time"}
+  }
+}

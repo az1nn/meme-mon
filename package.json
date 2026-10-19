@@ -1,0 +1,34 @@
+{
+  "name": "mememom",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Mememom Godot web, PWA, and Android packaging tools.",
+  "scripts": {
+    "postinstall": "node tools/write_godot_ignore.mjs",
+    "test:mm04": "godot --headless --path . --script res://tests/run_tests.gd",
+    "test:mm05": "godot --headless --path . --script res://tests/run_mm05_tests.gd",
+    "test:mm06": "godot --headless --path . --script res://tests/run_mm06_tests.gd",
+    "test:mm07-mm08": "godot --headless --path . --script res://tests/run_mm07_mm08_tests.gd",
+    "test:mm09": "godot --headless --path . --script res://tests/run_mm09_tests.gd",
+    "test:mm09-server": "bash tools/check_mm09_server.sh",
+    "test:navigation": "godot --headless --path . --script res://tests/run_art002_tests.gd",
+    "test:hud": "godot --headless --path . --script res://tests/run_art002_hud_tests.gd",
+    "test": "npm run test:mm04 && npm run test:mm05 && npm run test:mm06 && npm run test:mm07-mm08 && npm run test:mm09 && npm run test:mm09-server && npm run test:navigation && npm run test:hud",
+    "build:web": "bash tools/build_web.sh && node tools/prepare_web_artifact.mjs",
+    "pwa:check": "node tools/check_pwa_artifact.mjs",
+    "build:pwa": "npm run build:web && npm run pwa:check",
+    "android:add": "cap add android",
+    "android:sync": "npm run build:pwa && cap sync android",
+    "android:debug": "npm run android:sync && cd android && ./gradlew assembleDebug",
+    "online:server": "godot --headless --path . --script res://server/authoritative_websocket.gd"
+  },
+  "dependencies": {
+    "@capacitor/android": "8.5.3",
+    "@capacitor/core": "8.5.3"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "8.5.3",
+    "typescript": "7.0.2"
+  }
+}

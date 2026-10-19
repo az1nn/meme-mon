@@ -120,6 +120,8 @@ func _build_ui() -> void:
 func _on_global_route(route: String) -> void:
 	if route == "collection":
 		_on_collection()
+	elif route == "forge":
+		get_tree().change_scene_to_file("res://scenes/Forge.tscn")
 
 func _intent(kind: String, payload: Dictionary = {}) -> Dictionary:
 	return {

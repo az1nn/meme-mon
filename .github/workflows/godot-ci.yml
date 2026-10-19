@@ -37,6 +37,32 @@ jobs:
           ! grep -E "SCRIPT ERROR|Failed to load script|Compile Error|Parse Error|Invalid call|Invalid access" mm05-tests.log
           grep -q "MM-05 HEADLESS GATES PASS" mm05-tests.log
           grep -Eq "MM-05 checks: [1-9][0-9]+, failures: 0" mm05-tests.log
+      - name: MM-06 private Sandbox Forge regressions
+        run: |
+          set -o pipefail
+          godot --headless --path . --script res://tests/run_mm06_tests.gd 2>&1 | tee mm06-tests.log
+          ! grep -E "SCRIPT ERROR|Failed to load script|Compile Error|Parse Error|Invalid call|Invalid access" mm06-tests.log
+          grep -q "MM-06 HEADLESS GATES PASS" mm06-tests.log
+          grep -Eq "MM-06 checks: [1-9][0-9]*, failures: 0" mm06-tests.log
+      - name: MM-07 UGC moderation and MM-08 Canon regressions
+        run: |
+          set -o pipefail
+          godot --headless --path . --script res://tests/run_mm07_mm08_tests.gd 2>&1 | tee mm07-mm08-tests.log
+          ! grep -E "SCRIPT ERROR|Failed to load script|Compile Error|Parse Error|Invalid call|Invalid access" mm07-mm08-tests.log
+          grep -q "MM-07/MM-08 HEADLESS GATES PASS" mm07-mm08-tests.log
+          grep -Eq "MM-07/MM-08 checks: [1-9][0-9]*, failures: 0" mm07-mm08-tests.log
+      - name: MM-09 authoritative protocol regressions
+        run: |
+          set -o pipefail
+          godot --headless --path . --script res://tests/run_mm09_tests.gd 2>&1 | tee mm09-tests.log
+          ! grep -E "SCRIPT ERROR|Failed to load script|Compile Error|Parse Error|Invalid call|Invalid access" mm09-tests.log
+          grep -q "MM-09 HEADLESS GATES PASS" mm09-tests.log
+          grep -Eq "MM-09 checks: [1-9][0-9]*, failures: 0" mm09-tests.log
+      - name: MM-09 WebSocket adapter fail-closed gate
+        run: |
+          set -o pipefail
+          bash tools/check_mm09_server.sh 2>&1 | tee mm09-server.log
+          grep -q "MM-09 WebSocket adapter parse/fail-closed/listen gate PASS" mm09-server.log
       - name: ART-002 shared navigation tests
         run: |
           set -o pipefail
@@ -64,3 +90,8 @@ jobs:
           set -o pipefail
           godot --headless --path . res://scenes/Collection.tscn --quit-after 2 2>&1 | tee collection-smoke.log
           ! grep -E "SCRIPT ERROR|Failed to load script|Compile Error|Parse Error|Invalid call|Invalid access" collection-smoke.log
+      - name: Forge scene smoke boot
+        run: |
+          set -o pipefail
+          godot --headless --path . res://scenes/Forge.tscn --quit-after 2 2>&1 | tee forge-smoke.log
+          ! grep -E "SCRIPT ERROR|Failed to load script|Compile Error|Parse Error|Invalid call|Invalid access" forge-smoke.log

@@ -33,6 +33,15 @@ HTTP 200 responses. The Godot page did not produce a screenshot within the
 30-second headless window, so this is only a shell-serving result, not proof of
 runtime rendering, installability, offline behavior, or visual acceptance.
 
+A Chromium DevTools Protocol run subsequently reached `document.readyState` of
+`complete` with a live `780x437` Godot canvas and an activated service worker;
+the captured frame showed the duel HUD. With network emulation set offline,
+the page reloaded from the `mememom-pwa-v1` cache and retained the same live
+canvas dimensions. The cache contained the shell, JavaScript, PCK, WASM,
+manifest, and icon. This proves browser launch and offline reload for this
+target, but not Add-to-Home-Screen installation, update behavior, or human
+touch/accessibility acceptance.
+
 ## Gates not proven here
 
 - Android APK compilation/install/smoke is blocked in this workspace because no

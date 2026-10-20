@@ -21,10 +21,17 @@
 | Main, Collection, Forge scene smoke | PASS |
 | Godot Web export and PWA validator | PASS |
 | Capacitor Android asset sync | PASS |
+| Chromium PWA shell fetch smoke | PASS for required HTTP assets |
 
 The Web artifact records 39,514,754 raw WASM bytes, 7,996,785 Brotli bytes,
 10,153,810 gzip bytes, and 130,576 PCK bytes in `web/version.json`. The same
 metadata is present under `android/app/src/main/assets/public/` after sync.
+
+Chromium 149 fetched `index.html`, `index.js`, `index.pck`, `index.wasm`, the
+manifest, service worker, icon, and audio worklets from a local HTTP server with
+HTTP 200 responses. The Godot page did not produce a screenshot within the
+30-second headless window, so this is only a shell-serving result, not proof of
+runtime rendering, installability, offline behavior, or visual acceptance.
 
 ## Gates not proven here
 

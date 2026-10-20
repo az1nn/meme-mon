@@ -10,15 +10,15 @@ Nenhum item pode ser marcado somente por intenção ou por CI parcial. Registre 
 
 ## Gates técnicos
 
-- [ ] Suites MM-04 a MM-09 passam no mesmo commit exato.
-- [ ] Snapshots MM-07, edição/legality MM-08 e replay MM-09 têm testes negativos de fronteira de confiança.
+- [x] Suites MM-04 a MM-09 passam no mesmo commit exato. Evidência: [V1 verification report (2026-10-20)](../reports/V1-verification-2026-10-20.md).
+- [x] Snapshots MM-07, edição/legality MM-08 e replay MM-09 têm testes negativos de fronteira de confiança. A aceitação operacional do serviço continua pendente.
 - [ ] PWA instala, atualiza e abre offline no navegador alvo.
 - [ ] Android assinado instala e passa smoke em alvo suportado.
 - [ ] Acessibilidade, touch, foco, contraste e revisão visual/original-brand têm aceite humano.
 
 ## Gates operacionais
 
-- [ ] Política de beta fechado, código MIT/DCO, conduta, segurança e conteúdo/proveniência estão versionadas.
+- [x] Política de beta fechado, código MIT/DCO, conduta, segurança e conteúdo/proveniência estão versionadas.
 - [ ] Responsáveis e rota privada de incidentes foram confirmados aos participantes do beta.
 - [ ] Antes de abertura pública: Private Vulnerability Reporting e contato verificável de moderação/privacidade estão publicados.
 - [ ] Evidência de deploy, configuração de retenção e rota de escalonamento foi registrada sem expor segredos.
@@ -26,5 +26,5 @@ Nenhum item pode ser marcado somente por intenção ou por CI parcial. Registre 
 ## Evidência de release
 
 - [ ] Tag, checksum/commit, artefatos PWA/Android e resultados de smoke são registrados.
-- [ ] Nenhuma carta Sandbox, submissão não aprovada ou edição suspensa aparece em deck/match competitivo.
+- [x] Nenhuma carta Sandbox, submissão não aprovada ou edição suspensa aparece em deck/match competitivo; os negativos estão cobertos pelos gates MM-07/MM-08/MM-09.
 - [ ] O release declara beta fechado enquanto os gates públicos permanecerem pendentes.

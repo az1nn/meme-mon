@@ -6,7 +6,7 @@ The roadmap is ordered by dependency. SIGA should advance one verified unit at a
 
 V1 is the first public Mememom release in which a player can forge a private Sandbox card, build a legal deck, complete a reproducible duel, and move eligible community content through safe moderation into immutable Canon for authoritative online play. The detailed definition, non-goals and release gates are in [V1 — Community Card Game Release Goal](specs/V1-release-goal.md); its delivery sequence and task graph are in [the V1 plan](plans/V1-release-plan.md) and [V1 tasks](tasks/V1-release-tasks.md).
 
-The current architecture assessment and verified next gate are recorded in the [V1 architecture check-up](reports/V1-architecture-checkup-2026-10-18.md).
+The historical architecture assessment is recorded in the [V1 architecture check-up](reports/V1-architecture-checkup-2026-10-18.md); the latest exact-head evidence is in the [V1 verification report](reports/V1-verification-2026-10-20.md).
 
 | ID | Workstream | Status | Exit condition |
 |---|---|---|---|

@@ -7,5 +7,6 @@
 - [x] ARCH: create Vercel static prebuilt packaging and disable Git deployments.
 - [x] ARCH: add filtered, reusable GitHub Actions artifact and manual/conditional deploy.
 - [x] VERIFY: exact code HEAD 7bb4115711af281d8270fd588275b04763100367 (run 37829809965), 194 MM-04 + 94 MM-05 checks, Web export PASS.
+- [x] VERIFY: current exact HEAD `35593b237d0b964ea88dc7855f9f60412318cfbf` passes the successor Godot suites, Web/PWA artifact validation, and Capacitor Android asset sync; see [V1 verification report](../reports/V1-verification-2026-10-20.md).
 - [ ] VERIFY: Cloudflare and Vercel live responses and mobile browser smoke (requires credentials, deployed URLs).
 - [x] HANDOFF: document final gates and next owner actions in docs/reports/INFRA-01-handoff.md.

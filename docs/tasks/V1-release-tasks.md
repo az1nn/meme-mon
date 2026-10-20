@@ -27,7 +27,7 @@ Do not mark a task complete without evidence required by the constitution.
 
 ## Phase 4 — V1 release candidate
 
-- [ ] Run exact-head MM-04/MM-05 and all successor deterministic test suites.
+- [x] Run exact-head MM-04/MM-05 and all successor deterministic test suites. See [V1 verification report (2026-10-20)](../reports/V1-verification-2026-10-20.md).
 - [ ] Verify schema migration/replay fixtures and competitive trust-boundary negative cases.
 - [ ] Export and install the PWA; verify offline launch, touch navigation and update behavior.
 - [ ] Build, install and smoke-test a signed Android release candidate.

@@ -46,8 +46,9 @@ touch/accessibility acceptance.
 
 - Android APK compilation/install/smoke is blocked in this workspace because no
   Java runtime, Android SDK, or `adb` is installed.
-- Browser install, offline launch/update behavior, and touch/device acceptance
-  still require a supported browser or Android target.
+- Browser installation, update behavior, and touch/device acceptance still
+  require a supported browser or Android target; offline reload is verified
+  above for the Chromium target.
 - Human visual, accessibility, focus, contrast, and original-brand review is
   still pending; headless checks do not substitute for that acceptance.
 - Cloudflare/Vercel live deployment and public moderation/security routes were

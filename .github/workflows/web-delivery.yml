@@ -135,7 +135,11 @@ jobs:
           "$GODOT_BIN" --headless --path . --script res://tests/run_mm09_tests.gd 2>&1 | tee mm09.log
           grep -q "MM-09 HEADLESS GATES PASS" mm09.log
           grep -Eq "MM-09 checks: [1-9][0-9]*, failures: 0" mm09.log
-          PATH="$(dirname "$GODOT_BIN"):$PATH" bash tools/check_mm09_server.sh 2>&1 | tee mm09-server.log
+          # On master the MM-09 script still calls bare `godot`; PR #25 fixes it.
+          # This shim keeps the web pipeline healthy regardless of merge order.
+          mkdir -p "$RUNNER_TEMP/godot-shim"
+          ln -s "$GODOT_BIN" "$RUNNER_TEMP/godot-shim/godot"
+          PATH="$RUNNER_TEMP/godot-shim:$PATH" bash tools/check_mm09_server.sh 2>&1 | tee mm09-server.log
           grep -q "MM-09 WebSocket adapter parse/fail-closed/listen gate PASS" mm09-server.log
           "$GODOT_BIN" --headless --path . --script res://tests/run_art002_tests.gd 2>&1 | tee art002.log
           grep -q "ART-002 NAVIGATION GATES PASS" art002.log
@@ -155,7 +159,11 @@ jobs:
           node tools/check_pwa_artifact.mjs
           node tools/prepare_vercel_output.mjs
           test -s .vercel/output/config.json
+          test -s .vercel/output/static/index.html
+          test -s .vercel/output/static/index.js
+          test -s .vercel/output/static/index.pck
           test -s .vercel/output/static/index.wasm
+          node -e 'const c=require("./.vercel/output/config.json"); if(!c.routes?.some(r=>r.src==="^/$" && r.dest==="/index.html")) process.exit(1)'
           test -s web/index.wasm.br
           test -s web/index.wasm.gz
           test -s web/.assetsignore
@@ -199,15 +207,23 @@ jobs:
         run: npx --yes wrangler@4.147.0 deploy
 
   vercel:
-    name: Optional on-demand Vercel backup
+    name: Verified Vercel preview or explicitly approved production
     needs: build
-    if: ${{ github.event_name == 'workflow_dispatch' && (inputs.publish == 'vercel' || inputs.publish == 'both') }}
+    # PR previews are limited to trusted same-repository branches (forks receive no secrets).
+    # Production remains manual, master-only and confirmation-gated.
+    if: >-
+      ${{ (github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository) ||
+          (github.event_name == 'workflow_dispatch' && (inputs.publish == 'vercel' || inputs.publish == 'both')) }}
+    permissions:
+      contents: read
+      pull-requests: write
     runs-on: ubuntu-latest
     timeout-minutes: 15
     env:
       VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
       VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
       VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+      SOURCE_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
     steps:
       - uses: actions/checkout@v4
         with:
@@ -224,6 +240,7 @@ jobs:
           test -n "$VERCEL_TOKEN" || { echo "Missing VERCEL_TOKEN"; exit 1; }
           test -n "$VERCEL_ORG_ID" || { echo "Missing VERCEL_ORG_ID"; exit 1; }
           test -n "$VERCEL_PROJECT_ID" || { echo "Missing VERCEL_PROJECT_ID"; exit 1; }
+          echo "Vercel credentials present; deployment will reuse the exact-head exported artifact"
       - name: Repackage identical verified Web artifact for Vercel
         run: |
           node tools/prepare_vercel_output.mjs
@@ -233,7 +250,7 @@ jobs:
         id: deploy
         shell: bash
         env:
-          VERCEL_TARGET: ${{ inputs.vercel_target }}
+          VERCEL_TARGET: ${{ github.event_name == 'pull_request' && 'preview' || inputs.vercel_target }}
           CONFIRM_VERCEL_PRODUCTION: ${{ inputs.confirm_vercel_production }}
         run: |
           set -euo pipefail
@@ -243,7 +260,7 @@ jobs:
               echo "Deploying isolated Vercel preview; no production alias"
               ;;
             production)
-              if [[ "$GITHUB_REF" != "refs/heads/master" || "$CONFIRM_VERCEL_PRODUCTION" != "true" ]]; then
+              if [[ "$GITHUB_EVENT_NAME" != "workflow_dispatch" || "$GITHUB_REF" != "refs/heads/master" || "$CONFIRM_VERCEL_PRODUCTION" != "true" ]]; then
                 echo "::error::Vercel production requires master and explicit confirm_vercel_production=true"
                 exit 1
               fi
@@ -263,7 +280,7 @@ jobs:
           {
             echo "### Vercel $VERCEL_TARGET deployment"
             echo "- URL: $deploy_url"
-            echo "- Source: \`$GITHUB_SHA\`"
+            echo "- Source: \`$SOURCE_SHA\`"
             echo "- Runtime HTTP verification follows; deployment alone is not browser acceptance."
           } >> "$GITHUB_STEP_SUMMARY"
       - name: Verify deployed version and WASM response
@@ -272,10 +289,30 @@ jobs:
           DEPLOY_URL: ${{ steps.deploy.outputs.url }}
         run: |
           set -euo pipefail
-          # Vercel CLI curl supports protected previews via deployment protection bypass.
-          npx --yes vercel@latest curl "$DEPLOY_URL/version.json" --yes --token="$VERCEL_TOKEN" -- -fsS > deployed-version.json
-          node -e 'const fs=require("node:fs"); const v=JSON.parse(fs.readFileSync("deployed-version.json","utf8")); if(v.source_commit!==process.env.GITHUB_SHA){console.error("Deployed source_commit does not match tested HEAD"); process.exit(1);}'
-          npx --yes vercel@latest curl "$DEPLOY_URL/index.wasm" --yes --token="$VERCEL_TOKEN" -- -fsSI > wasm-headers.txt
+          # Vercel CLI curl handles protected previews and targets this exact deployment.
+          npx --yes vercel@latest curl /version.json --deployment "$DEPLOY_URL" --token="$VERCEL_TOKEN" -fsS > deployed-version.json
+          node -e 'const fs=require("node:fs"); const v=JSON.parse(fs.readFileSync("deployed-version.json","utf8")); if(v.source_commit!==process.env.SOURCE_SHA){console.error("Deployed source_commit does not match tested HEAD"); process.exit(1);}'
+          npx --yes vercel@latest curl /index.wasm --deployment "$DEPLOY_URL" --token="$VERCEL_TOKEN" -fsSI > wasm-headers.txt
           grep -Eiq '^content-type:[[:space:]]*application/wasm([;[:space:]]|$)' wasm-headers.txt || { echo "::error::Invalid WebAssembly Content-Type"; exit 1; }
-          npx --yes vercel@latest curl "$DEPLOY_URL/index.html" --yes --token="$VERCEL_TOKEN" -- -fsSI > /dev/null
-          echo "Deployed version.json matches exact-head SHA; index.html and WASM headers respond correctly" >> "$GITHUB_STEP_SUMMARY"
+          npx --yes vercel@latest curl / --deployment "$DEPLOY_URL" --token="$VERCEL_TOKEN" -fsS > deployed-index.html
+          grep -qi '<html' deployed-index.html || { echo "::error::Vercel / must serve Godot index.html"; exit 1; }
+          for asset in /index.html /index.js /index.pck; do
+            npx --yes vercel@latest curl "$asset" --deployment "$DEPLOY_URL" --token="$VERCEL_TOKEN" -fsSI >/dev/null
+          done
+          echo "Vercel root /, Godot assets and exact-head version verified" >> "$GITHUB_STEP_SUMMARY"
+      - name: Publish preview URL to the PR
+        if: ${{ github.event_name == 'pull_request' }}
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          DEPLOY_URL: ${{ steps.deploy.outputs.url }}
+        run: |
+          set -euo pipefail
+          body="<!-- mememom-vercel-preview -->\n**MemeMon Vercel Preview:** $DEPLOY_URL\n\nVerified against commit \`$SOURCE_SHA\`: root /, JS, PCK, WASM MIME and version.json. Production was not modified."
+          existing="$(gh api "repos/$GITHUB_REPOSITORY/issues/$PR_NUMBER/comments" --jq '.[] | select(.user.login=="github-actions[bot]" and (.body | contains("<!-- mememom-vercel-preview -->"))) | .id' | head -n1)"
+          if [[ -n "$existing" ]]; then
+            gh api --method PATCH "repos/$GITHUB_REPOSITORY/issues/comments/$existing" -f body="$body" >/dev/null
+          else
+            gh api --method POST "repos/$GITHUB_REPOSITORY/issues/$PR_NUMBER/comments" -f body="$body" >/dev/null
+          fi

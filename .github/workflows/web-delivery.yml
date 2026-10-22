@@ -309,7 +309,7 @@ jobs:
           DEPLOY_URL: ${{ steps.deploy.outputs.url }}
         run: |
           set -euo pipefail
-          body="<!-- mememom-vercel-preview -->\n**MemeMon Vercel Preview:** $DEPLOY_URL\n\nVerified against commit \`$SOURCE_SHA\`: root /, JS, PCK, WASM MIME and version.json. Production was not modified."
+          body="$(printf '<!-- mememom-vercel-preview -->\n**MemeMon Vercel Preview:** %s\n\nVerified against commit `%s`: root /, JS, PCK, WASM MIME and version.json. Production was not modified.\n' "$DEPLOY_URL" "$SOURCE_SHA")
           existing="$(gh api "repos/$GITHUB_REPOSITORY/issues/$PR_NUMBER/comments" --jq '.[] | select(.user.login=="github-actions[bot]" and (.body | contains("<!-- mememom-vercel-preview -->"))) | .id' | head -n1)"
           if [[ -n "$existing" ]]; then
             gh api --method PATCH "repos/$GITHUB_REPOSITORY/issues/comments/$existing" -f body="$body" >/dev/null

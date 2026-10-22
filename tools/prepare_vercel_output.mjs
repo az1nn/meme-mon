@@ -17,6 +17,12 @@ for (const item of fs.readdirSync(source, { withFileTypes: true })) {
 }
 fs.writeFileSync(path.join(output, "config.json"), JSON.stringify({
   version: 3,
+  // A prebuilt Godot export has index.html, not a Vercel framework route.
+  // Route / explicitly, then serve all other exported assets from the filesystem.
+  routes: [
+    { src: "^/$", dest: "/index.html" },
+    { handle: "filesystem" },
+  ],
   overrides: { "index.wasm": { contentType: "application/wasm" } },
 }, null, 2) + "\n");
 console.log("[mememom] Vercel Build Output API v3 ready, no Vercel build required");

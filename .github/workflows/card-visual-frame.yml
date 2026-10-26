@@ -1,0 +1,40 @@
+name: SCENE ARCH card visual frame
+on:
+  pull_request:
+    paths:
+      - 'src/presentation/card_visual_frame.gd'
+      - 'src/presentation/card_visual_frame_preview.gd'
+      - 'scenes/qa/CardVisualFramePreview.tscn'
+      - 'tests/run_card_visual_frame_tests.gd'
+      - '.github/workflows/card-visual-frame.yml'
+  workflow_dispatch:
+
+jobs:
+  card-frame:
+    runs-on: ubuntu-latest
+    container:
+      image: barichello/godot-ci:4.7.2
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check Godot version
+        run: godot --version
+      - name: Import scripts and QA scene
+        run: |
+          set -euo pipefail
+          godot --headless --path . --import 2>&1 | tee card-import.log
+          ! grep -E "SCRIPT ERROR|Failed to load script|Compile Error|Parse Error|Invalid call|Invalid access" card-import.log
+      - name: Run component regression
+        run: |
+          set -euo pipefail
+          godot --headless --path . --script res://tests/run_card_visual_frame_tests.gd 2>&1 | tee card-frame.log
+          ! grep -E "SCRIPT ERROR|Failed to load script|Compile Error|Parse Error|Invalid call|Invalid access" card-frame.log
+          grep -q "SCENE/ARCH-001 CARD FRAME GATES PASS" card-frame.log
+          grep -Eq "SCENE/ARCH-001 checks: [1-9][0-9]+, failures: 0" card-frame.log
+      - name: QA scene headless smoke
+        run: |
+          set -euo pipefail
+          godot --headless --path . res://scenes/qa/CardVisualFramePreview.tscn --quit-after 2 2>&1 | tee card-scene.log
+          ! grep -E "SCRIPT ERROR|Failed to load script|Compile Error|Parse Error|Invalid call|Invalid access" card-scene.log

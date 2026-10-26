@@ -1,0 +1,2 @@
+# ADR-SC-004 — Fenced claims and concurrent writers
+Status: PROPOSED / BLOCKED BY ISSUE #24. Claim acquisition, renewal, release, recovery and work-ref writes require proven atomic CAS, expected SHA and fencing across all writers. GitHub GraphQL updateRefs is a candidate from SKILLS-001, not yet proven live. No REST GET->PATCH mutex claim; no blind retry or force unlock. Trade-off: more engineering complexity for prevention of task theft and stale writes.

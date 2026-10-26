@@ -1,0 +1,2 @@
+# ADR-SC-007 — MemeMon pilot and incremental migration
+Status: PROPOSED. G6=B. Pilot MemeMon, preserve ART/SCENE/ARCH/INSPECTOR ownership, ARTIST/CENA aliases, LORE on demand and REPORTER in SIGA. Separate documentation PR M1 from runtime implementation, live concurrency proof and cutover. Do not merge PR #13/#15/#27 or change Godot-only constitution. Trade-off: slower rollout for evidence-backed migration and rollback.

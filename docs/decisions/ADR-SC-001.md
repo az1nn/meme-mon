@@ -1,0 +1,2 @@
+# ADR-SC-001 — Composed orchestration
+Status: PROPOSED. Decision: SIGA always owns execution lifecycle; domain specialist owns domain decisions. G1=A. Do not physically merge all SKILL.md files. Context: independent specialist sessions lose continuity. Trade-off: consistent orchestration and modular expertise at the cost of entrypoint adapter implementation. Gate: prove alias routing in every supported consumer. No runtime implementation in M1.

@@ -7,3 +7,11 @@ node_modules/
 *.gd.uid
 *.import
 .DS_Store
+.agent/history/*
+!.agent/history/.gitkeep
+.agent/logs/*
+!.agent/logs/.gitkeep
+.agent/screenshots/*
+!.agent/screenshots/.gitkeep
+.ralph/state/*
+!.ralph/state/.gitkeep

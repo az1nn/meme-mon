@@ -1,0 +1,11 @@
+{
+  "id": "PR-028",
+  "title": "Finish SIGA-CENTRAL-001 PR #28",
+  "steps": [
+    "Inspect PR #28 against the constitution and current repository state.",
+    "Resolve only stale documentation, handoff or exact-head verification gaps.",
+    "Do not invent human approval or close unrelated issues."
+  ],
+  "validation": ["git diff --check", "npm test"],
+  "acceptance": "The PR is coherent with the live repository and its exact-head checks are recorded."
+}

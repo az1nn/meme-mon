@@ -17,6 +17,17 @@ check_git_repo() {
   fi
 }
 
+# Ralph commits task work, so never let an unattended run mutate master by
+# accident. Explicitly opt in only for a controlled local experiment.
+check_work_branch() {
+  local branch
+  branch=$(git branch --show-current)
+  if [ "$branch" = "master" ] && [ "${RALPH_ALLOW_MASTER:-0}" != "1" ]; then
+    log_error "Ralph must run on a work branch, not master. Create one or set RALPH_ALLOW_MASTER=1."
+    exit 1
+  fi
+}
+
 # Check that the sbx (Docker Sandboxes) binary is available on PATH.
 # Usage: check_sbx_available
 # Every Ralph code path (loop, --login, --ports, --print-name) ultimately

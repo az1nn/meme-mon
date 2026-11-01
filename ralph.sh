@@ -110,6 +110,7 @@ fi
 
 # Pre-flight checks
 check_git_repo
+check_work_branch
 check_required_files
 check_history_dir
 check_ansi_support

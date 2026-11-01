@@ -11,9 +11,13 @@ host environment. Set `RALPH_DIRECT_MODE=0` to use Docker Sandboxes when `sbx`
 is installed and authenticated.
 
 ```bash
+git switch -c ralph/v1-work
 ./ralph.sh --agent opencode --once
 ./ralph.sh --agent opencode --max-iterations 8
 ```
+
+Ralph refuses to run on `master` unless `RALPH_ALLOW_MASTER=1` is explicitly
+set for a controlled experiment.
 
 The merge gate is explicit and Git-only:
 

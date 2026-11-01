@@ -115,6 +115,12 @@ check_required_files
 check_history_dir
 check_ansi_support
 
+BUG_SCAN_MODE=0
+if ! node -e "const fs=require('fs'); const tasks=JSON.parse(fs.readFileSync('.agent/tasks.json','utf8')); process.exit(tasks.some(task => task.passes === false) ? 0 : 1)"; then
+  BUG_SCAN_MODE=1
+  echo -e "${Y}[WARN] No pending planned task. Running one bounded bug/issue discovery pass.${R}"
+fi
+
 # Print the complete captured log below a formatted fatal error message.
 print_full_error_log() {
   local log_text="$1"
@@ -149,6 +155,15 @@ for i in $(seq 1 $MAX_ITERATIONS); do
   PROMPT_CONTENT="PROJECT_ROOT=$SCRIPT_DIR
 
 $(cat "$SCRIPT_DIR/.agent/PROMPT.md")"
+  if [ "$BUG_SCAN_MODE" = "1" ]; then
+    PROMPT_CONTENT="$PROMPT_CONTENT
+
+FALLBACK MODE: There is no pending planned task. Do exactly one bug-discovery pass:
+run the relevant tests, inspect TODO/FIXME and recent code for a concrete defect or
+missing issue, and fix only one high-confidence bug if you find one. Otherwise
+report the findings and emit <promise>BLOCKED:no actionable bug found</promise>.
+Do not invent a feature or repeat this scan in another iteration."
+  fi
 
   # Start spinner
   start_spinner
@@ -174,7 +189,9 @@ $(cat "$SCRIPT_DIR/.agent/PROMPT.md")"
     SANDBOX_EXISTS=0
   fi
   AGENT_COMMAND=$(build_agent_command "$RALPH_AGENT" "$RALPH_SANDBOX_NAME" "$SANDBOX_EXISTS")
-  script -q "$OUTPUT_FILE" bash -c "$AGENT_COMMAND" >/dev/null 2>&1 &
+  # util-linux script on Linux uses -c COMMAND OUTPUT_FILE. The BSD ordering
+  # would silently leave an empty log and make every iteration look successful.
+  script -q -c "$AGENT_COMMAND" "$OUTPUT_FILE" >/dev/null 2>&1 &
   AGENT_PID=$!
 
   # Track position in output file for incremental reading
@@ -209,7 +226,10 @@ $(cat "$SCRIPT_DIR/.agent/PROMPT.md")"
     sleep 0.2 || true
   done
 
-  wait "$AGENT_PID" || true
+  set +e
+  wait "$AGENT_PID"
+  AGENT_EXIT=$?
+  set -e
   AGENT_PID=""  # Clear PID after process exits
 
   # Process any remaining output
@@ -227,7 +247,29 @@ $(cat "$SCRIPT_DIR/.agent/PROMPT.md")"
     fi
   fi
 
-  OUTPUT=$(cat "$FULL_OUTPUT_FILE" 2>/dev/null || cat "$OUTPUT_FILE")
+  if [ -s "$FULL_OUTPUT_FILE" ]; then
+    OUTPUT=$(cat "$FULL_OUTPUT_FILE")
+  else
+    OUTPUT=$(cat "$OUTPUT_FILE")
+  fi
+
+  if [ "$AGENT_EXIT" -ne 0 ]; then
+    stop_spinner
+    clear_rolling_preview
+    echo -e "${RD}[ERROR] $RALPH_AGENT_NAME exited with status $AGENT_EXIT; stopping instead of retrying.${R}"
+    print_full_error_log "$OUTPUT"
+    rm -f "$OUTPUT_FILE" "$FULL_OUTPUT_FILE"
+    exit $EXIT_BLOCKED
+  fi
+
+  if [ -z "$(printf '%s' "$OUTPUT" | tr -d '[:space:]')" ]; then
+    stop_spinner
+    clear_rolling_preview
+    echo -e "${RD}[ERROR] $RALPH_AGENT_NAME produced no output; stopping instead of burning another iteration.${R}"
+    echo "Check OpenCode authentication and the direct WSL command before retrying."
+    rm -f "$OUTPUT_FILE" "$FULL_OUTPUT_FILE"
+    exit $EXIT_BLOCKED
+  fi
 
   # Check for Docker daemon not ready error
   if echo "$OUTPUT" | grep -q "docker daemon not ready"; then
@@ -373,6 +415,11 @@ $(cat "$SCRIPT_DIR/.agent/PROMPT.md")"
     echo -e "  ⏱️  Total time: ${Y}$ELAPSED_STR${R}"
     display_session_step_totals
     exit $EXIT_DECIDE
+  fi
+
+  if [ "$BUG_SCAN_MODE" = "1" ]; then
+    echo -e "${Y}[WARN] Bug discovery pass finished; no second fallback iteration will run.${R}"
+    exit $EXIT_COMPLETE
   fi
 
   # Calculate elapsed time

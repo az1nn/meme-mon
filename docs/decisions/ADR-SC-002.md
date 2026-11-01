@@ -1,0 +1,2 @@
+# ADR-SC-002 — Mandatory alias routing
+Status: PROPOSED. Decision: ARTIST->SIGA ART, CENA->SIGA SCENE, ARCH->SIGA ARCH, LENTE->SIGA INSPECTOR; SIGA remains automatic dispatcher. Aliases must be installed/verified per runtime, not assumed for arbitrary chat text. Failure to identify repo or skill is fail-closed. Trade-off: reduced autonomy for unsupervised specialists in exchange for durable accountability.

@@ -30,11 +30,26 @@ func _run() -> void:
 	_check(shell.menu_panel != null, "drawer available")
 	_check(shell.find_child("Route_duel", true, false) != null, "duel route available")
 	_check(shell.find_child("Route_collection", true, false) != null, "collection route available")
-	_check(shell.find_child("Route_forge", true, false) != null, "private Forge route available")
+	var forge_route := shell.find_child("Route_forge", true, false) as Button
+	_check(forge_route != null, "implemented private Forge route available")
+	_check(forge_route != null and forge_route.custom_minimum_size.y >= 44.0, "Forge route touch size")
 	shell.open_menu()
 	_check(shell.is_menu_open(), "hamburger opens menu")
 	shell.close_menu()
 	_check(not shell.is_menu_open(), "close dismisses menu")
+	_check(shell.menu_button.has_focus(), "close returns focus to hamburger")
+	shell.open_menu()
+	var outside_click := InputEventMouseButton.new()
+	outside_click.button_index = MOUSE_BUTTON_LEFT
+	outside_click.pressed = true
+	shell._outside_input(outside_click)
+	_check(not shell.is_menu_open(), "outside pointer dismisses menu")
+	shell.open_menu()
+	var escape := InputEventKey.new()
+	escape.keycode = KEY_ESCAPE
+	escape.pressed = true
+	shell._unhandled_input(escape)
+	_check(not shell.is_menu_open(), "Escape dismisses menu")
 	shell.open_menu()
 	shell._navigate("collection")
 	_check(not shell.is_menu_open(), "route closes menu")

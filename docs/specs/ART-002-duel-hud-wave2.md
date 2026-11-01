@@ -10,7 +10,7 @@ A young player can understand the current duel from readable card surfaces and p
 2. Show turn number, active side, phase, current player and opponent Hype (out of 5), Trend current/cap, active card name/type/HP, Queue count, and local Hand with name/kind/Trend cost. Enemy Hand is count-only (no private card identities).
 3. Display active/hand cards using responsive, wrapping, legible Godot panels/chips in the approved coral/cyan/yellow/ink visual foundation. Alpha fixture art is still pending and must be identified as test content, not Canon.
 4. If Active is absent, show a clear empty-state label. If the match ends, expose terminal state text. Present the last few event names in a readable compact log rather than dumping raw payloads.
-5. Keep the existing duel intent buttons, collection route, global hamburger shell and MM-04/MM-05 rules unchanged. No Forge, networking, upload, Canon, arbitrary meme rights claims or permanent global nav.
+5. Keep the existing duel intent buttons, collection route, global hamburger shell and MM-04/MM-05 rules unchanged. ART-002 adds no Forge behavior; the separately implemented MM-06 private Forge route may remain available through the shared shell. No networking, upload, Canon, arbitrary meme rights claims or permanent global nav.
 6. Make every card/HUD item readable at target 360x640, 390x844, 768x1024 and 1100x720 via vertical scrolling and wrapping; full viewport screenshots/manual touch and contrast inspection remain separate gates.
 
 ## Acceptance

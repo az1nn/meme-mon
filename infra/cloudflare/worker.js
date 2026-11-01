@@ -15,13 +15,13 @@ export default {
     }
 
     const accepted = request.headers.get("accept-encoding") || "";
-    const encodings = [];
-    if (/(^|,)\s*br(?:\s*;|\s*,|\s*$)/i.test(accepted)) {
-      encodings.push(["br", "/index.wasm.br"]);
-    }
-    if (/(^|,)\s*gzip(?:\s*;|\s*,|\s*$)/i.test(accepted)) {
-      encodings.push(["gzip", "/index.wasm.gz"]);
-    }
+    const encodings = [
+      ["br", "/index.wasm.br"],
+      ["gzip", "/index.wasm.gz"],
+    ]
+      .map(([encoding, path], priority) => [encoding, path, _quality(accepted, encoding), priority])
+      .filter(([, , quality]) => quality > 0)
+      .sort((left, right) => right[2] - left[2] || left[3] - right[3]);
 
     for (const [encoding, path] of encodings) {
       const target = new URL(path, request.url);
@@ -50,3 +50,24 @@ export default {
     });
   },
 };
+
+function _quality(header, encoding) {
+  var wildcard = -1;
+  var exact = -1;
+  for (const rawPart of header.split(",")) {
+    const parts = rawPart.trim().toLowerCase().split(";");
+    const name = parts.shift().trim();
+    if (!name) continue;
+    let quality = 1;
+    for (const parameter of parts) {
+      const [key, value] = parameter.trim().split("=", 2);
+      if (key === "q") {
+        const parsed = Number(value);
+        quality = Number.isFinite(parsed) ? Math.max(0, Math.min(1, parsed)) : 0;
+      }
+    }
+    if (name === encoding) exact = Math.max(exact, quality);
+    if (name === "*") wildcard = Math.max(wildcard, quality);
+  }
+  return exact >= 0 ? exact : wildcard;
+}

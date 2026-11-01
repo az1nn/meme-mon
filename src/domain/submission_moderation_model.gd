@@ -63,9 +63,12 @@ func create_report(submission_id: String, reporter_id: String, report_id: String
 	reports[report_id] = report
 	return {"ok": true, "report": report.duplicate(true)}
 
-func get_submission(submission_id: String) -> Dictionary:
+func get_submission(submission_id: String, actor_id: String = "", actor_role: String = "") -> Dictionary:
 	if not submissions.has(submission_id):
 		return _fail("UNKNOWN_SUBMISSION")
+	var submission: Dictionary = submissions[submission_id]
+	if actor_id.is_empty() or (actor_id != str(submission["creator_id"]) and actor_role not in MODERATOR_ROLES):
+		return _fail("ACCESS_FORBIDDEN")
 	return {"ok": true, "submission": submissions[submission_id].duplicate(true)}
 
 func export_state() -> Dictionary:
@@ -81,7 +84,7 @@ func import_state(raw: Dictionary) -> Dictionary:
 		next_submissions[str(item["submission_id"])] = item.duplicate(true)
 	var next_reports: Dictionary = {}
 	for item in raw["reports"]:
-		if typeof(item) != TYPE_DICTIONARY or str(item.get("report_version", "")) != REPORT_VERSION or not next_submissions.has(str(item.get("submission_id", ""))) or next_reports.has(str(item.get("report_id", ""))):
+		if typeof(item) != TYPE_DICTIONARY or not _valid_report(item) or not next_submissions.has(str(item.get("submission_id", ""))) or next_reports.has(str(item.get("report_id", ""))):
 			return _fail("SCHEMA_INVALID")
 		next_reports[str(item["report_id"])] = item.duplicate(true)
 	submissions = next_submissions
@@ -116,13 +119,58 @@ func _allowed(current: Dictionary, actor_id: String, role: String, next_state: S
 	return false
 
 func _valid_submission(record: Dictionary) -> bool:
+	for key in ["submission_version", "submission_id", "creator_id", "state", "submitted_at", "sandbox_version", "sandbox_id", "snapshot", "audit"]:
+		if not record.has(key):
+			return false
 	if str(record.get("submission_version", "")) != SUBMISSION_VERSION or str(record.get("state", "")) not in ALL_STATES or typeof(record.get("snapshot", null)) != TYPE_DICTIONARY or typeof(record.get("audit", null)) != TYPE_ARRAY:
+		return false
+	if str(record.get("submission_id", "")).is_empty() or str(record.get("creator_id", "")).is_empty() or str(record.get("sandbox_version", "")) != "sandbox-1" or str(record.get("sandbox_id", "")).is_empty() or not _valid_timestamp(str(record.get("submitted_at", ""))):
 		return false
 	var raw_snapshot: Dictionary = record["snapshot"].duplicate(true)
 	var media_digest := str(raw_snapshot.get("media_digest", ""))
 	raw_snapshot.erase("media_digest")
 	var snap := _snapshot(raw_snapshot, media_digest)
-	return snap["ok"] and str(record.get("sandbox_id", "")) == str(record["snapshot"].get("sandbox_id", "")) and not str(record.get("creator_id", "")).is_empty() and not str(record.get("submission_id", "")).is_empty()
+	return snap["ok"] and str(record.get("sandbox_id", "")) == str(record["snapshot"].get("sandbox_id", "")) and str(record.get("sandbox_version", "")) == str(record["snapshot"].get("sandbox_version", "")) and _valid_audit(record)
+
+func _valid_audit(record: Dictionary) -> bool:
+	var history: Array = record.get("audit", [])
+	if history.is_empty():
+		return false
+	var expected_state := "draft"
+	var current := record.duplicate(true)
+	for index in range(history.size()):
+		var entry: Variant = history[index]
+		if typeof(entry) != TYPE_DICTIONARY:
+			return false
+		var audit: Dictionary = entry
+		for key in ["actor_id", "actor_role", "from_state", "to_state", "at", "category", "rationale"]:
+			if not audit.has(key):
+				return false
+		var actor_id := str(audit["actor_id"])
+		var actor_role := str(audit["actor_role"])
+		var from_state := str(audit["from_state"])
+		var next_state := str(audit["to_state"])
+		var category := str(audit["category"])
+		var rationale := str(audit["rationale"])
+		if actor_id.is_empty() or not _valid_timestamp(str(audit["at"])) or from_state != expected_state or next_state not in ALL_STATES or category.length() > 40 or rationale.length() > 280:
+			return false
+		if index == 0:
+			if actor_id != str(record["creator_id"]) or actor_role != CREATOR_ROLE or from_state != "draft" or next_state != "submitted" or str(audit["at"]) != str(record["submitted_at"]) or not category.is_empty() or not rationale.is_empty():
+				return false
+		else:
+			current["state"] = expected_state
+			if not _allowed(current, actor_id, actor_role, next_state):
+				return false
+		if next_state in ["needs_information", "rejected"] and (category not in DECISION_CATEGORIES or rationale.strip_edges().is_empty()):
+			return false
+		expected_state = next_state
+	return expected_state == str(record["state"])
+
+func _valid_report(report: Dictionary) -> bool:
+	for key in ["report_version", "report_id", "submission_id", "reporter_id", "category", "detail", "created_at"]:
+		if not report.has(key):
+			return false
+	return str(report.get("report_version", "")) == REPORT_VERSION and not str(report.get("report_id", "")).is_empty() and not str(report.get("submission_id", "")).is_empty() and not str(report.get("reporter_id", "")).is_empty() and str(report.get("category", "")) in REPORT_CATEGORIES and not str(report.get("detail", "")).strip_edges().is_empty() and str(report.get("detail", "")).length() <= 560 and _valid_timestamp(str(report.get("created_at", "")))
 
 func _sorted_values(items: Dictionary) -> Array:
 	var ids: Array = items.keys()

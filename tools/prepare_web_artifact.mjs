@@ -70,6 +70,12 @@ const manifest = {
 fs.writeFileSync(path.join(dir, "version.json"), JSON.stringify(manifest, null, 2) + "\n");
 
 fs.cpSync(pwa, dir, { recursive: true });
+const serviceWorkerPath = path.join(dir, "service-worker.js");
+const serviceWorker = fs.readFileSync(serviceWorkerPath, "utf8").replaceAll("__MEMEMOM_BUILD_VERSION__", commit);
+if (serviceWorker.includes("__MEMEMOM_BUILD_VERSION__")) {
+  throw new Error("Service worker cache version replacement failed");
+}
+fs.writeFileSync(serviceWorkerPath, serviceWorker);
 const pwaHead = `  <meta name="theme-color" content="#7c3aed">\n  <link rel="manifest" href="manifest.webmanifest">\n  <link rel="icon" href="icons/mememom.svg" type="image/svg+xml">`;
 const pwaScript = `\n<script>if ("serviceWorker" in navigator) { window.addEventListener("load", () => navigator.serviceWorker.register("service-worker.js")); }</script>`;
 if (!html.includes("manifest.webmanifest")) {

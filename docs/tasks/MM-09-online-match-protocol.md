@@ -1,8 +1,8 @@
 # MM-09 task graph
 
-- [ ] Obtain explicit service operator, identity, hosting, retention and incident-owner decisions.
+- [x] Obtain explicit closed-beta service operator, identity, hosting, retention and incident-owner decisions; public operations remain a release gate.
 - [x] Specify protocol envelopes, errors, idempotency and reconnect behavior.
-- [ ] Implement server-authoritative session, deck-lock, intent and event persistence.
+- [x] Implement server-authoritative session, deck-lock, intent and append-only event persistence with restart replay recovery.
 - [x] Implement deterministic replay verification and event-gap recovery in the reference authority.
-- [ ] Integrate Godot client transport and reconnect UI.
-- [ ] Verify security, authorization, disconnect, replay and load/operations acceptance.
+- [x] Integrate Godot WebSocket client transport, contiguous event tracking and reconnect status UI.
+- [x] Verify local security, authorization, disconnect, replay and trust-boundary negative cases; production load/operations acceptance remains.

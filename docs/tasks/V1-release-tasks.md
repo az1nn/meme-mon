@@ -28,7 +28,8 @@ Do not mark a task complete without evidence required by the constitution.
 ## Phase 4 — V1 release candidate
 
 - [x] Run exact-head MM-04/MM-05 and all successor deterministic test suites. See [V1 verification report (2026-10-20)](../reports/V1-verification-2026-10-20.md).
-- [ ] Verify schema migration/replay fixtures and competitive trust-boundary negative cases.
+- [x] Verify current schema-version rejection, replay fixtures and competitive trust-boundary negative cases. Alpha has no mutable-data migration path; unknown versions fail closed until a future migration is explicitly specified and tested.
+- [ ] Define and test a migration only when a future mutable schema supersedes the current Alpha contract.
 - [ ] Export and install the PWA; verify offline launch, touch navigation and update behavior.
 - [ ] Build, install and smoke-test a signed Android release candidate.
 - [ ] Conduct browser/mobile accessibility, visual and original-brand review.

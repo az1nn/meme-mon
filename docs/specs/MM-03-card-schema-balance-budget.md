@@ -1,6 +1,6 @@
 # MM-03 — Card Schema & Balance Budget
 
-Status: ACCEPTED FOR IMPLEMENTATION  
+Status: DONE — VERIFIED
 Schema version: alpha-0.1  
 Rules version: Alpha 0.1  
 Depends on: MM-01 Product Foundation; MM-02 Alpha Duel Rules  

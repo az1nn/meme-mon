@@ -82,7 +82,7 @@ godot --headless --path . --script res://tests/run_tests.gd
 
 ## Current workstream
 
-MM-05 e MM-06 estão implementados. MM-07/MM-08 possuem os modelos determinísticos de submissão, moderação, Canon e legalidade; MM-09 possui o núcleo autoritativo em memória com idempotência, reconexão e replay. A hospedagem WebSocket, os contatos públicos e a aceitação humana continuam gates operacionais antes de qualquer abertura pública.
+MM-05 e MM-06 estão implementados. MM-07/MM-08 possuem os modelos determinísticos de submissão, moderação, Canon e legalidade; MM-09 possui autoridade persistida, recuperação de replay, adaptador WebSocket e transporte Godot com idempotência, reconexão e timeouts autoritativos. A hospedagem pública, os contatos verificáveis, as licenças de ativos e a aceitação humana continuam gates operacionais antes de qualquer abertura pública.
 
 MM-05 adds:
 - DeckDefinition alpha-0.1 validation: exactly 30 cards, minimum 8 Mememom, maximum 2 copies per card ID across editions, maximum 2 Headliners, and format/version/owned-edition checks.

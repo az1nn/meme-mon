@@ -21,6 +21,9 @@ Deliver the existing Mememom Godot client to web hosting via one reproducible, t
 - R11: A manual Vercel deployment defaults to an isolated **preview** (`vercel deploy --prebuilt` without `--prod`); no PR/push may publish Vercel automatically.
 - R12: Production Vercel requires both explicit `vercel_target=production` and `confirm_vercel_production=true` on `master` (no implicit promotion).
 - R13: Successful Vercel deploys must expose the URL in the GitHub Actions summary, verify the remote `version.json.source_commit` matches the tested exact-head SHA, and check HTML and WASM HTTP response/MIME; separate browser/touch acceptance remains required.
+- R14: The generated PWA service worker must bind its cache name to the exact artifact build identity, precache the complete app shell including `version.json`, remove stale caches on activation, and provide offline navigation fallback; static checks must fail closed if the contract drifts.
+- R15: Capacitor Android assets must be byte-identical to the verified Web artifact for all runtime files; a sync check must fail closed on drift before Android packaging.
+- R16: The Cloudflare adapter must honor `Accept-Encoding` quality values, prefer Brotli when equally acceptable, fall back to gzip, and return 406 when neither supported representation is acceptable.
 
 ## Acceptance
 
@@ -33,6 +36,9 @@ Deliver the existing Mememom Godot client to web hosting via one reproducible, t
 7. Site runtime browser validation (navigation, screen sizes, accessibility, network response, correct version.json) is a separate release gate; headless export alone is not visual acceptance.
 8. A manually requested Vercel deploy with default inputs uses Preview, never Production; an unconfirmed production selection or non-master source fails closed.
 9. On deployment, record the Vercel URL and check the served exact-head manifest, HTML availability and WebAssembly Content-Type, including protected previews when provider permits.
+10. A generated artifact exposes a build-versioned service-worker cache and an installable standalone manifest; the automated contract check covers shell precache, update cleanup and offline navigation fallback, while real browser installation/update/touch acceptance remains separate.
+11. Capacitor Android runtime assets compare byte-for-byte with the verified Web artifact before APK compilation; CI performs the sync before this check.
+12. Worker tests cover Brotli/gzip negotiation including `q=0`, wildcard preference, HEAD responses, unsupported methods, 406 fallback and non-WASM pass-through.
 
 ## Non-goals
 

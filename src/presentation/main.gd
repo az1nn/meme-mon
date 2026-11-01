@@ -8,12 +8,16 @@ const DeckValidator = preload("res://src/domain/deck_validator.gd")
 const PROFILE_PATH := "user://mememom/profile.json"
 const NavigationShell = preload("res://src/presentation/navigation_shell.gd")
 const DuelHud = preload("res://src/presentation/duel_hud.gd")
+const OnlineMatchStatus = preload("res://src/presentation/online_match_status.gd")
+const OnlineMatchClient = preload("res://src/data/online_match_client.gd")
 
 var engine = DuelEngine.new()
 var bot = DeterministicBot.new("p2")
 var status_label: Label
 var event_label: Label
 var duel_hud
+var online_status: OnlineMatchStatus
+var online_client = OnlineMatchClient.new()
 
 func _ready() -> void:
 	_build_ui()
@@ -71,6 +75,12 @@ func _build_ui() -> void:
 	intro.add_theme_color_override("font_color", NavigationShell.INK)
 	intro.add_theme_font_size_override("font_size", 24)
 	root.add_child(intro)
+	online_status = OnlineMatchStatus.new()
+	online_status.name = "OnlineMatchStatus"
+	root.add_child(online_status)
+	online_status.bind_client(online_client)
+	online_status.reconnect_requested.connect(Callable(self, "_on_online_reconnect"))
+	online_status.set_connection_state("local", "Partida local ativa; o transporte online só aceita estado do servidor.")
 
 	duel_hud = DuelHud.new()
 	duel_hud.name = "DuelHud"
@@ -116,6 +126,13 @@ func _build_ui() -> void:
 	event_label.add_theme_color_override("font_color", NavigationShell.INK)
 	event_label.add_theme_font_size_override("font_size", 12)
 	root.add_child(event_label)
+
+func _process(_delta: float) -> void:
+	if online_client.connection_state != "disconnected" and online_client.connection_state != "closed":
+		online_client.poll()
+
+func _on_online_reconnect() -> void:
+	online_client.reconnect()
 
 func _on_global_route(route: String) -> void:
 	if route == "collection":

@@ -10,11 +10,11 @@ Children and teens can enter the local duel, operate the contextual battle actio
 ## Requirements
 - A single global hamburger trigger appears in the shared header, **closed by default** in duel and collection.
 - Drawer opens on demand, closes through explicit close, outside click/tap or Escape/back, and returns focus to its trigger.
-- Drawer contains **only implemented routes** (duel, collection). Forge is described as coming later and not exposed as a working route.
+- Drawer contains **only implemented routes**. The original wave defined duel and collection; MM-06 now supplies the implemented private Forge route, which is exposed only as Sandbox/private and never as a competitive route.
 - No global bottom tabs, permanent desktop sidebar or fixed top category navigation. Battle action buttons remain on the battlefield as contextual actions.
 - One shared Godot Control shell provides the header, scrollable content, palette and overlay.
 - Controls target at least 44x44 logical pixels. Adaptive wrapping prevents command groups from clipping at 360x640, 390x844, 768x1024, 1100x720.
-- Existing Alpha duel/domain/deck/persistence semantics stay authoritative and unchanged. No new renderer, card legality rules or UGC.
+- Existing Alpha duel/domain/deck/persistence semantics stay authoritative and unchanged. No new renderer, card legality rules or UGC is introduced by the navigation shell.
 - ART-002's **approved** character-first bright cartoon style remains binding; this shell is only a navigation/structural implementation wave. No claim of final art or runtime screenshot evidence.
 
 ## Scenarios
@@ -30,4 +30,4 @@ Children and teens can enter the local duel, operate the contextual battle actio
 - Exact PR-head CI required before merge. Do **not** mark issue #9 done from this wave alone.
 
 ## Out of scope
-Creature art assets, card illustration overhaul, complete battle board UI, Forge MM-06, UGC, networking, final polished visual approval.
+Creature art assets, card illustration overhaul, complete battle board UI, Forge implementation details, UGC, networking, final polished visual approval.

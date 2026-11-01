@@ -1,6 +1,6 @@
 # MM-08 — Canon & Set Versioning
 
-Status: IN REVIEW — deterministic Canon/legality reference exists; release/operator acceptance remains.  
+Status: IN REVIEW — deterministic Canon/legality reference, signed-set envelope and explicit retention metadata exist; key-registry and release/operator acceptance remain.
 Depends on: MM-07 approved eligibility snapshots  
 Unlocks: MM-09 Online Match Protocol
 
@@ -41,7 +41,8 @@ Players can trust that a competitive card keeps the same identity, provenance an
 ## Decisões operacionais adotadas
 
 - O beta usa rotação semestral e permite suspensão emergencial por segurança/direitos.
-- Nome/versionamento de sets, digest imutável, retenção de mídia e gestão de chaves continuam requisitos explícitos antes de publicação pública.
+- Sets now bind exact edition IDs to an RSA-SHA256 signature envelope. The headless service verifies signed sets against `MEMEMOM_CANON_PUBLIC_KEYS` before serving them; private keys are accepted only during signing and are never persisted.
+- The model persists an explicit media/audit retention policy and preserves historical match evidence indefinitely. Public retention values and production key ownership remain operator decisions before publication.
 
 ## Non-goals
 

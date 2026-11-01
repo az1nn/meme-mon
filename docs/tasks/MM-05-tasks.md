@@ -1,6 +1,6 @@
 # MM-05 Tasks
 
-Status: IN PROGRESS
+Status: DONE — VERIFIED
 
 - [x] T01 RECONCILE master, open PRs/issues, branch inventory, latest CI, constitution and canonical SIGA.
 - [x] T02 CLASSIFY ADVANCE from verified MM-04 and create isolated MM-05 branch.

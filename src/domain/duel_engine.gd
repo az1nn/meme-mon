@@ -148,6 +148,16 @@ func apply_intent(intent: Dictionary) -> Dictionary:
 		return result
 	return {"ok": true, "events": events.slice(event_start)}
 
+func abandon_match(loser_player_id: String, reason: String) -> Dictionary:
+	if state.is_empty():
+		return _reject("MATCH_NOT_STARTED")
+	if state["terminal"] != null:
+		return _reject("MATCH_ALREADY_ENDED")
+	if loser_player_id not in ["p1", "p2"] or reason.strip_edges().is_empty():
+		return _reject("SCHEMA_INVALID")
+	_end_match(_other(loser_player_id), reason)
+	return {"ok": true, "events": events.slice(events.size() - 1)}
+
 func _play_card(pid: String, payload: Dictionary) -> Dictionary:
 	var player: Dictionary = state["players"][pid]
 	var index := int(payload.get("hand_index", -1))

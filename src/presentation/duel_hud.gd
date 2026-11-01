@@ -2,6 +2,7 @@ extends VBoxContainer
 ## ART-002 wave 2: responsive duel HUD. Rendering only; never mutates match state.
 
 const NavigationShell = preload("res://src/presentation/navigation_shell.gd")
+const ALPHA_MASCOT = preload("res://assets/art/mememom-alpha-mascot.png")
 
 var turn_label: Label
 var rival_summary: Label
@@ -12,12 +13,28 @@ var player_queue_row: HFlowContainer
 var player_hand_row: HFlowContainer
 var rival_hand_label: Label
 var terminal_label: Label
+var alpha_art: TextureRect
 
 func _ready() -> void:
 	add_theme_constant_override("separation", 12)
 	_build()
 
 func _build() -> void:
+	var art_banner := HBoxContainer.new()
+	art_banner.name = "AlphaFixtureArt"
+	art_banner.add_theme_constant_override("separation", 10)
+	alpha_art = TextureRect.new()
+	alpha_art.name = "AlphaMascot"
+	alpha_art.texture = ALPHA_MASCOT
+	alpha_art.custom_minimum_size = Vector2(88, 88)
+	alpha_art.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
+	alpha_art.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	alpha_art.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	alpha_art.tooltip_text = "Arte original de fixture Alpha; não é uma edição Canon."
+	art_banner.add_child(alpha_art)
+	var art_note := _text(art_banner, "ARTE ALPHA • FIXTURE ORIGINAL\nNão é Canon nem carta competitiva.", 12, NavigationShell.INK)
+	art_note.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	add_child(art_banner)
 	turn_label = _text(self, "AGUARDANDO PARTIDA", 17, NavigationShell.INK)
 	turn_label.name = "RoundStatus"
 

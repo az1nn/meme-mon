@@ -11,10 +11,14 @@ on:
       - "project.godot"
       - "export_presets.cfg"
       - "infra/cloudflare/**"
+      - "tools/test_cloudflare_worker.mjs"
+      - "tools/test_pwa_service_worker.mjs"
+      - "tools/check_release_accountability.mjs"
       - "tools/build_web.sh"
       - "tools/prepare_web_artifact.mjs"
       - "tools/prepare_vercel_output.mjs"
       - "tools/check_pwa_artifact.mjs"
+      - "tools/check_android_artifact.mjs"
       - "tools/write_godot_ignore.mjs"
       - "pwa/**"
       - "package.json"
@@ -33,10 +37,14 @@ on:
       - "project.godot"
       - "export_presets.cfg"
       - "infra/cloudflare/**"
+      - "tools/test_cloudflare_worker.mjs"
+      - "tools/test_pwa_service_worker.mjs"
+      - "tools/check_release_accountability.mjs"
       - "tools/build_web.sh"
       - "tools/prepare_web_artifact.mjs"
       - "tools/prepare_vercel_output.mjs"
       - "tools/check_pwa_artifact.mjs"
+      - "tools/check_android_artifact.mjs"
       - "tools/write_godot_ignore.mjs"
       - "pwa/**"
       - "package.json"
@@ -84,6 +92,8 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: "22"
+      - name: Install Node dependencies
+        run: npm ci
       - name: Cache pinned Godot export templates
         id: template-cache
         uses: actions/cache@v4
@@ -137,6 +147,9 @@ jobs:
           grep -Eq "MM-09 checks: [1-9][0-9]*, failures: 0" mm09.log
           PATH="$(dirname "$GODOT_BIN"):$PATH" bash tools/check_mm09_server.sh 2>&1 | tee mm09-server.log
           grep -q "MM-09 WebSocket adapter parse/fail-closed/listen gate PASS" mm09-server.log
+          node tools/test_cloudflare_worker.mjs
+          node tools/test_pwa_service_worker.mjs
+          node tools/check_release_accountability.mjs
           "$GODOT_BIN" --headless --path . --script res://tests/run_art002_tests.gd 2>&1 | tee art002.log
           grep -q "ART-002 NAVIGATION GATES PASS" art002.log
           "$GODOT_BIN" --headless --path . --script res://tests/run_art002_hud_tests.gd 2>&1 | tee art002-hud.log
@@ -153,6 +166,8 @@ jobs:
           bash tools/build_web.sh
           node tools/prepare_web_artifact.mjs
           node tools/check_pwa_artifact.mjs
+          npx cap sync android
+          node tools/check_android_artifact.mjs
           node tools/prepare_vercel_output.mjs
           test -s .vercel/output/config.json
           test -s .vercel/output/static/index.wasm

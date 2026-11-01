@@ -27,4 +27,4 @@ Nenhum item pode ser marcado somente por intenção ou por CI parcial. Registre 
 
 - [ ] Tag, checksum/commit, artefatos PWA/Android e resultados de smoke são registrados.
 - [x] Nenhuma carta Sandbox, submissão não aprovada ou edição suspensa aparece em deck/match competitivo; os negativos estão cobertos pelos gates MM-07/MM-08/MM-09.
-- [ ] O release declara beta fechado enquanto os gates públicos permanecerem pendentes.
+- [x] O release permanece beta fechado enquanto os gates públicos permanecerem pendentes.

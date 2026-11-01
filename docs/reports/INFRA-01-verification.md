@@ -17,6 +17,8 @@
 - `web/index.wasm`: 39,514,754 bytes; Brotli: 7,996,785; gzip: 10,153,810.
 - `web/index.pck`: 119,680 bytes; metadata/payload sizes consistent.
 - Vercel Build Output API v3 static artifact packaging passed.
+- PWA contract check now verifies a build-identity-bound service-worker cache, complete app-shell precache including `version.json`, stale-cache cleanup, offline navigation fallback and standalone manifest fields.
+- `npx cap sync android` followed by `npm run android:check` passes; the required Android runtime files are byte-identical to `web/`, including the versioned service worker.
 - Cloudflare and Vercel deployment jobs: **skipped**, as required for PRs.
 
 ## Remaining gate

@@ -17,8 +17,8 @@ The historical architecture assessment is recorded in the [V1 architecture check
 | MM-05 | Deckbuilder & Collection | DONE | 30-card validation, filtering, save/load |
 | MM-06 | Meme Forge / Godot | IN REVIEW | Private Forge, constrained preview and local media work; human visual/touch acceptance remains |
 | MM-07 | UGC Provenance & Moderation | IN REVIEW | Versioned snapshots, reports and fail-closed moderation reference; human/privacy acceptance remains |
-| MM-08 | Canon & Set Versioning | IN REVIEW | Immutable editions, format legality and suspension reference; operator/public-content acceptance remains |
-| MM-09 | Online Match Protocol | IN REVIEW | Tested authority reference for intent/event, reconnect and replay; hosted WebSocket and Godot transport remain |
+| MM-08 | Canon & Set Versioning | IN REVIEW | Immutable editions, signed sets, retention metadata, format legality and suspension reference; key-registry/operator/public-content acceptance remains |
+| MM-09 | Online Match Protocol | IN REVIEW | Tested authority, persisted replay recovery, WebSocket adapter and Godot transport; production hosting and operations acceptance remain |
 | MM-10 | Open Source Governance | IN REVIEW | Closed-beta policies, DCO and accountability artifacts; public contact/asset-license gates remain |
 
 ## Milestone A — Rules are a game

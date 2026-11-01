@@ -1,6 +1,6 @@
 # MM-01 — Product Foundation
 
-Status: ACCEPTED FOR IMPLEMENTATION  
+Status: DONE — FOUNDATIONAL CONTRACT
 Phase: Pre-production  
 Scope: Product identity, vocabulary, core loop, constraints and non-goals.
 

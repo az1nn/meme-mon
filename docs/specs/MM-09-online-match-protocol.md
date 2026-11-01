@@ -1,6 +1,6 @@
 # MM-09 — Online Match Protocol
 
-Status: IN REVIEW — deterministic authority reference exists; hosted WebSocket service, client transport and operations acceptance remain.  
+Status: IN REVIEW — authority, persisted replay recovery, hosted WebSocket adapter and Godot transport exist; production operations acceptance remains.
 Depends on: MM-08 versioned Canon/format legality  
 Unlocks: V1 competitive release
 
@@ -51,6 +51,8 @@ authenticated session -> legal deck lock -> authoritative match seed
 ## Decisões operacionais adotadas
 
 - Beta fechado: operador az1nn / Mememom; conta por e-mail; servidor autoritativo; WebSocket; região inicial Brasil; retenção inicial de até 90 dias.
+- Implemented closed-beta defaults: a 30-second reconnect window, a 120-second active-turn timeout, and at most 60 authenticated requests per session per 10-second window. Timeout/disconnect resolution is server-authoritative and append-only. Bounded security audit events retain timestamps and stable codes only; tokens, deck contents and personal data are never logged.
+- The WebSocket adapter generates the match seed at the authority boundary; client-provided seed values are ignored. Competitive startup requires a signed Canon set and a set-backed `format-1` format.
 - Escala/SLO/custo, regras de timeout/abandono, limites de abuso e canal público de suporte continuam gates antes da abertura pública.
 
 ## Closed-beta transport adapter

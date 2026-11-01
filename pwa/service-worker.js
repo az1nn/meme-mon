@@ -1,4 +1,4 @@
-const CACHE_NAME = "mememom-pwa-v1";
+const CACHE_NAME = "mememom-pwa-__MEMEMOM_BUILD_VERSION__";
 const APP_SHELL = [
   "./",
   "./index.html",
@@ -6,6 +6,7 @@ const APP_SHELL = [
   "./index.pck",
   "./index.wasm",
   "./manifest.webmanifest",
+  "./version.json",
   "./icons/mememom.svg"
 ];
 

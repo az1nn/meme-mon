@@ -38,6 +38,8 @@ func _run() -> void:
 	hud.update_from_match(engine.state, engine.cards)
 	_check(engine.normalized_snapshot() == before, "HUD may not mutate authoritative domain state")
 	_check(hud.turn_label.text.contains("TURNO 1"), "turn bound from state")
+	_check(hud.alpha_art != null and hud.alpha_art.texture != null, "original alpha fixture art is bound to HUD")
+	_check(hud.find_child("AlphaFixtureArt", true, false) != null, "alpha art is visibly labeled as non-Canon fixture")
 	var mine: Dictionary = engine.state["players"]["p1"]
 	var enemy: Dictionary = engine.state["players"]["p2"]
 	_check(hud.player_summary.text.contains("Hype %d/5" % int(mine["hype"])), "player Hype bound")

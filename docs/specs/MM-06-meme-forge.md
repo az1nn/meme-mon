@@ -1,6 +1,6 @@
 # MM-06 — Meme Forge / Godot
 
-Status: READY FOR IMPLEMENTATION  
+Status: IN REVIEW — implementation and automated gates pass; human visual/touch acceptance remains
 Depends on: MM-01 through MM-05  
 Unlocks: MM-07 UGC Provenance & Moderation
 
@@ -49,4 +49,3 @@ Crop/transform image pixels, upload/server sync, public submission, reports/mode
 - Existing competitive profile and deck validation behavior remains unchanged.
 - Godot parser/import and all MM-04/MM-05/MM-06 headless suites pass on exact head.
 - Roadmap moves MM-06 only after all gates have evidence.
-

@@ -8,7 +8,7 @@ MM-06 automated gates pass, but this task remains **pending human/device accepta
 
 ## Exact-head automated evidence
 
-Commands run from the repository root on commit `1e3b4b7`:
+Commands run from the repository root on commit `b47ac86`:
 
 ```text
 npm test                         PASS

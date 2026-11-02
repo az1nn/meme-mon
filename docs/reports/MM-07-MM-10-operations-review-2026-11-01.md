@@ -8,7 +8,7 @@ The deterministic implementation slice is independently reviewable, but MM-07 th
 
 ## Exact-head local evidence
 
-Reviewed commit: `1dc7b46` on `ralph/v1-work`.
+Reviewed commit: `58cf26b` on `ralph/v1-work`.
 
 Commands:
 

@@ -19,7 +19,7 @@
     "id": "PR-027",
     "title": "Finish CardVisualFrame PR #27",
     "priority": 3,
-    "passes": false,
+    "passes": true,
     "spec": "docs/art/ART-002-mememom-character-first.md",
     "task": ".agent/tasks/TASK-PR-027.json"
   },

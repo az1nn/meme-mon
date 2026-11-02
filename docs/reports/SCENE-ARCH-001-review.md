@@ -27,6 +27,7 @@ All commands below completed successfully against the reviewed worktree:
   - MM-09 server adapter: PASS
   - ART-002 navigation: 21 checks, 0 failures
   - ART-002 HUD: 19 checks, 0 failures
+- `npm run build:pwa` → Web export and `PWA artifact PASS` on the clean exact-PR worktree; this is required before `npm run pwa:check` because generated `web/` output is intentionally ignored.
 - `npm run pwa:check` → `PWA artifact PASS`
 
 The Godot import emitted pre-existing duplicate UID warnings for mirrored web/Android icon files. No parser, script, scene, or runtime error was emitted, and the warnings are outside this isolated component's scope.

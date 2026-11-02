@@ -8,12 +8,12 @@ The deterministic implementation slice is independently reviewable, but MM-07 th
 
 ## Exact-head local evidence
 
-Reviewed source/test commit: `5aec36ab2607c2b2da324585b799d2ac0a0383bc` on `ralph/v1-work`; documentation-only commits follow it through the current review HEAD.
+Reviewed exact current HEAD: `b7e0e8591bfa5fed0fc6b10a12925196a1de98a1` on `ralph/v1-work` (2026-11-01). This is a documentation-only refresh after the source/test commit; no implementation changes are hidden by the review.
 
 Commands:
 
-- `npm test` / `npm run test:release` — PASS on the source/test commit above: MM-04 194/0, MM-05 94/0, MM-06 14/0, MM-07/MM-08 41/0, MM-09 18/0, MM-09 server adapter PASS, ART-002 navigation 21/0, ART-002 HUD 19/0.
-- `npm run pwa:check` — PASS (`PWA artifact PASS`).
+- `npm test` — PASS at the exact current HEAD: MM-04 194/0, MM-05 94/0, MM-06 14/0, MM-07/MM-08 41/0, MM-09 18/0, MM-09 server adapter PASS, ART-002 navigation 21/0, ART-002 HUD 19/0.
+- `npm run pwa:check` and `npm run test:infra` — PASS (`PWA artifact PASS`; Node syntax checks clean).
 - `git diff --check` — PASS.
 - `bash -n ralph.sh scripts/lib/*.sh tools/ralph-merge.sh` — PASS.
 

@@ -1,3 +1,19 @@
+---
+max_iterations: 10
+timeout: 300
+completion_gate: disabled
+stop_on_error: false
+guardrails:
+  block_commands:
+    - 'git\s+push'
+    - 'git\s+merge'
+    - 'git\s+reset\s+--hard'
+    - 'rm\s+-rf\s+/'
+  protected_files:
+    - '.env*'
+    - '*.pem'
+    - 'policy:secret-bearing-paths'
+---
 # Ralph Loop para Mememom
 
 O projeto usa o [Ralph Loop](https://ralphloop.sh/blog/ralph-loop-with-opencode/)
@@ -51,13 +67,16 @@ A fila principal está em `.agent/tasks.json`. Cada tarefa possui uma
 especificação detalhada em `.agent/tasks/` e deve apontar para a especificação
 ou plano correspondente em `docs/`.
 
-Tarefas atuais:
+Fila atual do Ralph, em ordem:
 
-- `V1-001`: fixtures de replay e trust boundary.
-- `PR-026`: corrigir o preview Vercel.
-- `PR-027`: corrigir o artifact Web do CardVisualFrame.
-- `PR-028`: concluir o PR SIGA-CENTRAL-001.
-- `V1-002`: preparar evidências dos gates externos da release V1.
+- `PR-027-REVIEW`: revisar e finalizar CardVisualFrame / ART-002.
+- `SIGA-REVIEW`: revisar o pacote Spec Kit do SIGA-CENTRAL-001.
+- `V1-EXTERNAL-ACCEPTANCE`: preparar e executar os gates externos restantes da V1.
+- `MM06-HUMAN-REVIEW`: concluir a revisão visual/touch do Forge.
+- `MM07-MM10-OPERATIONS`: revisar aceitação operacional e de políticas de MM-07 a MM-10.
+- `V1-RELEASE-CLOSE`: montar a evidência final e fechar a release somente com todos os gates.
+
+As tarefas históricas concluídas (`V1-001`, `PR-026` e `V1-002`) permanecem registradas no `.agent/tasks.json`. Achados não críticos podem ser registrados para uma tarefa posterior e não bloqueiam a revisão do trabalho atual ou PRs independentes; gates humanos, de dispositivo, operação e release continuam explicitamente pendentes até haver evidência.
 
 O agente deve completar somente uma tarefa por iteração. Ele deve emitir um
 destes sinais no final:

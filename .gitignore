@@ -15,3 +15,6 @@ node_modules/
 !.agent/screenshots/.gitkeep
 .ralph/state/*
 !.ralph/state/.gitkeep
+# Ralph runtime state and per-run task copies are local artifacts.
+.ralph-runner/
+.ralph/tasks/*

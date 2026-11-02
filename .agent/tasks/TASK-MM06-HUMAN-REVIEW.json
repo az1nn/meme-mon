@@ -1,0 +1,14 @@
+{
+  "id": "MM06-HUMAN-REVIEW",
+  "title": "Close MM-06 Forge human visual and touch review",
+  "priority": 4,
+  "steps": [
+    "Review the MM-06 spec, plan and task evidence against the current Godot Forge implementation.",
+    "Run all automated Forge, navigation, parser/import, scene-smoke and Web/PWA checks.",
+    "Exercise the Forge flow on supported desktop/mobile targets when available and capture dated evidence.",
+    "Verify private Sandbox previews cannot enter competitive collection/deck state without MM-07/MM-08 gates.",
+    "Record visual/touch defects as a later backlog unless they are release-critical; do not block unrelated PR review."
+  ],
+  "validation": ["npm test", "npm run pwa:check", "git diff --check"],
+  "acceptance": "MM-06 has explicit human visual/touch evidence or an honest pending owner/action, with Sandbox trust-boundary behavior preserved."
+}

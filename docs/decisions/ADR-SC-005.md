@@ -1,0 +1,2 @@
+# ADR-SC-005 — Automatic continuation and evidence-gated recovery
+Status: PROPOSED. G2=A G3=A. SIGA advances between domain owners until verified DONE or legitimate WAIT_GATE/BLOCKED/WATCH. Expiration alone never authorizes takeover. Recovery requires fresh remote reconciliation, inactive owner evidence and fenced claim. Trade-off: reduced manual handoffs versus risk of unsafe automation, mitigated by gates and fail-closed behavior.

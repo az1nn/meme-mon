@@ -54,6 +54,16 @@ npm run test:mm07-mm08
 npm run test:mm09
 ```
 
+## Exact-head task evidence
+
+- PR #26 exact head `db484f8f83054f795e54357bfea8f4b4ed5070ee` is present at `refs/remotes/origin/pr/26`. In an isolated worktree, `npm run build:pwa` (including `npm run pwa:check`) and `node tools/prepare_vercel_output.mjs` passed; the artifact recorded the exact source SHA. The Vercel workflow still requires provider credentials and live check metadata, so preview success remains **HYPOTHESIS/unverified**.
+- PR #27 exact head `34817e2b969e651206f170d9eb970b762b517e64` is present at `refs/remotes/origin/pr/27`. In an isolated worktree, `godot --headless --path . --script res://tests/run_card_visual_frame_tests.gd` passed with 47 checks and 0 failures. Full exact-head CI status remains **HYPOTHESIS/unverified** without GitHub authentication.
+- PR #28 exact head `5438b121fc2846e0d99f42a8fe16f048fdb2829b` is present at `refs/remotes/origin/pr/28`; it is a documentation-only ADR change and introduces no runtime files. `git diff --check` passed for the exact commit. GitHub check metadata remains unavailable.
+
+## Local validation commands
+
+The repository now exposes the task-plan validation names `npm run test:infra`, `npm run test:pwa`, and `npm run test:release`. They respectively perform JavaScript syntax checks for the delivery helpers, validate the generated PWA artifact, and run the complete deterministic release suite. These commands pass locally; they do not replace provider, device, or human acceptance.
+
 ## Gates not proven here
 
 - Android APK compilation/install/smoke is blocked in this workspace because no

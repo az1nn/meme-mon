@@ -37,8 +37,9 @@ cleanup() {
   fi
   AGENT_PID=""
 
-  # Stop only the deterministic sandbox for this Ralph invocation.
-  if [ -n "$RALPH_SANDBOX_NAME" ] && command -v sbx &>/dev/null; then
+  # Direct WSL mode does not own a sandbox. Never stop a similarly named
+  # sandbox that may belong to another invocation or operator session.
+  if [ "${RALPH_DIRECT_MODE:-0}" != "1" ] && [ -n "$RALPH_SANDBOX_NAME" ] && command -v sbx &>/dev/null; then
     echo -e "  ${Y}📦 Stopping sandbox ${RALPH_SANDBOX_NAME}...${R}"
     sbx stop "$RALPH_SANDBOX_NAME" 2>/dev/null &
     local stop_pid=$!

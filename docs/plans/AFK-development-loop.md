@@ -19,6 +19,11 @@ git switch -c ralph/v1-work
 Ralph refuses to run on `master` unless `RALPH_ALLOW_MASTER=1` is explicitly
 set for a controlled experiment.
 
+The direct-mode path has no sandbox lifecycle: cleanup must not stop an
+`sandbox` instance when `RALPH_DIRECT_MODE=1`; only the Docker Sandbox path may
+stop the invocation-owned sandbox. This keeps host OpenCode runs isolated from
+other operator sessions.
+
 The merge gate is explicit and Git-only:
 
 ```bash
@@ -62,3 +67,12 @@ The agent must emit one of Ralph's semantic tags:
 - `<promise>DECIDE:question</promise>`
 
 The loop is bounded by `--max-iterations`; it is never an infinite process.
+
+## Legacy proof-of-concept reconciliation
+
+The checked-in shell runtime was reviewed against the documented direct WSL and
+sandbox modes. The direct-mode cleanup isolation invariant is implemented in
+`scripts/lib/cleanup.sh`; syntax validation is `bash -n ralph.sh
+scripts/lib/*.sh tools/ralph-merge.sh`. Automated project tests remain the
+application-level gate and do not constitute OpenCode authentication,
+sandbox-provider, or unattended external acceptance evidence.

@@ -38,5 +38,53 @@
     "passes": true,
     "spec": "docs/tasks/V1-release-tasks.md",
     "task": ".agent/tasks/TASK-V1-002.json"
+  },
+  {
+    "id": "PR-027-REVIEW",
+    "title": "Review and finish CardVisualFrame / ART-002 wave",
+    "priority": 6,
+    "passes": false,
+    "spec": "docs/specs/SCENE-ARCH-001-card-visual-frame.md",
+    "task": ".agent/tasks/TASK-PR-027-REVIEW.json"
+  },
+  {
+    "id": "SIGA-REVIEW",
+    "title": "Review SIGA-CENTRAL-001 Spec Kit package",
+    "priority": 7,
+    "passes": false,
+    "spec": "docs/specs/SIGA-CENTRAL-001.md",
+    "task": ".agent/tasks/TASK-SIGA-REVIEW.json"
+  },
+  {
+    "id": "V1-EXTERNAL-ACCEPTANCE",
+    "title": "Prepare and execute remaining V1 external acceptance gates",
+    "priority": 8,
+    "passes": false,
+    "spec": "docs/specs/V1-release-goal.md",
+    "task": ".agent/tasks/TASK-V1-EXTERNAL-ACCEPTANCE.json"
+  },
+  {
+    "id": "MM06-HUMAN-REVIEW",
+    "title": "Close MM-06 Forge human visual and touch review",
+    "priority": 9,
+    "passes": false,
+    "spec": "docs/specs/MM-06-meme-forge.md",
+    "task": ".agent/tasks/TASK-MM06-HUMAN-REVIEW.json"
+  },
+  {
+    "id": "MM07-MM10-OPERATIONS",
+    "title": "Review MM-07 through MM-10 operational and policy acceptance",
+    "priority": 10,
+    "passes": false,
+    "spec": "docs/ROADMAP.md",
+    "task": ".agent/tasks/TASK-MM07-MM10-OPERATIONS.json"
+  },
+  {
+    "id": "V1-RELEASE-CLOSE",
+    "title": "Assemble final V1 release evidence and close only when gates pass",
+    "priority": 11,
+    "passes": false,
+    "spec": "docs/tasks/V1-release-tasks.md",
+    "task": ".agent/tasks/TASK-V1-RELEASE-CLOSE.json"
   }
 ]

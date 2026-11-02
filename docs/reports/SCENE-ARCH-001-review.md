@@ -15,7 +15,7 @@ All commands below completed successfully against the reviewed worktree:
 - `godot --version` → `4.7.2.stable.official`
 - `godot --headless --path . --import`
 - `godot --headless --path . --script res://tests/run_card_visual_frame_tests.gd`
-  - `SCENE/ARCH-001 checks: 47, failures: 0`
+  - `SCENE/ARCH-001 checks: 50, failures: 0`
   - `SCENE/ARCH-001 CARD FRAME GATES PASS`
 - `godot --headless --path . res://scenes/qa/CardVisualFramePreview.tscn --quit-after 2`
 - `npm test`
@@ -39,7 +39,7 @@ The implementation is independently reviewable and remains within the Godot-only
 - `Control` plus `TextureRect` only; no Three.js, shader, networking, domain state mutation, or gameplay/HUD integration.
 - Configurable aspect ratio with a QA-only default, fail-closed invalid geometry, bounded non-negative safe inset, and contain-only `STRETCH_KEEP_ASPECT_CENTERED` rendering.
 - Front and back share the same logical frame/safe bounds, and repeated face selection is idempotent with no duplicate `face_changed` signal.
-- The regression suite covers the required target viewports, including the small viewport, and verifies source texture dimensions remain unchanged.
+- The regression suite covers the required target viewports, including the small viewport, verifies source texture dimensions remain unchanged, and rejects non-finite or non-positive geometry bounds before layout.
 - The preview uses generated flat swatches and explicitly does not present recovered concept art as approved runtime art.
 
 ## Explicitly pending gates
@@ -62,7 +62,7 @@ These cannot be certified by the local headless checks and remain open as requir
 
 The isolated component and repository gates were rerun on the current `ralph/v1-work` branch after the documentation-only follow-up commits:
 
-- `godot --headless --path . --script res://tests/run_card_visual_frame_tests.gd` — 47 checks, 0 failures.
+- `godot --headless --path . --script res://tests/run_card_visual_frame_tests.gd` — 50 checks, 0 failures.
 - `godot --headless --path . res://scenes/qa/CardVisualFramePreview.tscn --quit-after 2` — PASS.
 - `npm test` — all listed MM-04 through MM-09, server, navigation and HUD gates pass with 0 assertion failures.
 - `npm run build:pwa` — Web artifact PASS; `npm run pwa:check` — PWA artifact PASS.

@@ -95,7 +95,7 @@ func get_safe_inset_fraction() -> float:
 	return _safe_inset
 
 func fitted_rect_for(bounds: Vector2) -> Rect2:
-	if bounds.x <= 0.0 or bounds.y <= 0.0:
+	if not _is_valid_size(bounds):
 		return Rect2()
 	var width: float = minf(bounds.x, bounds.y * _aspect)
 	var height: float = width / _aspect
@@ -115,6 +115,11 @@ func get_actual_safe_rect() -> Rect2:
 	if _safe == null:
 		return Rect2()
 	return Rect2(_frame.position + _safe.position, _safe.size)
+
+func _is_valid_size(value: Vector2) -> bool:
+	return value.x > 0.0 and value.y > 0.0 \
+		and not is_nan(value.x) and not is_nan(value.y) \
+		and not is_inf(value.x) and not is_inf(value.y)
 
 func _layout() -> void:
 	if _frame == null:

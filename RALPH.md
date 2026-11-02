@@ -69,12 +69,18 @@ ou plano correspondente em `docs/`.
 
 Fila atual do Ralph, em ordem:
 
-- `PR-027-REVIEW`: revisar e finalizar CardVisualFrame / ART-002.
-- `SIGA-REVIEW`: revisar o pacote Spec Kit do SIGA-CENTRAL-001.
-- `V1-EXTERNAL-ACCEPTANCE`: preparar e executar os gates externos restantes da V1.
-- `MM06-HUMAN-REVIEW`: concluir a revisão visual/touch do Forge.
-- `MM07-MM10-OPERATIONS`: revisar aceitação operacional e de políticas de MM-07 a MM-10.
-- `V1-RELEASE-CLOSE`: montar a evidência final e fechar a release somente com todos os gates.
+**Implementação:**
+- `CODE-CARDVISUALFRAME`: implementar gaps de código/integração e regressões do CardVisualFrame.
+- `CODE-MM09-TRANSPORT`: implementar um gap bounded de transporte/authority/reconnect/replay do MM-09.
+- `CODE-DELIVERY-ACCEPTANCE`: implementar tooling automatizável de PWA/Android e artefatos.
+- `CODE-TRUST-GOVERNANCE`: fechar um gap concreto de trust boundary/governança em MM-07/MM-08/MM-10.
+- `CODE-FOLLOWUP-FINDINGS`: transformar achados adiados em tarefas de código bounded.
+
+**PR e revisão:**
+- `PR-027`, `PR-028`, `PR-027-REVIEW` e `SIGA-REVIEW`.
+
+**Release:**
+- `V1-EXTERNAL-ACCEPTANCE`, `MM06-HUMAN-REVIEW`, `MM07-MM10-OPERATIONS` e `V1-RELEASE-CLOSE`.
 
 As tarefas históricas concluídas (`V1-001`, `PR-026` e `V1-002`) permanecem registradas no `.agent/tasks.json`. Achados não críticos podem ser registrados para uma tarefa posterior e não bloqueiam a revisão do trabalho atual ou PRs independentes; gates humanos, de dispositivo, operação e release continuam explicitamente pendentes até haver evidência.
 

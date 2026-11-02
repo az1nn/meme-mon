@@ -9,7 +9,7 @@ MM-06 automated gates pass, but this task remains **pending human/device accepta
 ## Exact-head automated evidence
 
 Commands rerun from the repository root at current documentation HEAD
-`3a5f54c321610a4ae42488856081ee16bbe26c1b` on branch `ralph/v1-work`
+`052ef03b14be22c69e44496bb3c71a71a702e969` on branch `ralph/v1-work`
 (2026-11-01 23:41 -03:00). The implementation source/test head remains
 `5aec36ab2607c2b2da324585b799d2ac0a0383bc`; commits after that head are
 report/checklist documentation only:

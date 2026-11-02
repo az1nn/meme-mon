@@ -9,6 +9,8 @@ usava um executor separado baseado em OpenCode e `ralph.sh`.
 - O agente roda em iterações independentes; o progresso deve ficar nos arquivos,
   testes, commits e `RALPH_PROGRESS.md`, não apenas no contexto da conversa.
 - Cada iteração executa uma tarefa bounded e verificável.
+- Cada loop mantém um `WORK_REPORT.md` human-readable com resumo, tabela de
+  progresso, resultado, evidência, blockers e exatamente um próximo passo.
 - Implementação vem antes de revisão e aceitação externa.
 - Um bloqueio externo tem circuit breaker: registra-se uma vez, marca-se `WAITING_EXTERNAL` e o loop para ou escolhe apenas uma tarefa independente; nunca repete a mesma checagem sem evidência nova.
 - Erros não críticos podem virar follow-up e não bloqueiam PRs independentes.
@@ -42,8 +44,9 @@ Cada loop deve ter uma pasta própria, normalmente em `.ralph/tasks/`:
 .ralph/tasks/<nome-do-loop>/
 ├── RALPH.md       # configuração YAML + prompt do agente
 ├── TASKS.md       # roadmap ordenado e critérios de conclusão
-├── RALPH_PROGRESS.md  # memória entre iterações, quando usada
-└── OPEN_QUESTIONS.md  # perguntas/bloqueios, quando aplicável
+├── WORK_REPORT.md       # relatório human-readable acumulado
+├── RALPH_PROGRESS.md    # memória curta entre iterações
+└── OPEN_QUESTIONS.md    # perguntas/bloqueios externos
 ```
 
 `RALPH.md` usa frontmatter YAML com chaves `snake_case`. Exemplo mínimo:
@@ -141,16 +144,18 @@ atual é:
 Cada iteração deve:
 
 1. Ler o estado real do repositório, branch, PR e CI.
-2. Ler `RALPH_PROGRESS.md`, `OPEN_QUESTIONS.md` e os relatórios antes de
+2. Ler `WORK_REPORT.md`, `RALPH_PROGRESS.md` e `OPEN_QUESTIONS.md` antes de
    selecionar uma tarefa.
 3. Escolher a primeira tarefa pendente que não esteja `WAITING_EXTERNAL` ou
    bloqueada por uma dependência sem mudança de evidência.
 4. Fazer uma mudança bounded, sem criar uma segunda arquitetura.
 5. Adicionar ou atualizar testes quando houver alteração de código.
 6. Executar os comandos de validação da tarefa.
-7. Atualizar `RALPH_PROGRESS.md` com mudança, evidência, bloqueios e próximo
-   passo.
-8. Emitir a promise de conclusão somente quando os outputs e gates exigidos
+7. Acrescentar uma entrada no `WORK_REPORT.md` usando o formato padrão:
+   resultado, mudanças, evidência, decisões, blockers e um único próximo passo.
+8. Atualizar `RALPH_PROGRESS.md` apenas com o resumo curto para a próxima
+   iteração.
+9. Emitir a promise de conclusão somente quando os outputs e gates exigidos
    estiverem prontos.
 
 Circuit breaker obrigatório:
@@ -168,6 +173,13 @@ Não marcar uma tarefa como concluída apenas porque arquivos foram criados.
 Falhas de ambiente ou gates externos devem ser registradas com responsável e
 próxima ação. Achados não críticos podem ser adiados, mas não podem ser
 silenciosamente apagados ou convertidos em aprovação.
+
+## Relatórios
+
+O formato obrigatório está em
+[`docs/plans/PI-LOOP-reporting-standard.md`](docs/plans/PI-LOOP-reporting-standard.md).
+Não crie um relatório Markdown isolado por iteração sem vinculá-lo ao
+`WORK_REPORT.md`.
 
 ## Referências
 

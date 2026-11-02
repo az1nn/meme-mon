@@ -61,8 +61,12 @@ func _run() -> void:
 	_check(stale_result["code"] == "STALE_EVENT_SEQ", "stale event sequence fails closed")
 	var reconnected: Dictionary = service.reconnect(token, "match.online.1", 0)
 	_check(reconnected["ok"] and not reconnected["events"].is_empty(), "reconnect returns authoritative snapshot and missing events")
+	_check(service.reconnect(token, "match.online.1", int(reconnected["next_event_seq"]))["events"].is_empty(), "reconnect at current sequence has no duplicate events")
+	_check(service.reconnect(token, "match.online.1", -1)["code"] == "UNAUTHORIZED", "negative replay cursor is rejected")
 	_check(service.reconnect("invalid", "match.online.1", 0)["code"] == "UNAUTHORIZED", "unauthenticated reconnect is denied")
 	_check(service.verify_replay("match.online.1")["ok"], "stored accepted intents reproduce authoritative state")
+	_check(service.apply_authoritative_intent(token, {"protocol_version": "online-1", "match_id": "match.online.1", "idempotency_key": "key-1", "intent": intent})["ok"], "same idempotency key remains replay-safe")
+	_check(service.apply_authoritative_intent(wrong_token, {"protocol_version": "online-1", "match_id": "match.online.1", "idempotency_key": "key-1", "intent": intent})["code"] == "IDEMPOTENCY_CONFLICT", "cross-session replay cannot reuse an idempotency key")
 	var online_store := OnlineMatchStore.new()
 	var online_path := "user://mm09-tests/match.json"
 	var record: Dictionary = service.export_match_record("match.online.1")

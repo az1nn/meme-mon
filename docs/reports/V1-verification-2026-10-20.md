@@ -14,7 +14,8 @@
 | MM-05 collection/deckbuilder | 94 checks, 0 failures |
 | MM-06 private Forge | 14 checks, 0 failures |
 | MM-07/MM-08 moderation and Canon | 39 checks, 0 failures |
-| MM-09 authoritative reference | 14 checks, 0 failures |
+| MM-09 authoritative reference | 19 checks, 0 failures |
+| Schema/replay/trust-boundary fixtures | PASS via `npm run test:mm07-mm08` and `npm run test:mm09` |
 | MM-09 WebSocket fail-closed/listen smoke | PASS on port 19080 |
 | ART-002 navigation | 21 checks, 0 failures |
 | ART-002 HUD | 19 checks, 0 failures |
@@ -41,6 +42,17 @@ canvas dimensions. The cache contained the shell, JavaScript, PCK, WASM,
 manifest, and icon. This proves browser launch and offline reload for this
 target, but not Add-to-Home-Screen installation, update behavior, or human
 touch/accessibility acceptance.
+
+## V1-001 deterministic gap closure
+
+The MM-07/MM-08 suite now covers rejection and preservation of an older local profile schema (`local-0`), so unknown persisted schemas are not silently overwritten. The MM-09 suite now covers replay recovery at both a missing-event cursor and the current cursor, negative cursors, repeated idempotency, and cross-session replay denial. These are deterministic reference fixtures only; they do not claim migration compatibility, hosted-service security, or human acceptance.
+
+Reproduce with:
+
+```bash
+npm run test:mm07-mm08
+npm run test:mm09
+```
 
 ## Gates not proven here
 

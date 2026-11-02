@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="1350" viewBox="0 0 900 1350">
+<title>ARTIST-005 C06 V1 — Template Active de duelo, proposta visual</title>
+<desc>Proposta visual independente: moldura estilizada para carta Active, áreas de nome/tipo/Trend/ilustração/dados, sem dados nem personagens canônicos e sem implementação em Godot.</desc>
+<defs>
+ <linearGradient id="edge" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#54E8EA"/><stop offset=".28" stop-color="#61A3FA"/><stop offset=".64" stop-color="#FECC60"/><stop offset="1" stop-color="#FF8B65"/></linearGradient>
+ <linearGradient id="rim" x2=".8" y2="1"><stop stop-color="#09D9FF"/><stop offset=".42" stop-color="#126EE6"/><stop offset=".73" stop-color="#224EAF"/><stop offset="1" stop-color="#60F1E8"/></linearGradient>
+ <linearGradient id="body" x2=".5" y2="1"><stop stop-color="#213E6A"/><stop offset=".47" stop-color="#112543"/><stop offset="1" stop-color="#0A1D38"/></linearGradient>
+ <linearGradient id="art" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#154B75"/><stop offset=".5" stop-color="#0A2446"/><stop offset="1" stop-color="#192A53"/></linearGradient>
+ <linearGradient id="gold" x2=".4" y2="1"><stop stop-color="#FFED8F"/><stop offset=".55" stop-color="#FFCE4D"/><stop offset="1" stop-color="#FA9E29"/></linearGradient>
+ <linearGradient id="blue" x2="1" y2="1"><stop stop-color="#25E0F2"/><stop offset="1" stop-color="#2F7DFE"/></linearGradient>
+ <radialGradient id="glow"><stop stop-color="#1AAEEC" stop-opacity=".29"/><stop offset="1" stop-color="#0E3C68" stop-opacity="0"/></radialGradient>
+ <filter id="shadow" x="-20%" y="-20%" width="140%" height="160%"><feGaussianBlur stdDeviation="16"/></filter>
+ <pattern id="slashes" width="31" height="31" patternUnits="userSpaceOnUse" patternTransform="rotate(39)"><path d="M0 0 V31" stroke="#77CCF6" stroke-width="2" opacity=".08"/></pattern>
+</defs>
+<!-- transparent outside card -->
+<rect x="80" y="70" width="750" height="1210" rx="102" fill="#030B21" opacity=".5" filter="url(#shadow)"/>
+<rect x="72" y="53" width="756" height="1220" rx="98" fill="#071226" stroke="#03112A" stroke-width="10"/>
+<rect x="87" y="68" width="726" height="1190" rx="86" fill="url(#rim)" stroke="#080F28" stroke-width="8"/>
+<rect x="105" y="86" width="690" height="1154" rx="71" fill="#0A1731" stroke="url(#edge)" stroke-width="9"/>
+<rect x="120" y="102" width="660" height="1121" rx="56" fill="url(#body)" stroke="#76CCFB" stroke-opacity=".4" stroke-width="3"/>
+<!-- active compact profile above frame -->
+<rect x="326" y="49" width="248" height="74" rx="35" fill="#092B45" stroke="#5AE5F2" stroke-width="9"/>
+<rect x="346" y="67" width="207" height="39" rx="19" fill="url(#blue)"/>
+<text x="449" y="95" text-anchor="middle" fill="#071B34" font-size="29" font-family="DejaVu Sans, sans-serif" font-weight="bold">● ATIVO</text>
+<!-- header -->
+<rect x="147" y="160" width="604" height="139" rx="32" fill="#0A1935" stroke="#091028" stroke-width="12"/>
+<path d="M173 176 H356 L339 191 H173 Z" fill="#43D8D5"/>
+<path d="M578 176 H724 L713 192 H597 Z" fill="#F9C257"/>
+<text x="179" y="230" fill="#FFF8E5" font-size="40" font-family="DejaVu Sans, sans-serif" font-weight="bold">NOME DA CARTA</text>
+<rect x="563" y="231" width="162" height="51" rx="24" fill="#0B2B49" stroke="#48DAE7" stroke-width="5"/>
+<circle cx="586" cy="256" r="7" fill="#54F2E8"/>
+<text x="639" y="268" fill="#DEF9FF" font-size="23" text-anchor="middle" font-family="DejaVu Sans, sans-serif" font-weight="bold">TIPO</text>
+<!-- illustration area -->
+<rect x="147" y="320" width="606" height="605" rx="33" fill="#050F28" stroke="#0B142B" stroke-width="13"/>
+<rect x="166" y="338" width="568" height="566" rx="19" fill="url(#art)" stroke="#45E7ED" stroke-width="6"/>
+<rect x="174" y="347" width="552" height="550" rx="14" fill="url(#slashes)"/>
+<ellipse cx="452" cy="605" rx="281" ry="282" fill="url(#glow)"/>
+<!-- decorative empty picture spark -->
+<path d="M447 487 Q479 547 537 569 Q474 589 452 649 Q424 584 361 564 Q423 542 447 487Z" fill="none" stroke="#68E0FD" stroke-width="8" stroke-linejoin="round" opacity=".8"/>
+<circle cx="446" cy="565" r="36" fill="#1F4979" stroke="#75D1FA" stroke-width="5"/>
+<text x="450" y="737" fill="#DDF4FF" font-size="32" text-anchor="middle" font-family="DejaVu Sans, sans-serif" font-weight="bold">ÁREA DA ILUSTRAÇÃO</text>
+<text x="450" y="783" fill="#8CB9D7" font-size="24" text-anchor="middle" font-family="DejaVu Sans, sans-serif">(imagem separada)</text>
+<!-- trend cost badge -->
+<rect x="596" y="305" width="145" height="103" rx="33" fill="#041733" stroke="#06142E" stroke-width="10"/>
+<rect x="607" y="315" width="122" height="84" rx="25" fill="url(#gold)" stroke="#FFE6A5" stroke-width="5"/>
+<text x="668" y="346" text-anchor="middle" fill="#2E2441" font-size="22" font-family="DejaVu Sans, sans-serif" font-weight="bold">TREND</text>
+<text x="668" y="383" text-anchor="middle" fill="#3B2A32" font-size="36" font-family="DejaVu Sans, sans-serif" font-weight="bold">—</text>
+<!-- combat info / fields -->
+<rect x="150" y="946" width="602" height="209" rx="28" fill="#0A1834" stroke="#0A1026" stroke-width="12"/>
+<rect x="172" y="965" width="217" height="48" rx="24" fill="#3FD8DC"/>
+<text x="280" y="998" text-anchor="middle" fill="#0A2446" font-size="26" font-family="DejaVu Sans, sans-serif" font-weight="bold">DADOS / EFEITOS</text>
+<rect x="174" y="1034" width="207" height="73" rx="18" fill="#152A52" stroke="#4B8FC9" stroke-width="3"/>
+<text x="198" y="1063" fill="#92BDD8" font-size="20" font-family="DejaVu Sans, sans-serif">HP</text>
+<text x="356" y="1092" text-anchor="end" fill="#FBF3D8" font-size="36" font-family="DejaVu Sans, sans-serif" font-weight="bold">—</text>
+<rect x="398" y="1034" width="326" height="73" rx="18" fill="#152A52" stroke="#4B8FC9" stroke-width="3"/>
+<text x="416" y="1063" fill="#92BDD8" font-size="20" font-family="DejaVu Sans, sans-serif">ATAQUE / EFEITO</text>
+<text x="705" y="1092" text-anchor="end" fill="#FBF3D8" font-size="34" font-family="DejaVu Sans, sans-serif" font-weight="bold">—</text>
+<rect x="170" y="1172" width="565" height="47" rx="22" fill="#07162E" stroke="#2EAFCB" stroke-width="4"/>
+<path d="M198 1197 H347" stroke="#4AE8EE" stroke-width="8" stroke-linecap="round"/>
+<path d="M557 1197 H700" stroke="#F2B953" stroke-width="8" stroke-linecap="round"/>
+<!-- outer frame corner highlights -->
+<path d="M126 150 Q130 121 164 115 H265" fill="none" stroke="#54E4F2" stroke-width="11" stroke-linecap="round" opacity=".9"/>
+<path d="M635 115 H734 Q766 115 772 148" fill="none" stroke="#FFC45C" stroke-width="11" stroke-linecap="round" opacity=".85"/>
+</svg>

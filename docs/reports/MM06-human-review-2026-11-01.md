@@ -23,7 +23,7 @@ ART-002 navigation 21, and ART-002 HUD 19. The server fixture's initial
 invalid-Canon refusal and the known navigation anchor warnings remain
 expected non-failing output.
 
-The exact-head rerun above is the authoritative local result for this review. The rerun covered the current repository HEAD; no source or test changes were made.
+The exact-head rerun above is the authoritative local result for this review. The rerun covered the source/test HEAD immediately before this report-only evidence refresh; this commit changes documentation only.
 
 | Gate | Checks/result |
 |---|---:|

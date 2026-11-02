@@ -25,6 +25,12 @@ This review covers the M1 Spec Kit package: bounded specification, migration pla
 - The exact PR head is present in the remote PR/branch refs; the current master ref contains the historical PR #28 merge and later repository work.
 - `npm test` — all functional gates reported zero test failures: MM-04 194, MM-05 94, MM-06 14, MM-07/MM-08 41, MM-09 18, server adapter PASS, ART-002 navigation 21, and ART-002 HUD 19. The server negative fixture intentionally logs its fail-closed rejection before the valid fixture passes; Godot navigation emits pre-existing anchor warnings.
 
+## Current repository reconciliation
+
+A follow-up check on `ralph/v1-work` verified that the exact PR head remains available at `origin/docs/siga-central-001-m1` and `origin/pr/28` as `5438b121fc2846e0d99f42a8fe16f048fdb2829b`. The current repository HEAD is `5b4a51fa3ff81432c4da6123a68b3bc32a9eaaab`, with `origin/master` at `4918a2f6f86c9ed4f67a93213a42523e5a41153d`; the PR is already represented in the repository history and no runtime SIGA activation was introduced by subsequent review work.
+
+The follow-up validation passed: `git diff --check` and `npm test` (MM-04 194, MM-05 94, MM-06 14, MM-07/MM-08 41, MM-09 18, server adapter, navigation 21, and HUD 19). The expected server negative fixture rejection and pre-existing navigation anchor warnings were observed; neither produced a test failure.
+
 ## Explicitly not certified
 
 No live two-writer CAS/fencing proof, full external entrypoint inventory, runtime alias activation, cross-session continuation, device/runtime visual evidence, production readiness, merge authorization, or cutover approval is claimed. Issue #24 and the open M2-M8 tasks remain gates. The M1 package is coherent as a proposal, not an implemented coordinator.

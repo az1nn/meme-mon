@@ -27,7 +27,7 @@
     "id": "PR-028",
     "title": "Finish SIGA-CENTRAL-001 PR #28",
     "priority": 4,
-    "passes": false,
+    "passes": true,
     "spec": ".specify/memory/constitution.md",
     "task": ".agent/tasks/TASK-PR-028.json"
   },

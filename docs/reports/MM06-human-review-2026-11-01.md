@@ -8,8 +8,11 @@ MM-06 automated gates pass, but this task remains **pending human/device accepta
 
 ## Exact-head automated evidence
 
-Commands rerun from the repository root on exact HEAD
-`8cb16bc51fc99aaee4752fe4771b35f6309b2e10` at 2026-11-01T23:22-03:00:
+Commands rerun from the repository root at current documentation HEAD
+`f5bbec546f9feab0982a1f5f2374ad5eb7b178d8` on branch `ralph/v1-work`.
+The implementation source/test head remains
+`5aec36ab2607c2b2da324585b799d2ac0a0383bc`; commits after that head are
+report/checklist documentation only:
 
 ```text
 npm test                         PASS
@@ -17,13 +20,13 @@ npm run pwa:check                PASS
 git diff --check                 PASS
 ```
 
-`npm test` again completed with zero assertion failures: MM-04 194,
+`npm test` completed with zero assertion failures: MM-04 194,
 MM-05 94, MM-06 14, MM-07/MM-08 41, MM-09 18, server adapter PASS,
 ART-002 navigation 21, and ART-002 HUD 19. The server fixture's initial
 invalid-Canon refusal and the known navigation anchor warnings remain
 expected non-failing output.
 
-The exact-head rerun above is the authoritative local result for this review. The rerun covered the source/test HEAD immediately before this report-only evidence refresh; this commit changes documentation only.
+The rerun above is the authoritative local result for this review. It ran against the current worktree, whose executable source and tests are unchanged from implementation head `5aec36ab`; the intervening commits are documentation-only evidence refreshes.
 
 | Gate | Checks/result |
 |---|---:|

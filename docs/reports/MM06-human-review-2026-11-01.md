@@ -41,6 +41,19 @@ The rerun above is the authoritative local result for this review. It ran agains
 
 The MM-09 server fixture's initial invalid-Canon refusal is expected fail-closed output before the valid fixture starts. ART-002 reports known anchor warnings with zero assertion failures. `npm run pwa:check` reports `PWA artifact PASS`.
 
+Additional Godot import and Forge scene-smoke checks also passed at this
+exact head:
+
+```text
+godot --headless --path . --import                         PASS
+godot --headless --path . res://scenes/Forge.tscn --quit-after 2  PASS
+```
+
+The import scan reports the pre-existing duplicate UID warnings for mirrored
+web/Android icon assets; it completes successfully without parser, scene, or
+runtime errors. The scene smoke command exits cleanly but is headless evidence
+only and does not substitute for a human visual/touch review.
+
 ## Prompt-to-artifact checklist
 
 | Requirement | Evidence | State |

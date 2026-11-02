@@ -53,6 +53,10 @@ The MM-09 server fixture's initial invalid-Canon refusal is expected fail-closed
 | Browser PWA install/update/touch | `npm run pwa:check` validates artifact only; install/update not exercised | **Pending supported browser** |
 | Android package launch and touch smoke | Android toolchain/device not provisioned | **Blocked: toolchain/device unavailable** |
 
+## Current local target availability
+
+A local target availability check on 2026-11-02 found no `adb` executable/device listing and no installed Chromium, Chrome, or Firefox executable in this environment. Therefore no supported Android or real-browser interaction capture can be produced by this worktree; this is an environment block, not acceptance evidence.
+
 ## Required manual script
 
 1. Launch the exact web or desktop build at a supported desktop viewport; open **MENU → Meme Forge**.

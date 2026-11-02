@@ -4,28 +4,28 @@
 **Spec:** docs/specs/LOOP-001-mememon-roadmap.md
 **Plan:** docs/plans/LOOP-001-mememon-roadmap.md
 **Source:** User chat roadmap, 2026-11-01.
-**Rule:** This is the task **definition** ledger, not a replacement for .agent/tasks.json or any existing Pi/Ralph runner. Activation/import remains the runtime owner's separate step.
+**Rule:** This is the task **definition** ledger for the native Pi loop. Activation/import is performed by the runtime owner. The loop must use the circuit-breaker rules below and must not repeat an unchanged external blocker.
 
 Each task below has one bounded outcome. Status defaults to PLANNED; operator/human tasks may be WAITING_HUMAN when real evidence is missing. Never mark PASS from chat context alone.
 
 ## P0 — Deployable, tested Web preview (L-R01)
 
 ### LOOP-P0-01 — Reconcile deployment source and target
-- **Status:** PLANNED; **depends:** none; **gate:** AUTO (read-only).
+- **Status:** COMPLETE (reconciled, not published); **depends:** none; **gate:** AUTO (read-only).
 - **Deliverable:** dated HEAD/CI/deployment evidence comparing current GitHub SHA with actual Vercel project deployment SHA, flags and preview policy.
 - **Verify:** GitHub workflow jobs (build vs deploy), Vercel project/deploy records, expected artifact files. Preserve evidence URLs.
-- **Done:** exact tested source and whether it has truly been published are recorded; no false READY-to-play claim.
+- **Done:** exact tested source and whether it has truly been published are recorded; no false READY-to-play claim. Evidence: `docs/reports/LOOP-001-P0-01-deployment-reconciliation-2026-11-02.md`.
 - **Out of scope:** modifying deployment/provider configuration.
 
 ### LOOP-P0-02 — Prepare controlled preview execution
-- **Status:** PLANNED; **depends:** LOOP-P0-01; **gate:** PROVIDER / DECISION.
+- **Status:** BLOCKED (provider credentials and operator authorization unavailable); **depends:** LOOP-P0-01; **gate:** PROVIDER / DECISION. Evidence: `docs/reports/LOOP-001-P0-02-preview-execution-2026-11-02.md`.
 - **Deliverable:** validated preview-only dispatch parameters, existing project identity and secret-presence checklist (never reveal secret values).
 - **Verify:** workflow_dispatch contract, prerequisites and current operator approval for the preview.
 - **Done:** permission to publish preview is explicit and constraints are checked; otherwise BLOCKED with next owner action.
 - **Out of scope:** production deploy, enabling native Git deployments, creating another pipeline.
 
 ### LOOP-P0-03 — Publish preview via existing workflow
-- **Status:** PLANNED; **depends:** LOOP-P0-02; **gate:** PROVIDER.
+- **Status:** BLOCKED (authorization/provider access unavailable); **depends:** LOOP-P0-02; **gate:** PROVIDER. Evidence: `docs/reports/LOOP-001-P0-03-preview-dispatch-2026-11-02.md`.
 - **Deliverable:** unique preview URL and exact HEAD deployment evidence produced by the existing Web workflow.
 - **Verify:** source_commit in version.json; HTTP /, index.html, JS, PCK, WASM MIME; provider run/summary.
 - **Done:** all remote artifact checks pass at the deployed SHA; a 404 is a failure.
@@ -41,13 +41,13 @@ Each task below has one bounded outcome. Status defaults to PLANNED; operator/hu
 ## P1 — Local offline playable loop (L-R02)
 
 ### LOOP-P1-01 — Audit existing local gameplay against the journey
-- **Status:** PLANNED; **depends:** LOOP-P0-04; **gate:** AUTO.
+- **Status:** COMPLETE (AUTO audit; browser/device acceptance excluded); **depends:** LOOP-P0-04; **gate:** AUTO. Evidence: `docs/reports/LOOP-001-P1-01-local-journey-audit-2026-11-02.md`.
 - **Deliverable:** journey trace for MM-04, MM-05, ART-002 and any gaps, avoiding reimplementation.
 - **Verify:** relevant deterministic tests and evidence from current code.
 - **Done:** precise gameplay acceptance gaps are identified.
 
 ### LOOP-P1-02 — Close one blocking user-journey defect
-- **Status:** PLANNED; **depends:** LOOP-P1-01; **gate:** AUTO.
+- **Status:** COMPLETE (no-change proof; no blocking defect found); **depends:** LOOP-P1-01; **gate:** AUTO. Evidence: `docs/reports/LOOP-001-P1-02-no-change-proof-2026-11-02.md`.
 - **Deliverable:** smallest required fix for deck selection -> bot duel -> victory/defeat -> persistence, if defect exists; otherwise explicit no-change proof.
 - **Verify:** affected Godot suite and replay/persistence regression; exact-head CI.
 - **Done:** the journey has no known blocking functional gap; one task/iteration, split again if multiple defects are found.
@@ -61,7 +61,7 @@ Each task below has one bounded outcome. Status defaults to PLANNED; operator/hu
 ## P2 — Approved art and card integration (L-R03)
 
 ### LOOP-P2-01 — Reconcile approved assets and CardVisualFrame
-- **Status:** PLANNED; **depends:** LOOP-P1-03; **gate:** AUTO / HUMAN.
+- **Status:** BLOCKED (approved C01/C05 V3.1 source unavailable); **depends:** LOOP-P1-03; **gate:** AUTO / HUMAN. Evidence: `docs/reports/LOOP-001-P2-01-art-reconciliation-2026-11-02.md`.
 - **Deliverable:** provenance/hash/fit inventory for C01 and C05 V3.1, missing files, PR #27 component and issue #23.
 - **Verify:** original asset hash, source dimensions and approval state, no FIT A substitution.
 - **Done:** integration inputs are proven; absent source remains WAITING_HUMAN.
@@ -135,6 +135,14 @@ Each task below has one bounded outcome. Status defaults to PLANNED; operator/hu
 - **Deliverable:** MM-10 security/privacy/contact/license proof, Android full-V1 install/signed candidate evidence, final audit and release decision; issues #16, #18, #22.
 - **Done:** all original docs/specs/V1-release-goal.md criteria are evidenced or release remains BLOCKED.
 - **Out of scope:** automatic public release, UGC promotion and production deploy.
+
+## Circuit breaker and iteration hygiene
+
+- A task blocked by credentials, provider, browser/device, human approval, missing asset or external decision is marked `WAITING_EXTERNAL` with owner, exact action and evidence timestamp.
+- The same task must not be retried until new evidence changes the blocker state.
+- Rechecking an unchanged blocker is not progress and must not consume another iteration.
+- If no independent task is safe, stop with `BLOCKED:<motivo>` and wait for the owner instead of looping.
+- A task may only be marked complete with its deliverable and validation evidence; a report that says "still blocked" is not a completed implementation task.
 
 ## Traceability and import boundary
 

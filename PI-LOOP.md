@@ -10,6 +10,7 @@ usava um executor separado baseado em OpenCode e `ralph.sh`.
   testes, commits e `RALPH_PROGRESS.md`, não apenas no contexto da conversa.
 - Cada iteração executa uma tarefa bounded e verificável.
 - Implementação vem antes de revisão e aceitação externa.
+- Um bloqueio externo tem circuit breaker: registra-se uma vez, marca-se `WAITING_EXTERNAL` e o loop para ou escolhe apenas uma tarefa independente; nunca repete a mesma checagem sem evidência nova.
 - Erros não críticos podem virar follow-up e não bloqueiam PRs independentes.
 - Gates humanos, de dispositivo, provider, licensing, moderation e operations
   nunca podem ser inferidos como aprovados por testes headless.
@@ -140,14 +141,28 @@ atual é:
 Cada iteração deve:
 
 1. Ler o estado real do repositório, branch, PR e CI.
-2. Escolher a primeira tarefa pendente do `TASKS.md`.
-3. Fazer uma mudança bounded, sem criar uma segunda arquitetura.
-4. Adicionar ou atualizar testes quando houver alteração de código.
-5. Executar os comandos de validação da tarefa.
-6. Atualizar `RALPH_PROGRESS.md` com mudanças, evidência, bloqueios e próximo
+2. Ler `RALPH_PROGRESS.md`, `OPEN_QUESTIONS.md` e os relatórios antes de
+   selecionar uma tarefa.
+3. Escolher a primeira tarefa pendente que não esteja `WAITING_EXTERNAL` ou
+   bloqueada por uma dependência sem mudança de evidência.
+4. Fazer uma mudança bounded, sem criar uma segunda arquitetura.
+5. Adicionar ou atualizar testes quando houver alteração de código.
+6. Executar os comandos de validação da tarefa.
+7. Atualizar `RALPH_PROGRESS.md` com mudança, evidência, bloqueios e próximo
    passo.
-7. Emitir a promise de conclusão somente quando os outputs e gates exigidos
+8. Emitir a promise de conclusão somente quando os outputs e gates exigidos
    estiverem prontos.
+
+Circuit breaker obrigatório:
+
+- O mesmo bloqueio pode ser verificado no máximo uma vez por tarefa.
+- Se a causa for credential, provider, browser, dispositivo, aprovação humana,
+  asset ou decisão externa, marcar `WAITING_EXTERNAL`, registrar owner/ação e
+  não repetir a tarefa.
+- Só reabrir a tarefa quando houver evidência nova, por exemplo credential
+  disponível, novo CI, asset recuperado ou autorização explícita.
+- Se não existir outra tarefa independente segura, parar o loop com
+  `BLOCKED:<motivo>` em vez de consumir iterações repetindo a mesma auditoria.
 
 Não marcar uma tarefa como concluída apenas porque arquivos foram criados.
 Falhas de ambiente ou gates externos devem ser registradas com responsável e

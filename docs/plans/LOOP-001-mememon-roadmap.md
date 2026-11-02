@@ -59,7 +59,8 @@ This is a prioritization and interim offline Web milestone; it does not redefine
 2. Task IDs are stable (LOOP-P0-01, etc.) and names are unique; reference existing issues/specs rather than duplicating closed PR work.
 3. The downstream Pi/Ralph agent must reconcile master/PRs/CI and current tasks before choosing any task. This document does not mark current queue items complete.
 4. Only one atomic task per iteration; if blocked by credentials, human approval, provider or legal acceptance, report BLOCKED/WAITING_HUMAN instead of retrying infinitely.
-5. No completion without exact-head and task-appropriate evidence. A provider PREVIEW deployment is not production permission.
+5. Apply a circuit breaker: verify the same external blocker at most once per task. Mark the task WAITING_EXTERNAL with owner/action and skip it or stop if no independent task is safe. Reopen only after new evidence exists.
+6. No completion without exact-head and task-appropriate evidence. A provider PREVIEW deployment is not production permission.
 6. The existing queue's stale PR-027/PR-028 records are an explicit reconciliation concern for its owner, not a justification for this skill to edit the queue.
 7. No runner, scripts, Pi settings, model/provider, branch protection or deployment configuration changes within LOOP-001.
 

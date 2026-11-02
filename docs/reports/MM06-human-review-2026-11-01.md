@@ -9,7 +9,7 @@ MM-06 automated gates pass, but this task remains **pending human/device accepta
 ## Exact-head automated evidence
 
 Commands rerun from the repository root on exact HEAD
-`e29c1583d30ba0ea085577fd851aa2140072d596` at 2026-11-01T23:21-03:00:
+`8cb16bc51fc99aaee4752fe4771b35f6309b2e10` at 2026-11-01T23:22-03:00:
 
 ```text
 npm test                         PASS
@@ -23,7 +23,7 @@ ART-002 navigation 21, and ART-002 HUD 19. The server fixture's initial
 invalid-Canon refusal and the known navigation anchor warnings remain
 expected non-failing output.
 
-The exact-head rerun above is the authoritative local result for this review. The rerun covered the current repository HEAD before this report-only refresh; no source or test changes were made.
+The exact-head rerun above is the authoritative local result for this review. The rerun covered the current repository HEAD; no source or test changes were made.
 
 | Gate | Checks/result |
 |---|---:|

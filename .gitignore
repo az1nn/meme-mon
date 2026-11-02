@@ -7,3 +7,10 @@ node_modules/
 *.gd.uid
 *.import
 .DS_Store
+
+# Pi/Ralph runner runtime artifacts (task definitions remain trackable)
+.agent/history/
+.agent/logs/
+.agent/screenshots/
+.ralph-runner/
+.ralph/tasks/*/.ralph-runner/

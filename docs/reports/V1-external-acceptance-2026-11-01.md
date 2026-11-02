@@ -8,19 +8,21 @@ Owner for all currently unassigned release actions: **az1nn / Mememom**. A human
 
 ## Local evidence at current HEAD
 
-The report-only commits after source/test HEAD `8cb16bc51fc99aaee4752fe4771b35f6309b2e10` changed documentation only; the current review branch is
-`b14b4ac9237171f639e43cf0380c36894fddd5a1`.
+The source/test implementation HEAD is `5aec36ab2607c2b2da324585b799d2ac0a0383bc`; the current review branch is `9c1889576800051a3c2f428e7c667a4a93e92f36`, with only documentation commits after that implementation HEAD.
 
-Commands run from the repository worktree at the exact source/test HEAD:
+Commands run from the repository worktree against the current source/test implementation:
 
 ```text
 npm test                         PASS
-npm run test:release             PASS (same deterministic suites; rerun on 8cb16bc)
-npm run build:pwa                PASS
+npm run test:release             PASS
 npm run pwa:check                PASS
 npm run test:infra               PASS (prior verified run)
 git diff --check                 PASS
 ```
+
+`npm run build:pwa` remains the prior artifact build recorded below; the current
+run intentionally performed artifact validation without rebuilding generated
+web output.
 
 The generated `web/version.json` records the exact source commit and artifact
 sizes: `index.wasm` 39,514,754 bytes, Brotli 7,996,785 bytes, gzip
@@ -50,7 +52,7 @@ The prior [V1 verification report](V1-verification-2026-10-20.md) records the ge
 | Requirement / named gate | Evidence or required action | State |
 |---|---|---|
 | Schema migration, replay fixtures, trust-boundary negatives | `npm test`; MM-07/MM-08 and MM-09 negative fixtures | **Locally verified** |
-| PWA export and artifact validity | `npm run build:pwa`; `npm run pwa:check`; `web/version.json` records exact source/test HEAD and artifact sizes | **Locally verified at `8cb16bc`** |
+| PWA export and artifact validity | Prior `npm run build:pwa` plus `npm run pwa:check`; `web/version.json` records exact source/test HEAD and artifact sizes | **Artifact build locally verified at `8cb16bc`; current artifact validation PASS, rebuild still required for this source HEAD** |
 | Browser install | Install generated `web/` artifact in the supported browser; record browser/OS, date, screenshot, install result | **Pending device/browser** |
 | Browser offline launch | Existing Chromium offline reload evidence in V1 verification report; repeat on supported target | **Partial; target acceptance pending** |
 | Browser update behavior | Serve version N, install, serve N+1, confirm service-worker activation and updated asset/version; record logs/screenshots | **Pending** |

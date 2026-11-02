@@ -8,12 +8,12 @@ The deterministic implementation slice is independently reviewable, but MM-07 th
 
 ## Exact-head local evidence
 
-Reviewed commit: `58cf26b` on `ralph/v1-work`.
+Reviewed source/test commit: `5aec36ab2607c2b2da324585b799d2ac0a0383bc` on `ralph/v1-work`; documentation-only commits follow it through the current review HEAD.
 
 Commands:
 
-- `npm test` — PASS when run serially: MM-04 194/0, MM-05 94/0, MM-06 14/0, MM-07/MM-08 41/0, MM-09 18/0, MM-09 server adapter PASS, ART-002 navigation 21/0, ART-002 HUD 19/0.
-- `npm run test:release` — PASS when run after the first server fixture had exited; the fixture's invalid-Canon refusal is expected fail-closed output before the valid listener check.
+- `npm test` / `npm run test:release` — PASS on the source/test commit above: MM-04 194/0, MM-05 94/0, MM-06 14/0, MM-07/MM-08 41/0, MM-09 18/0, MM-09 server adapter PASS, ART-002 navigation 21/0, ART-002 HUD 19/0.
+- `npm run pwa:check` — PASS (`PWA artifact PASS`).
 - `git diff --check` — PASS.
 - `bash -n ralph.sh scripts/lib/*.sh tools/ralph-merge.sh` — PASS.
 

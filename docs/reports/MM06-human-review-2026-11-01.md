@@ -9,11 +9,11 @@ MM-06 automated gates pass, but this task remains **pending human/device accepta
 ## Exact-head automated evidence
 
 Commands rerun from the repository root at current documentation HEAD
-`664de8040152c9dcd7acd067363e6f223da16fc4` on branch `ralph/v1-work`
-(2026-11-02 00:03 -03:00). The implementation source/test head remains
+`0f2780f` (`docs: refresh MM06 review evidence`) on branch `ralph/v1-work`
+(2026-11-02, current review iteration). The implementation source/test head remains
 `5aec36ab2607c2b2da324585b799d2ac0a0383bc`; commits after that head are
 report/checklist documentation only. This section was refreshed at the
-current HEAD during iteration 3; the report filename remains dated 2026-11-01
+current HEAD during iteration 4; the report filename remains dated 2026-11-01
 because it is the existing evidence package referenced by the task graph:
 
 ```text
@@ -28,7 +28,7 @@ ART-002 navigation 21, and ART-002 HUD 19. The server fixture's initial
 invalid-Canon refusal and the known navigation anchor warnings remain
 expected non-failing output.
 
-The rerun above is the authoritative local result for this review. It ran against the current worktree, whose executable source and tests are unchanged from implementation head `5aec36ab`; the intervening commits through `664de80` are documentation-only evidence refreshes. Shell syntax (`bash -n ralph.sh scripts/lib/*.sh tools/ralph-merge.sh`) and `git diff --check` also pass.
+The rerun above is the authoritative local result for this review. It ran against the current worktree, whose executable source and tests are unchanged from implementation head `5aec36ab`; the intervening commits through `0f2780f` are documentation-only evidence refreshes. Shell syntax (`bash -n ralph.sh scripts/lib/*.sh tools/ralph-merge.sh`) and `git diff --check` also pass.
 
 | Gate | Checks/result |
 |---|---:|

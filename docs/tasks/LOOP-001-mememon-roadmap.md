@@ -1,6 +1,9 @@
 # LOOP-001 — Pi/Ralph-ready Spec Kit tasks for Mememom
 
-**Status:** DOCUMENTED / NOT IMPORTED / NOT EXECUTED
+**Status:** PARTIAL_EXECUTION_REPORTED / ORIGIN_RECONCILIATION_PENDING
+
+**Pendências operacionais verificadas (2026-11-02):** [LOOP-001 — backlog de remediação do origin](LOOP-001-origin-pendencias-2026-11-02.md). Esse complemento contém 18 tarefas atômicas de divergências e gates abertos; preserva os IDs LOOP-P* e não substitui a fila nativa do Pi. O relatório de sessão não é prova suficiente de código integrado ou aprovação humana.
+
 **Spec:** docs/specs/LOOP-001-mememon-roadmap.md
 **Plan:** docs/plans/LOOP-001-mememon-roadmap.md
 **Source:** User chat roadmap, 2026-11-01.

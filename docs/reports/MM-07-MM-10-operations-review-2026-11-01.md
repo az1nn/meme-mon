@@ -8,11 +8,11 @@ The deterministic implementation slice is independently reviewable, but MM-07 th
 
 ## Exact-head local evidence
 
-Reviewed exact current HEAD: `39b1895f9a65c39a20e9cc6742066110506e1bab` on `ralph/v1-work` (2026-11-01). This is a documentation-only refresh after the source/test commit; no implementation changes are hidden by the review.
+Reviewed exact current HEAD: `d6731e35aca953b40da4fea8152efd421bbe2cc6` on `ralph/v1-work` (2026-11-01). This is a documentation-only refresh after the source/test commit; no implementation changes are hidden by the review.
 
 Commands:
 
-- `npm test` — PASS at the exact current HEAD: MM-04 194/0, MM-05 94/0, MM-06 14/0, MM-07/MM-08 41/0, MM-09 18/0, MM-09 server adapter PASS, ART-002 navigation 21/0, ART-002 HUD 19/0.
+- `npm test` — PASS in a clean serial run at the exact current HEAD: MM-04 194/0, MM-05 94/0, MM-06 14/0, MM-07/MM-08 41/0, MM-09 18/0, MM-09 server adapter PASS, ART-002 navigation 21/0, ART-002 HUD 19/0. A deliberately concurrent duplicate run hit the expected temporary port-19080 contention and is not used as acceptance evidence.
 - `npm run pwa:check` and `npm run test:infra` — PASS (`PWA artifact PASS`; Node syntax checks clean).
 - `git diff --check` — PASS.
 - `bash -n ralph.sh scripts/lib/*.sh tools/ralph-merge.sh` — PASS.

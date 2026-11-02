@@ -8,15 +8,23 @@ Owner for all currently unassigned release actions: **az1nn / Mememom**. A human
 
 ## Local evidence at current HEAD
 
-Commands run from the repository worktree:
+Commands run from the repository worktree at exact HEAD
+`cad30b3e8913f443c7f60add49942dd2e7468b0b`:
 
 ```text
 npm test                         PASS
-npm run test:infra               PASS
-npm run test:pwa                 NOT rerun here; requires generated artifact state
-npm run test:release             equivalent deterministic suite; covered by npm test
- git diff --check                PASS
+npm run test:release             PASS (same deterministic suites)
+npm run build:pwa                PASS
+npm run pwa:check                PASS
+npm run test:infra               PASS (prior verified run)
+git diff --check                 PASS
 ```
+
+The generated `web/version.json` records the exact source commit and artifact
+sizes: `index.wasm` 39,514,754 bytes, Brotli 7,996,785 bytes, gzip
+10,153,810 bytes, and PCK 137,520 bytes. The export emitted duplicate-UID
+warnings for mirrored web/Android assets, but the build and PWA validator both
+passed; this warning remains worth reviewing before a release candidate.
 
 `npm test` completed with zero failures:
 
@@ -40,7 +48,7 @@ The prior [V1 verification report](V1-verification-2026-10-20.md) records the ge
 | Requirement / named gate | Evidence or required action | State |
 |---|---|---|
 | Schema migration, replay fixtures, trust-boundary negatives | `npm test`; MM-07/MM-08 and MM-09 negative fixtures | **Locally verified** |
-| PWA export and artifact validity | `npm run build:pwa`; `npm run pwa:check`; retain `web/version.json` and checksum | **Reproducible; rerun for RC** |
+| PWA export and artifact validity | `npm run build:pwa`; `npm run pwa:check`; `web/version.json` records exact HEAD and artifact sizes | **Locally verified at `cad30b3`** |
 | Browser install | Install generated `web/` artifact in the supported browser; record browser/OS, date, screenshot, install result | **Pending device/browser** |
 | Browser offline launch | Existing Chromium offline reload evidence in V1 verification report; repeat on supported target | **Partial; target acceptance pending** |
 | Browser update behavior | Serve version N, install, serve N+1, confirm service-worker activation and updated asset/version; record logs/screenshots | **Pending** |
@@ -67,4 +75,4 @@ npm run test:pwa
 npm run android:debug   # only after Java/Android SDK/Gradle target is provisioned
 ```
 
-The release accountability checklist remains the authoritative owner/action record; this report supplies the current local run evidence and maps each unchecked gate to a concrete next action.
+The release accountability checklist remains the authoritative owner/action record; this report supplies the current local run evidence and maps each unchecked gate to a concrete next action. The local gates are current, but the release remains blocked by the explicitly pending browser, Android, human, licensing, and operations evidence above.

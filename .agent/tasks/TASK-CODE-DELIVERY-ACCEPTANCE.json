@@ -1,0 +1,13 @@
+{
+  "id": "CODE-DELIVERY-ACCEPTANCE",
+  "title": "Implement missing PWA and Android acceptance tooling",
+  "priority": 3,
+  "steps": [
+    "Inspect existing Godot Web, PWA and Capacitor packaging scripts and identify locally automatable gaps.",
+    "Implement only tooling or validation needed for artifact integrity, offline launch, update behavior, asset sync or reproducible Android packaging.",
+    "Add tests for the new tooling and preserve Godot as the sole client/rendering runtime.",
+    "Keep physical-device install, browser touch behavior and signed-release acceptance explicitly human/device gates."
+  ],
+  "validation": ["npm run test:pwa", "npm run test:infra", "npm run test:release", "git diff --check"],
+  "acceptance": "All newly automatable delivery checks are implemented and passing; unsupported device/provider checks remain explicit and unclaimed."
+}

@@ -1,0 +1,11 @@
+{
+  "id": "PR-027",
+  "title": "Finish CardVisualFrame PR #27",
+  "steps": [
+    "Inspect the exact PR #27 head and its failed Web artifact check.",
+    "Fix only the artifact or integration issue covered by the PR.",
+    "Run parser, scene, Godot and artifact checks and preserve the Godot-only architecture."
+  ],
+  "validation": ["npm test", "npm run pwa:check"],
+  "acceptance": "The exact PR head passes required checks and remains independently reviewable."
+}

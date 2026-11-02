@@ -61,6 +61,12 @@ MM-03 freezes the Alpha 0.1 portable competitive contract:
 - `.specify/memory/constitution.md`
 - `docs/decisions/ADR-0001-godot-only-runtime.md`
 
+## AFK development loop
+
+The bounded Ralph Loop for OpenCode is documented in [`RALPH.md`](RALPH.md).
+It uses the repository task graph, fresh OpenCode contexts, explicit promise
+tags and exact-head validation before any authorized Git-only PR merge.
+
 ## Executable Alpha slice
 
 MM-04 turns the frozen Alpha 0.1 rules into an executable Godot 4.7.2 vertical slice:

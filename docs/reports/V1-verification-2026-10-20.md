@@ -14,7 +14,8 @@
 | MM-05 collection/deckbuilder | 94 checks, 0 failures |
 | MM-06 private Forge | 14 checks, 0 failures |
 | MM-07/MM-08 moderation and Canon | 39 checks, 0 failures |
-| MM-09 authoritative reference | 14 checks, 0 failures |
+| MM-09 authoritative reference | 19 checks, 0 failures |
+| Schema/replay/trust-boundary fixtures | PASS via `npm run test:mm07-mm08` and `npm run test:mm09` |
 | MM-09 WebSocket fail-closed/listen smoke | PASS on port 19080 |
 | ART-002 navigation | 21 checks, 0 failures |
 | ART-002 HUD | 19 checks, 0 failures |
@@ -41,6 +42,27 @@ canvas dimensions. The cache contained the shell, JavaScript, PCK, WASM,
 manifest, and icon. This proves browser launch and offline reload for this
 target, but not Add-to-Home-Screen installation, update behavior, or human
 touch/accessibility acceptance.
+
+## V1-001 deterministic gap closure
+
+The MM-07/MM-08 suite now covers rejection and preservation of an older local profile schema (`local-0`), so unknown persisted schemas are not silently overwritten. The MM-09 suite now covers replay recovery at both a missing-event cursor and the current cursor, negative cursors, repeated idempotency, and cross-session replay denial. These are deterministic reference fixtures only; they do not claim migration compatibility, hosted-service security, or human acceptance.
+
+Reproduce with:
+
+```bash
+npm run test:mm07-mm08
+npm run test:mm09
+```
+
+## Exact-head task evidence
+
+- PR #26 exact head `db484f8f83054f795e54357bfea8f4b4ed5070ee` is present at `refs/remotes/origin/pr/26`. In an isolated worktree, `npm run build:pwa` (including `npm run pwa:check`) and `node tools/prepare_vercel_output.mjs` passed; the artifact recorded the exact source SHA. The Vercel workflow still requires provider credentials and live check metadata, so preview success remains **HYPOTHESIS/unverified**.
+- PR #27 exact head `34817e2b969e651206f170d9eb970b762b517e64` is present at `refs/remotes/origin/pr/27`. In an isolated worktree, `godot --headless --path . --script res://tests/run_card_visual_frame_tests.gd` passed with 47 checks and 0 failures. Full exact-head CI status remains **HYPOTHESIS/unverified** without GitHub authentication.
+- PR #28 exact head `5438b121fc2846e0d99f42a8fe16f048fdb2829b` is present at `refs/remotes/origin/pr/28`; it is a documentation-only ADR change and introduces no runtime files. `git diff --check` passed for the exact commit. GitHub check metadata remains unavailable.
+
+## Local validation commands
+
+The repository now exposes the task-plan validation names `npm run test:infra`, `npm run test:pwa`, and `npm run test:release`. They respectively perform JavaScript syntax checks for the delivery helpers, validate the generated PWA artifact, and run the complete deterministic release suite. These commands pass locally; they do not replace provider, device, or human acceptance.
 
 ## Gates not proven here
 

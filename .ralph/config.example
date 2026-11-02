@@ -1,0 +1,8 @@
+# Copy to .ralph/config.env for local overrides. Never commit secrets.
+RALPH_DIRECT_MODE=1
+RALPH_AGENT=opencode
+RALPH_MAX_ITERATIONS=8
+RALPH_MAX_TASKS_PER_RUN=1
+RALPH_ALLOW_DRAFT_MERGE=1
+RALPH_REQUIRE_GREEN_LOCAL_TESTS=1
+RALPH_TEST_COMMAND="npm test"

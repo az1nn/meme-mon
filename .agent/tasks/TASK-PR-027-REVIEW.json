@@ -1,0 +1,14 @@
+{
+  "id": "PR-027-REVIEW",
+  "title": "Review and finish CardVisualFrame / ART-002 wave",
+  "priority": 1,
+  "steps": [
+    "Reconcile the exact current branch and PR #27/CardVisualFrame work before editing.",
+    "Run the relevant parser/import, Godot headless, scene-smoke, artifact and npm checks that are locally available.",
+    "Review the CardVisualFrame implementation and documentation against SCENE-ARCH-001, ART-002 and the Godot-only constitution.",
+    "Capture or document the required human/runtime visual gates and leave them explicitly pending when they cannot be performed locally.",
+    "Record non-blocking defects or review findings for a later follow-up task; do not expand scope or block the PR on deferred findings."
+  ],
+  "validation": ["npm test", "npm run pwa:check", "git diff --check"],
+  "acceptance": "The PR work is independently reviewable, locally verifiable checks are recorded, remaining human/device gates are explicit, and deferred defects are tracked without blocking the PR."
+}

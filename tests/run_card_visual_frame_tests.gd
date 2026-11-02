@@ -36,6 +36,9 @@ func _run() -> void:
 	_check(is_equal_approx(safe.size.x, 270.0), "safe region width")
 	_check(is_equal_approx(safe.size.y, 360.0), "safe region height")
 	_check(card.get_actual_safe_rect().is_equal_approx(safe), "actual safe region matches model")
+	_check(card.fitted_rect_for(Vector2(NAN, 100.0)) == Rect2(), "reject NaN width")
+	_check(card.fitted_rect_for(Vector2(100.0, INF)) == Rect2(), "reject infinite height")
+	_check(card.content_rect_for(Vector2(-1.0, 100.0)) == Rect2(), "reject invalid content bounds")
 
 	var sample_front: Image = Image.create(12, 16, false, Image.FORMAT_RGBA8)
 	sample_front.fill(Color(0.0, 0.7, 0.85))

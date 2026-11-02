@@ -1,0 +1,14 @@
+{
+  "id": "SIGA-REVIEW",
+  "title": "Review SIGA-CENTRAL-001 Spec Kit package",
+  "priority": 2,
+  "steps": [
+    "Review the SIGA-CENTRAL-001 spec, plan, tasks, ADRs, continuity contract and acceptance matrix on the current branch.",
+    "Run documentation, diff and relevant exact-head checks available locally.",
+    "Confirm the M1 package remains proposed and that issue #24/CAS, fencing, entrypoint inventory and cutover approval remain explicit gates.",
+    "Keep runtime migration and merge/cutover out of scope until the required review and authorization occur.",
+    "Record non-blocking documentation defects for later follow-up without blocking the current review or PR."
+  ],
+  "validation": ["git diff --check", "npm test"],
+  "acceptance": "SIGA documentation is internally consistent, proposed-only status and blockers are explicit, and no unapproved production-readiness or merge claim is made."
+}

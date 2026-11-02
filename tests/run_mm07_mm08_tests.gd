@@ -6,6 +6,7 @@ const SubmissionStore = preload("res://src/data/submission_store.gd")
 const CanonModel = preload("res://src/domain/canon_model.gd")
 const CanonStore = preload("res://src/data/canon_store.gd")
 const CanonDeckValidator = preload("res://src/domain/canon_deck_validator.gd")
+const CollectionStore = preload("res://src/data/collection_store.gd")
 
 const AT := "2026-10-18T00:00:00Z"
 const DIGEST := "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
@@ -85,8 +86,16 @@ func _run() -> void:
 	_check(CanonDeckValidator.new().validate(canon_deck, competitive)["ok"], "only exact legal Canon editions form competitive deck")
 	_check(competitive.suspend("competitive-2026", "edition.competitive.00", "rights", AT, "admin-1")["ok"], "competitive suspension records audit")
 	_check(CanonDeckValidator.new().validate(canon_deck, competitive)["code"] == "FORMAT_ILLEGAL_CARD", "suspended Canon edition cannot remain in a competitive deck")
+	var legacy_path := "user://mm08-tests/legacy-profile.json"
+	var legacy_file := FileAccess.open(legacy_path, FileAccess.WRITE)
+	legacy_file.store_string(JSON.stringify({"profile_version": "local-0", "owned": [], "decks": []}))
+	legacy_file.close()
+	var collection_store := CollectionStore.new()
+	_check(collection_store.load_profile(legacy_path)["code"] == "UNKNOWN_PROFILE_VERSION", "legacy profile schema is rejected instead of silently migrated")
+	_check(collection_store.save_profile(legacy_path, {"profile_version": "local-1"})["code"] == "PERSISTED_PROFILE_INVALID", "unknown profile schema cannot be overwritten")
 	DirAccess.remove_absolute(ProjectSettings.globalize_path(submission_path))
 	DirAccess.remove_absolute(ProjectSettings.globalize_path(canon_path))
+	DirAccess.remove_absolute(ProjectSettings.globalize_path(legacy_path))
 
 	print("MM-07/MM-08 checks: %d, failures: %d" % [checks, failures.size()])
 	for failure in failures:

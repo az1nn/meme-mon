@@ -10,4 +10,4 @@
 - [ ] ART approve silhouette and visual front/back alignment against C01/C05 V3.1, not FIT A.
 - [ ] SCENE integrate only after ownership/claim check, no takeover of other feature branches.
 - [ ] INSPECTOR capture real Godot Web/mobile screenshots, test input and flip behavior.
-- [ ] Approve exact-head checks; merge only after all required gates.
+- [ ] Approve exact-head checks; merge only after all required gates. Local exact-head checks are recorded in `docs/reports/SCENE-ARCH-001-review-pr27-34817e2.md`; ART/INSPECTOR/CI and merge gates remain open.

@@ -9,10 +9,12 @@ MM-06 automated gates pass, but this task remains **pending human/device accepta
 ## Exact-head automated evidence
 
 Commands rerun from the repository root at current documentation HEAD
-`0b796c0a6cefe16434f5aac966f0170996444554` on branch `ralph/v1-work`
-(2026-11-02 00:01 -03:00). The implementation source/test head remains
+`a2896853c57497af74d6d41f494ad9126e054324` on branch `ralph/v1-work`
+(2026-11-02 00:02 -03:00). The implementation source/test head remains
 `5aec36ab2607c2b2da324585b799d2ac0a0383bc`; commits after that head are
-report/checklist documentation only:
+report/checklist documentation only. This section was refreshed at the
+current HEAD during iteration 2; the report filename remains dated 2026-11-01
+because it is the existing evidence package referenced by the task graph:
 
 ```text
 npm test                         PASS
@@ -26,7 +28,7 @@ ART-002 navigation 21, and ART-002 HUD 19. The server fixture's initial
 invalid-Canon refusal and the known navigation anchor warnings remain
 expected non-failing output.
 
-The rerun above is the authoritative local result for this review. It ran against the current worktree, whose executable source and tests are unchanged from implementation head `5aec36ab`; the intervening commits through `0b796c0` are documentation-only evidence refreshes. Shell syntax (`bash -n ralph.sh scripts/lib/*.sh tools/ralph-merge.sh`) and `git diff --check` also pass.
+The rerun above is the authoritative local result for this review. It ran against the current worktree, whose executable source and tests are unchanged from implementation head `5aec36ab`; the intervening commits through `a289685` are documentation-only evidence refreshes. Shell syntax (`bash -n ralph.sh scripts/lib/*.sh tools/ralph-merge.sh`) and `git diff --check` also pass.
 
 | Gate | Checks/result |
 |---|---:|
@@ -52,7 +54,8 @@ godot --headless --path . res://scenes/Forge.tscn --quit-after 2  PASS
 The import scan reports the pre-existing duplicate UID warnings for mirrored
 web/Android icon assets; it completes successfully without parser, scene, or
 runtime errors. The scene smoke command exits cleanly but is headless evidence
-only and does not substitute for a human visual/touch review.
+only and does not substitute for a human visual/touch review. No executable or
+source changes were introduced by this evidence refresh.
 
 ## Prompt-to-artifact checklist
 

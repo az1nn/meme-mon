@@ -6,4 +6,4 @@
 - [x] Implement fail-closed legality validation for decks and match start.
 - [x] Implement dated format rotation and emergency suspension audit records.
 - [x] Verify edition immutability, rights-suspension, replay and Sandbox-to-Canon negative cases.
-- [ ] Conduct operator and public-content release acceptance.
+- [ ] Conduct operator and public-content release acceptance. Current owner/actions are tracked in [MM-07 to MM-10 operations review (2026-11-01)](../reports/MM-07-MM-10-operations-review-2026-11-01.md).

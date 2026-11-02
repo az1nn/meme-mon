@@ -1,0 +1,14 @@
+{
+  "id": "CODE-FOLLOWUP-FINDINGS",
+  "title": "Triage deferred code findings into bounded follow-up work",
+  "priority": 5,
+  "steps": [
+    "Review findings recorded by the implementation and review tasks.",
+    "Classify each finding as release-critical, required for the current PR, or safe to defer.",
+    "Create or update a bounded code task for each actionable deferred defect, including reproduction and validation commands.",
+    "Fix only one bounded high-confidence defect per iteration when it is safe and in scope.",
+    "Do not block independent PR review on findings classified as non-critical."
+  ],
+  "validation": ["npm test", "git diff --check"],
+  "acceptance": "Deferred findings have durable disposition and actionable follow-up tasks; no finding is silently ignored or incorrectly treated as a release blocker."
+}

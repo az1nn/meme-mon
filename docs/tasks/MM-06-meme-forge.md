@@ -5,4 +5,4 @@
 - [x] Add Forge Godot scene and global navigation route.
 - [x] Add MM-06 headless validation/persistence/trust-boundary tests.
 - [x] Verify MM-04/MM-05/MM-06 suites and scene smoke on exact head.
-- [ ] Record human Forge visual/touch acceptance before moving the roadmap status.
+- [ ] Record human Forge visual/touch acceptance before moving the roadmap status. Current evidence and owner/action are tracked in [MM-06 human review — 2026-11-01](../reports/MM06-human-review-2026-11-01.md); automated gates pass, but human/device acceptance remains pending.

@@ -1,9 +1,9 @@
 # MM-07 task graph
 
-- [x] Obtain explicit operator, privacy/retention, moderation and appeal-policy decisions.
+- [ ] Obtain explicit operator, privacy/retention, moderation and appeal-policy decisions. Current owner/actions are tracked in [MM-07 to MM-10 operations review (2026-11-01)](../reports/MM-07-MM-10-operations-review-2026-11-01.md).
 - [x] Specify submission/decision/report schemas and a transition matrix.
 - [x] Implement fail-closed submission persistence reference (`SubmissionModerationModel` and `SubmissionStore`).
 - [x] Implement auditable moderator authorization and transition recording.
 - [x] Implement creator withdrawal and report intake.
 - [x] Verify snapshot immutability, access control, rejection/appeal behavior and MM-08 handoff negatives.
-- [ ] Conduct privacy, abuse-safety and human moderation workflow acceptance.
+- [ ] Conduct privacy, abuse-safety and human moderation workflow acceptance. Current owner/actions are tracked in [MM-07 to MM-10 operations review (2026-11-01)](../reports/MM-07-MM-10-operations-review-2026-11-01.md).

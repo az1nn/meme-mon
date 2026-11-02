@@ -1,0 +1,14 @@
+{
+  "id": "CODE-TRUST-GOVERNANCE",
+  "title": "Close concrete MM-07/MM-08/MM-10 implementation gaps",
+  "priority": 4,
+  "steps": [
+    "Reconcile the provenance, moderation, Canon, format-legality and governance reference implementations against their specs and negative fixtures.",
+    "Select the smallest concrete missing code or test behavior, prioritizing fail-closed trust boundaries.",
+    "Implement the selected behavior with versioned contracts and deterministic regression coverage.",
+    "Do not implement unrestricted public uploads, automatic Canon promotion or unapproved licensing/policy decisions.",
+    "Leave operator, privacy, moderation and public-contact acceptance as explicit external gates."
+  ],
+  "validation": ["npm test", "npm run test:release", "git diff --check"],
+  "acceptance": "A concrete trust-boundary or governance implementation gap is closed with negative-case evidence and no policy gate is silently promoted to complete."
+}

@@ -1,0 +1,14 @@
+{
+  "id": "CODE-MM09-TRANSPORT",
+  "title": "Implement bounded MM-09 authoritative transport gaps",
+  "priority": 2,
+  "steps": [
+    "Reconcile the MM-09 protocol reference, server authority fixture and current Godot client boundaries.",
+    "Identify the smallest missing implementation needed for authenticated session ownership, deck locking, intent/event flow, reconnect or replay recovery.",
+    "Implement one bounded transport/authority capability without moving rules into UI code or claiming a hosted production service.",
+    "Add deterministic protocol, authorization, disconnect and replay regression tests.",
+    "Document hosted-service, identity, retention and operations work as separate external gates."
+  ],
+  "validation": ["npm test", "npm run test:release", "git diff --check"],
+  "acceptance": "A bounded MM-09 implementation gap is closed with deterministic evidence and no false claim of hosted online production readiness."
+}

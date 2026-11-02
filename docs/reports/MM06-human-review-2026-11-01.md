@@ -9,7 +9,7 @@ MM-06 automated gates pass, but this task remains **pending human/device accepta
 ## Exact-head automated evidence
 
 Commands rerun from the repository root at current documentation HEAD
-`f5bbec546f9feab0982a1f5f2374ad5eb7b178d8` on branch `ralph/v1-work`.
+`6b68092d2c6655013794d03f1b3d42ed1bcc0058` on branch `ralph/v1-work`.
 The implementation source/test head remains
 `5aec36ab2607c2b2da324585b799d2ac0a0383bc`; commits after that head are
 report/checklist documentation only:
@@ -26,7 +26,7 @@ ART-002 navigation 21, and ART-002 HUD 19. The server fixture's initial
 invalid-Canon refusal and the known navigation anchor warnings remain
 expected non-failing output.
 
-The rerun above is the authoritative local result for this review. It ran against the current worktree, whose executable source and tests are unchanged from implementation head `5aec36ab`; the intervening commits are documentation-only evidence refreshes.
+The rerun above is the authoritative local result for this review. It ran against the current worktree, whose executable source and tests are unchanged from implementation head `5aec36ab`; the intervening commits through `6b68092` are documentation-only evidence refreshes.
 
 | Gate | Checks/result |
 |---|---:|

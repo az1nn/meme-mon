@@ -43,7 +43,7 @@
     "id": "PR-027-REVIEW",
     "title": "Review and finish CardVisualFrame / ART-002 wave",
     "priority": 6,
-    "passes": false,
+    "passes": true,
     "spec": "docs/specs/SCENE-ARCH-001-card-visual-frame.md",
     "task": ".agent/tasks/TASK-PR-027-REVIEW.json"
   },

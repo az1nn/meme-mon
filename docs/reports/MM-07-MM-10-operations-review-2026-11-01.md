@@ -8,7 +8,7 @@ The deterministic implementation slice is independently reviewable, but MM-07 th
 
 ## Exact-head local evidence
 
-Reviewed exact current HEAD: `b7e0e8591bfa5fed0fc6b10a12925196a1de98a1` on `ralph/v1-work` (2026-11-01). This is a documentation-only refresh after the source/test commit; no implementation changes are hidden by the review.
+Reviewed exact current HEAD: `39b1895f9a65c39a20e9cc6742066110506e1bab` on `ralph/v1-work` (2026-11-01). This is a documentation-only refresh after the source/test commit; no implementation changes are hidden by the review.
 
 Commands:
 

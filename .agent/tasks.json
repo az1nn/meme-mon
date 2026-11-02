@@ -51,7 +51,7 @@
     "id": "SIGA-REVIEW",
     "title": "Review SIGA-CENTRAL-001 Spec Kit package",
     "priority": 7,
-    "passes": false,
+    "passes": true,
     "spec": "docs/specs/SIGA-CENTRAL-001.md",
     "task": ".agent/tasks/TASK-SIGA-REVIEW.json"
   },

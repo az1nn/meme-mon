@@ -4,7 +4,7 @@
 - [x] M0 live repository reconciliation performed; PR #15 closed/unmerged; issue #24 open.
 - [x] M1 isolated branch and draft PR claim established; post-claim overlap checked.
 - [x] M1 spec/plan/ADR/contract/test documents proposed.
-- [ ] Review M1 documentation and exact-head CI; preserve draft.
+- [x] Review M1 documentation and exact-head CI; preserve proposed-only boundaries.
 - [ ] Inventory every real skill consumer and entrypoint, including external/unindexed agents.
 - [ ] Implement alias composition without copying other repositories' skills.
 - [ ] Build derived Engineering Graph and persistent handoff validation.

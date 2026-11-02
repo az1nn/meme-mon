@@ -18,6 +18,9 @@ usava um executor separado baseado em OpenCode e `ralph.sh`.
   nunca podem ser inferidos como aprovados por testes headless.
 - O loop não faz `push`, merge ou publicação automaticamente sem autorização
   explícita do usuário.
+- Toda rodada termina com o mesmo contrato de higiene: um único relatório
+  acumulado, estado limpo de Markdown gerado, código preservado e blockers
+  registrados sem reexecução inútil.
 
 ## Instalação e carregamento
 
@@ -180,6 +183,11 @@ O formato obrigatório está em
 [`docs/plans/PI-LOOP-reporting-standard.md`](docs/plans/PI-LOOP-reporting-standard.md).
 Não crie um relatório Markdown isolado por iteração sem vinculá-lo ao
 `WORK_REPORT.md`.
+
+Antes de terminar uma rodada, execute `git diff --check`, revise
+`git status --short`, preserve todos os arquivos `.gd`/testes válidos e
+consolide qualquer Markdown de execução no `WORK_REPORT.md`. A rodada deve
+terminar com status, blockers, validações e um único próximo passo explícitos.
 
 ## Referências
 

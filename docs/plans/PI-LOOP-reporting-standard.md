@@ -88,12 +88,29 @@ Individual evidence files may be created only when they are linked from
 - Do not create repeated reports for an unchanged blocker; append a single
   recheck entry only when new evidence exists.
 
-## Completion
+## End-of-round contract
+
+Every Ralph round must finish with the same repository hygiene state:
+
+1. Update the existing `WORK_REPORT.md`; do not create a new report file per
+   iteration or per blocker.
+2. Update `RALPH_PROGRESS.md` with only the short handoff summary.
+3. Keep `OPEN_QUESTIONS.md` limited to unresolved external questions.
+4. Preserve source code, tests and durable Spec Kit documents. Never discard a
+   valid `.gd`, test or implementation change merely to make the tree clean.
+5. Do not leave generated Markdown at repository root or under
+   `docs/reports/LOOP-001-*.md`; consolidate it into the canonical report.
+6. Run `git diff --check` and inspect `git status --short` before stopping.
+7. Report all changed files, exact validations, blockers, deferred findings and
+   the single next action in `WORK_REPORT.md`.
+8. If the round is blocked, stop with `BLOCKED`/`WAITING_EXTERNAL`; do not claim
+   completion and do not rerun the unchanged blocker.
 
 A loop is report-ready when `WORK_REPORT.md` has:
 
 1. a current status and next action;
 2. a progress table covering every task;
 3. one readable entry for every executed iteration;
-4. explicit open gates and deferred findings; and
-5. exact validation commands for completed implementation work.
+4. explicit open gates and deferred findings;
+5. exact validation commands for completed implementation work; and
+6. an end-of-round cleanliness and preservation check.

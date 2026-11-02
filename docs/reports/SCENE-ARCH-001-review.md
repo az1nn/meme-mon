@@ -58,4 +58,16 @@ These cannot be certified by the local headless checks and remain open as requir
 2. Runtime GPU memory/performance measurements and actual mobile/Web behavior require approved binary artwork and an external runtime/device gate.
 3. The component intentionally has no production flip animation or engine event binding; adding either would exceed SCENE-ARCH-001's current scope.
 
+## Verification refresh (2026-11-01)
+
+The isolated component and repository gates were rerun on the current `ralph/v1-work` branch after the documentation-only follow-up commits:
+
+- `godot --headless --path . --script res://tests/run_card_visual_frame_tests.gd` — 47 checks, 0 failures.
+- `godot --headless --path . res://scenes/qa/CardVisualFramePreview.tscn --quit-after 2` — PASS.
+- `npm test` — all listed MM-04 through MM-09, server, navigation and HUD gates pass with 0 assertion failures.
+- `npm run build:pwa` — Web artifact PASS; `npm run pwa:check` — PWA artifact PASS.
+- `git diff --check` and shell syntax checks — PASS.
+
+The expected invalid-Canon server stderr, known ART-002 anchor warnings, and pre-existing mirrored-asset duplicate UID warnings remain non-failing diagnostics. No human artwork, browser/device, touch, or Inspector evidence was available, so the pending gates above remain open.
+
 **Review conclusion:** local implementation and regression gates pass; the PR remains a candidate pending the human/art/runtime gates listed above. Do not mark PR-027-REVIEW or the ART-002 runtime acceptance complete solely from this report.

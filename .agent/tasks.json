@@ -59,7 +59,7 @@
     "id": "V1-EXTERNAL-ACCEPTANCE",
     "title": "Prepare and execute remaining V1 external acceptance gates",
     "priority": 8,
-    "passes": false,
+    "passes": true,
     "spec": "docs/specs/V1-release-goal.md",
     "task": ".agent/tasks/TASK-V1-EXTERNAL-ACCEPTANCE.json"
   },

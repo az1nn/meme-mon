@@ -37,6 +37,8 @@ HYPOTHESIS: no additional external acceptance can be inferred from the local aut
 
 ## Evidência de release
 
+A auditoria consolidada dos gates restantes e suas ações está em [V1 external acceptance preparation (2026-11-01)](../reports/V1-external-acceptance-2026-11-01.md). Ela registra `npm test`, `npm run test:infra` e `git diff --check` no HEAD atual e mantém os gates externos pendentes.
+
 - [ ] Tag, checksum/commit, artefatos PWA/Android e resultados de smoke são registrados.
 - [x] Nenhuma carta Sandbox, submissão não aprovada ou edição suspensa aparece em deck/match competitivo; os negativos estão cobertos pelos gates MM-07/MM-08/MM-09.
 - [ ] O release declara beta fechado enquanto os gates públicos permanecerem pendentes.

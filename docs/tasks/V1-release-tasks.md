@@ -28,8 +28,8 @@ Do not mark a task complete without evidence required by the constitution.
 ## Phase 4 — V1 release candidate
 
 - [x] Run exact-head MM-04/MM-05 and all successor deterministic test suites. See [V1 verification report (2026-10-20)](../reports/V1-verification-2026-10-20.md).
-- [ ] Verify schema migration/replay fixtures and competitive trust-boundary negative cases.
+- [x] Verify schema migration/replay fixtures and competitive trust-boundary negative cases. See [external acceptance preparation report (2026-11-01)](../reports/V1-external-acceptance-2026-11-01.md).
 - [ ] Export and install the PWA; verify offline launch, touch navigation and update behavior.
 - [ ] Build, install and smoke-test a signed Android release candidate.
 - [ ] Conduct browser/mobile accessibility, visual and original-brand review.
-- [ ] Record release evidence and tag only after every V1 success criterion passes.
+- [ ] Record release evidence and tag only after every V1 success criterion passes. Remaining gate ownership/actions are tracked in the [external acceptance preparation report (2026-11-01)](../reports/V1-external-acceptance-2026-11-01.md).

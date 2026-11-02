@@ -5,9 +5,9 @@
 - [x] Implement isolated configurable CardVisualFrame and QA preview (candidate code).
 - [x] Define same-frame front/back, safe area and fail-closed geometry APIs.
 - [x] Add deterministic tests and separate CI workflow (tests **not claimed passed** until runner executes).
-- [ ] Godot 4.7.2 import/parser and tests on exact PR head: attach run evidence.
+- [x] Godot 4.7.2 import/parser and tests on exact PR head: see `docs/reports/SCENE-ARCH-001-review-pr27-34817e2.md` (47 component checks, 0 failures).
 - [ ] ARCH review texture import, memory, sampling and Web/mobile constraints using approved artwork.
 - [ ] ART approve silhouette and visual front/back alignment against C01/C05 V3.1, not FIT A.
 - [ ] SCENE integrate only after ownership/claim check, no takeover of other feature branches.
 - [ ] INSPECTOR capture real Godot Web/mobile screenshots, test input and flip behavior.
-- [ ] Approve exact-head checks; merge only after all required gates.
+- [ ] Approve exact-head checks; merge only after all required gates. Local exact-head checks are recorded in `docs/reports/SCENE-ARCH-001-review-pr27-34817e2.md`; ART/INSPECTOR/CI and merge gates remain open.

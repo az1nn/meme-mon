@@ -7,14 +7,8 @@ node_modules/
 *.gd.uid
 *.import
 .DS_Store
-.agent/history/*
-!.agent/history/.gitkeep
-.agent/logs/*
-!.agent/logs/.gitkeep
-.agent/screenshots/*
-!.agent/screenshots/.gitkeep
-.ralph/state/*
-!.ralph/state/.gitkeep
-# Ralph runtime state and per-run task copies are local artifacts.
+
+# Local Pi loop state and generated task packages
+.agent/
+.ralph/
 .ralph-runner/
-.ralph/tasks/*

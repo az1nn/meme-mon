@@ -63,7 +63,7 @@ MM-03 freezes the Alpha 0.1 portable competitive contract:
 
 ## AFK development loop
 
-The bounded Ralph Loop for OpenCode is documented in [`RALPH.md`](RALPH.md).
+The repository's native Pi iteration workflow is documented in [`PI-LOOP.md`](PI-LOOP.md).
 It uses the repository task graph, fresh OpenCode contexts, explicit promise
 tags and exact-head validation before any authorized Git-only PR merge.
 

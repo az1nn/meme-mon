@@ -4,7 +4,7 @@
 **Created:** 2026-11-02  
 **Repository:** `az1nn/meme-mon`  
 **Audited baseline:** `origin/master@1f465f9c7654499b16cd3dc01ba43a2d882fd1c5`  
-**Canonical source:** [LOOP-001 remediation tasks](../../tasks/LOOP-001-origin-pendencias-2026-11-02.md) (18 IDs), [original Spec Kit roadmap](../../tasks/LOOP-001-mememon-roadmap.md), [existing Pi guide](../../../PI-LOOP.md).
+**Canonical source:** [LOOP-001 remediation tasks](../tasks/LOOP-001-origin-pendencias-2026-11-02.md) (18 IDs), [original Spec Kit roadmap](../tasks/LOOP-001-mememon-roadmap.md), [existing Pi guide](../../PI-LOOP.md).
 
 ## Handoff
 
